@@ -18,12 +18,14 @@ import { projects } from '~/data/projects';
         <ProjectCard
           v-for="project in projects"
           :key="project.id"
+          :slug="project.slug"
           :title="project.title"
           :description="project.description"
           :image="project.image"
           :repo-url="project.repoUrl"
           :live-url="project.liveUrl"
           :tags="project.tags"
+          :context="project.context"
         />
       </div>
     </div>

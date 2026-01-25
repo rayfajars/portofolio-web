@@ -11,6 +11,7 @@ const scrollToSection = (id: string) => {
   <div>
     <HeroSection @scroll-to="scrollToSection" />
     <ProjectsSection />
+    <ExperienceSection />
     <AboutSection />
   </div>
 </template>

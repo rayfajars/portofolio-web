@@ -11,6 +11,7 @@ const mobileMenuOpen = ref(false);
 const navItems = [
   { label: 'Home', target: 'hero' },
   { label: 'Projects', target: 'projects' },
+  { label: 'Experience', target: 'experience' },
   { label: 'About', target: 'about' },
 ];
 
