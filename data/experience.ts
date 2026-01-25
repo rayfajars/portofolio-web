@@ -8,6 +8,7 @@ export interface Experience {
   description: string;
   highlights?: string[];
   type: "fulltime" | "freelance";
+  logo?: string;
 }
 
 export const experiences: Experience[] = [
@@ -27,6 +28,7 @@ export const experiences: Experience[] = [
       "Improved application performance by 40%",
     ],
     type: "fulltime",
+    logo: "/images/logos/tech-company.png",
   },
   {
     id: 2,
@@ -43,6 +45,7 @@ export const experiences: Experience[] = [
       "Collaborated with design and backend teams",
     ],
     type: "fulltime",
+    logo: "/images/logos/digital-agency.png",
   },
   {
     id: 3,
@@ -59,6 +62,7 @@ export const experiences: Experience[] = [
       "Participated in agile development processes",
     ],
     type: "fulltime",
+    logo: "/images/logos/startup-ventures.png",
   },
 
   // Freelance Projects
@@ -77,6 +81,7 @@ export const experiences: Experience[] = [
       "Delivered project 2 weeks ahead of schedule",
     ],
     type: "freelance",
+    logo: "/images/logos/ecommerce-client.png",
   },
   {
     id: 5,
@@ -93,6 +98,7 @@ export const experiences: Experience[] = [
       "Trained internal team on modern practices",
     ],
     type: "freelance",
+    logo: "/images/logos/consulting-firm.png",
   },
   {
     id: 6,
@@ -109,5 +115,6 @@ export const experiences: Experience[] = [
       "Maintained ongoing client relationships",
     ],
     type: "freelance",
+    logo: "/images/logos/creative-studio.png",
   },
 ];

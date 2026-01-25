@@ -86,8 +86,15 @@ const setActiveTab = (tab: ExperienceType) => {
                 <span class="text-sm text-muted-foreground">{{ exp.duration }}</span>
               </div>
               
-              <div class="flex items-center gap-2 text-muted-foreground">
-                <Briefcase :size="16" />
+              <div class="flex items-center gap-3 text-muted-foreground">
+                <div v-if="exp.logo" class="w-8 h-8 rounded-lg overflow-hidden border border-black/5 bg-white flex-shrink-0">
+                  <NuxtImg
+                    :src="exp.logo"
+                    :alt="exp.company"
+                    class="w-full h-full object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
+                  />
+                </div>
+                <Briefcase v-else :size="16" />
                 <span class="font-medium">{{ exp.company }}</span>
               </div>
               
