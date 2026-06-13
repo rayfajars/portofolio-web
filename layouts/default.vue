@@ -8,7 +8,7 @@ const scrollToSection = (id: string) => {
 </script>
 
 <template>
-  <div class="min-h-screen flex flex-col bg-white text-black">
+  <div class="min-h-screen flex flex-col bg-cream text-navy">
     <Header @scroll-to="scrollToSection" />
     <main class="flex-1">
       <slot />

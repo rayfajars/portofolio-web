@@ -1,63 +1,101 @@
 <script setup lang="ts">
 import { Menu, X } from 'lucide-vue-next';
 import { ref } from 'vue';
+import { Button } from '~/components/ui/button';
+import { profile } from '~/data/profile';
 
 const emit = defineEmits<{
   scrollTo: [id: string]
 }>();
 
+const route = useRoute();
+const router = useRouter();
 const mobileMenuOpen = ref(false);
 
-const navItems = [
-  { label: 'Home', target: 'hero' },
-  { label: 'Projects', target: 'projects' },
-  { label: 'Experience', target: 'experience' },
-  { label: 'About', target: 'about' },
+type NavItem =
+  | { label: string; type: 'scroll'; target: string }
+  | { label: string; type: 'link'; to: string };
+
+const navItems: NavItem[] = [
+  { label: 'Home', type: 'scroll', target: 'hero' },
+  { label: 'About', type: 'scroll', target: 'about' },
+  { label: 'Experience', type: 'scroll', target: 'experience' },
+  { label: 'Projects', type: 'link', to: '/projects' },
 ];
 
-const handleNavClick = (target: string) => {
-  emit('scrollTo', target);
+const initials = profile.name
+  .split(' ')
+  .slice(0, 3)
+  .map((part) => part[0])
+  .join('');
+
+const handleNavClick = (item: NavItem) => {
   mobileMenuOpen.value = false;
+
+  if (item.type === 'link') {
+    router.push(item.to);
+    return;
+  }
+
+  if (route.path !== '/') {
+    router.push(`/#${item.target}`);
+    return;
+  }
+
+  emit('scrollTo', item.target);
+};
+
+const goHome = () => {
+  mobileMenuOpen.value = false;
+  if (route.path !== '/') {
+    router.push('/');
+    return;
+  }
+  emit('scrollTo', 'hero');
 };
 </script>
 
 <template>
-  <header class="sticky top-0 z-50 w-full border-b border-black/10 bg-white/80 backdrop-blur-sm">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex h-16 items-center justify-between">
-        <!-- Logo -->
-        <div class="flex-shrink-0">
-          <button
-            @click="handleNavClick('hero')"
-            class="text-xl font-bold tracking-tight hover:opacity-70 transition-opacity"
-          >
-            PORTFOLIO
-          </button>
-        </div>
+  <header class="sticky top-0 z-50 w-full bg-cream/90 backdrop-blur-md border-b border-navy/5">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
+      <div class="flex h-20 items-center justify-between">
+        <button
+          @click="goHome"
+          class="font-serif text-2xl font-bold text-navy hover:opacity-70 transition-opacity"
+        >
+          {{ initials }}.
+        </button>
 
-        <!-- Desktop Navigation -->
-        <nav class="hidden md:flex items-center space-x-8">
+        <nav class="hidden md:flex items-center gap-8">
           <button
             v-for="item in navItems"
-            :key="item.target"
-            @click="handleNavClick(item.target)"
-            class="text-sm font-medium hover:opacity-70 transition-opacity"
+            :key="item.label"
+            @click="handleNavClick(item)"
+            class="text-sm font-medium text-navy/70 hover:text-navy transition-colors"
           >
             {{ item.label }}
           </button>
         </nav>
 
-        <!-- Mobile Menu Button -->
+        <div class="hidden md:block">
+          <Button
+            as="a"
+            :href="`mailto:${profile.email}`"
+            size="lg"
+          >
+            Get in Touch
+          </Button>
+        </div>
+
         <button
           @click="mobileMenuOpen = !mobileMenuOpen"
-          class="md:hidden p-2 hover:bg-black/5 rounded-md transition-colors"
+          class="md:hidden p-2 rounded-full hover:bg-navy/5 transition-colors text-navy"
         >
           <Menu v-if="!mobileMenuOpen" :size="24" />
           <X v-else :size="24" />
         </button>
       </div>
 
-      <!-- Mobile Navigation -->
       <Transition
         enter-active-class="transition-all duration-200 ease-out"
         enter-from-class="opacity-0 -translate-y-2"
@@ -68,17 +106,24 @@ const handleNavClick = (target: string) => {
       >
         <nav
           v-if="mobileMenuOpen"
-          class="md:hidden py-4 border-t border-black/10"
+          class="md:hidden py-4 border-t border-navy/10"
         >
-          <div class="flex flex-col space-y-4">
+          <div class="flex flex-col gap-4">
             <button
               v-for="item in navItems"
-              :key="item.target"
-              @click="handleNavClick(item.target)"
-              class="text-sm font-medium hover:opacity-70 transition-opacity text-left px-2"
+              :key="item.label"
+              @click="handleNavClick(item)"
+              class="text-sm font-medium text-navy/70 hover:text-navy text-left px-2"
             >
               {{ item.label }}
             </button>
+            <Button
+              as="a"
+              :href="`mailto:${profile.email}`"
+              class="mx-2"
+            >
+              Get in Touch
+            </Button>
           </div>
         </nav>
       </Transition>
