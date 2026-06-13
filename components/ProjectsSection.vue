@@ -10,7 +10,7 @@ import { projects } from '~/data/projects';
           Selected Work
         </h2>
         <p class="text-lg text-muted-foreground max-w-2xl">
-          A collection of projects that showcase my skills and passion for creating clean, functional interfaces.
+          A selection of projects spanning government platforms, enterprise dashboards, design systems, and freelance work — built with Vue.js, Nuxt.js, and TypeScript.
         </p>
       </div>
       

@@ -31,7 +31,7 @@ const handleNavClick = (target: string) => {
             @click="handleNavClick('hero')"
             class="text-xl font-bold tracking-tight hover:opacity-70 transition-opacity"
           >
-            PORTFOLIO
+            RFS
           </button>
         </div>
 
