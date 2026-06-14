@@ -19,9 +19,10 @@ export const skillBrandIcons: Record<string, SkillBrandIcon> = {
   'CodeIgniter': { slug: 'codeigniter', color: 'EF4223' },
   'Git': { slug: 'git', color: 'F05032' },
   'Storybook': { slug: 'storybook', color: 'FF4785' },
-  'SonarQube': { slug: 'sonarqube', color: '4E9BCD' },
+  'SonarQube': { slug: 'sonarqubeserver', color: '4E9BCD' },
   'Figma': { slug: 'figma', color: 'F24E1E' },
   'ClickUp': { slug: 'clickup', color: '7B68EE' },
+  'Keycloak': { slug: 'keycloak', color: '4D4D4D' },
 };
 
 export const brandIconCategories = new Set([

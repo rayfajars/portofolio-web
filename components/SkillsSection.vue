@@ -28,7 +28,7 @@ const getConceptIcon = (skill: string) => conceptIcons[skill] ?? Code2;
 
 const toolFallbackIcons: Record<string, Component> = {
   Unleash: Flag,
-  Keycloak: Shield,
+  // Keycloak: Shield,
 };
 
 const getFallbackIcon = (category: string, skill: string) => {

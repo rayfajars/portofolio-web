@@ -63,7 +63,7 @@ const lastName = profile.name.split(' ').slice(1).join(' ');
         </div>
 
         <div class="flex justify-center lg:justify-end">
-          <div class="w-44 h-44 sm:w-52 sm:h-52 lg:w-60 lg:h-60 rounded-full overflow-hidden border-4 border-navy/10 shadow-card bg-cream-light">
+          <div class="w-44 h-44 sm:w-52 sm:h-52 lg:w-60 lg:h-60 rounded-full overflow-hidden bg-cream-light">
             <NuxtImg
               src="/photo.png"
               :alt="profile.name"
