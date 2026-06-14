@@ -1,52 +1,20 @@
 <script setup lang="ts">
 import type { Component } from 'vue';
 import {
-  Boxes,
-  Layers,
   Code2,
-  Braces,
-  Palette,
-  BarChart3,
-  Map,
-  Server,
-  Zap,
-  Database,
-  GitBranch,
-  BookOpen,
-  ShieldCheck,
-  Flag,
-  Figma,
-  CheckSquare,
-  Shield,
   Lock,
   Network,
   Puzzle,
   Component as ComponentIcon,
   Plug,
   Gauge,
+  Flag,
+  Shield,
 } from 'lucide-vue-next';
 import { skillGroups } from '~/data/profile';
+import { getSkillBrandIconUrl, usesBrandIcon } from '~/utils/skillBrands';
 
-const skillIcons: Record<string, Component> = {
-  'Vue.js': Boxes,
-  'Nuxt.js': Layers,
-  'TypeScript': Code2,
-  'JavaScript': Braces,
-  'Tailwind CSS': Palette,
-  'Chart.js': BarChart3,
-  'Leaflet.js': Map,
-  'Node.js': Server,
-  'Express.js': Zap,
-  'Laravel': Database,
-  'PHP': Code2,
-  'CodeIgniter': Code2,
-  'Git': GitBranch,
-  'Storybook': BookOpen,
-  'SonarQube': ShieldCheck,
-  'Unleash': Flag,
-  'Figma': Figma,
-  'ClickUp': CheckSquare,
-  'Keycloak': Shield,
+const conceptIcons: Record<string, Component> = {
   'RBAC': Lock,
   'Multi-tenant Architecture': Network,
   'Design System': Puzzle,
@@ -56,7 +24,19 @@ const skillIcons: Record<string, Component> = {
   'Performance Optimization': Gauge,
 };
 
-const getSkillIcon = (skill: string) => skillIcons[skill] ?? Code2;
+const getConceptIcon = (skill: string) => conceptIcons[skill] ?? Code2;
+
+const toolFallbackIcons: Record<string, Component> = {
+  Unleash: Flag,
+  Keycloak: Shield,
+};
+
+const getFallbackIcon = (category: string, skill: string) => {
+  if (category === 'Architecture & Concepts') {
+    return getConceptIcon(skill);
+  }
+  return toolFallbackIcons[skill] ?? Code2;
+};
 </script>
 
 <template>
@@ -78,8 +58,20 @@ const getSkillIcon = (skill: string) => skillIcons[skill] ?? Code2;
               :key="skill"
               class="flex items-center gap-3 px-4 py-3 rounded-xl border border-navy/10 bg-cream-light hover:border-navy/20 hover:shadow-soft transition-all duration-300"
             >
-              <div class="w-9 h-9 rounded-lg bg-navy/5 flex items-center justify-center flex-shrink-0">
-                <component :is="getSkillIcon(skill)" :size="18" class="text-navy" />
+              <div class="w-9 h-9 rounded-lg bg-white flex items-center justify-center flex-shrink-0 border border-navy/5">
+                <img
+                  v-if="usesBrandIcon(group.category, skill)"
+                  :src="getSkillBrandIconUrl(skill)!"
+                  :alt="`${skill} icon`"
+                  class="w-5 h-5 object-contain"
+                  loading="lazy"
+                >
+                <component
+                  v-else
+                  :is="getFallbackIcon(group.category, skill)"
+                  :size="18"
+                  class="text-navy"
+                />
               </div>
               <span class="text-sm font-medium text-navy leading-tight">{{ skill }}</span>
             </div>

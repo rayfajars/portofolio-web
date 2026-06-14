@@ -429,6 +429,3 @@ export const projects: Project[] = [
 ];
 
 export const CAROUSEL_CARDS_PER_PAGE = 4;
-export const FEATURED_CAROUSEL_TOTAL = 8;
-export const featuredCarouselProjects = projects.slice(0, FEATURED_CAROUSEL_TOTAL);
-export const featuredCarouselPageCount = FEATURED_CAROUSEL_TOTAL / CAROUSEL_CARDS_PER_PAGE;

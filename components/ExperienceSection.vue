@@ -27,7 +27,7 @@ const setActiveTab = (tab: ExperienceType) => {
 </script>
 
 <template>
-  <section id="experience" class="py-20 px-4 sm:px-6 lg:px-8 bg-cream-dark/50">
+  <section id="experience" class="py-20 px-4 sm:px-6 lg:px-8 bg-cream">
     <div class="container mx-auto max-w-4xl">
       <h2 class="heading-serif text-4xl sm:text-5xl font-bold tracking-tight mb-8 text-navy">
         Work Experience

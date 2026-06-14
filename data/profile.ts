@@ -46,6 +46,8 @@ export const profile = {
     medium: "https://medium.com/@rayfajars",
   },
   yearsOfExperience: "5+",
+  resumeUrl: "/CV%20Ray%20Fajar%20Salinggih.pdf",
+  resumeDownloadName: "Ray-Fajar-Salinggih-CV.pdf",
 };
 
 export const services: Service[] = [

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Github, Linkedin, Mail, Phone, BookOpen } from 'lucide-vue-next';
+import { Github, Linkedin, Mail, BookOpen } from 'lucide-vue-next';
 import { profile } from '~/data/profile';
 
 const links = [
@@ -7,7 +7,6 @@ const links = [
   { icon: Linkedin, href: profile.social.linkedin, label: 'LinkedIn', external: true },
   { icon: BookOpen, href: profile.social.medium, label: 'Medium', external: true },
   { icon: Mail, href: `mailto:${profile.email}`, label: 'Email', external: false },
-  { icon: Phone, href: `tel:${profile.phone.replace(/[^+\d]/g, '')}`, label: 'Phone', external: false },
 ];
 </script>
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Button } from '~/components/ui/button';
-import { ArrowRight } from 'lucide-vue-next';
+import { ArrowRight, Download } from 'lucide-vue-next';
 import { profile } from '~/data/profile';
 
 const emit = defineEmits<{
@@ -14,7 +14,7 @@ const lastName = profile.name.split(' ').slice(1).join(' ');
 <template>
   <section id="hero" class="relative min-h-[85vh] flex items-center px-4 sm:px-6 lg:px-8 pt-8 pb-20 bg-cream overflow-hidden">
     <div
-      class="absolute inset-0 opacity-40"
+      class="absolute inset-0 opacity-40 pointer-events-none"
       style="background-image: radial-gradient(circle, rgba(27,33,59,0.06) 1px, transparent 1px); background-size: 24px 24px;"
     />
 
@@ -49,11 +49,15 @@ const lastName = profile.name.split(' ').slice(1).join(' ');
             </Button>
 
             <Button
-              @click="emit('scrollTo', 'about')"
+              as="a"
+              :href="profile.resumeUrl"
+              :download="profile.resumeDownloadName"
               size="lg"
               variant="outline"
+              class="gap-2"
             >
-              About Me
+              <Download :size="18" />
+              Download My CV
             </Button>
           </div>
         </div>
@@ -61,7 +65,7 @@ const lastName = profile.name.split(' ').slice(1).join(' ');
         <div class="flex justify-center lg:justify-end">
           <div class="w-44 h-44 sm:w-52 sm:h-52 lg:w-60 lg:h-60 rounded-full overflow-hidden border-4 border-navy/10 shadow-card bg-cream-light">
             <NuxtImg
-              src="/images/profile.png"
+              src="/photo.png"
               :alt="profile.name"
               class="w-full h-full object-cover"
             />

@@ -1,36 +1,92 @@
 <script setup lang="ts">
-import {
-  featuredCarouselProjects,
-  CAROUSEL_CARDS_PER_PAGE,
-  featuredCarouselPageCount,
-} from '~/data/projects';
-import { ref, computed } from 'vue';
+import { projects, CAROUSEL_CARDS_PER_PAGE } from '~/data/projects';
+import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue';
 import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-vue-next';
 import { Button } from '~/components/ui/button';
 
-const activePage = ref(0);
+const GAP_PX = 20;
 
-const visibleProjects = computed(() => {
-  const start = activePage.value * CAROUSEL_CARDS_PER_PAGE;
-  return featuredCarouselProjects.slice(start, start + CAROUSEL_CARDS_PER_PAGE);
+const activeIndex = ref(0);
+const visibleCount = ref(CAROUSEL_CARDS_PER_PAGE);
+const viewportRef = ref<HTMLElement | null>(null);
+const viewportWidth = ref(0);
+const isTransitioning = ref(true);
+
+const maxIndex = computed(() =>
+  Math.max(0, projects.length - visibleCount.value),
+);
+
+const cardWidth = computed(() => {
+  if (!viewportWidth.value) return 0;
+  return (viewportWidth.value - GAP_PX * (visibleCount.value - 1)) / visibleCount.value;
 });
 
+const slideOffset = computed(() => cardWidth.value + GAP_PX);
+
+const translateX = computed(() => activeIndex.value * slideOffset.value);
+
+const updateLayout = () => {
+  if (window.innerWidth >= 1024) {
+    visibleCount.value = CAROUSEL_CARDS_PER_PAGE;
+  } else if (window.innerWidth >= 640) {
+    visibleCount.value = 2;
+  } else {
+    visibleCount.value = 1;
+  }
+
+  if (viewportRef.value) {
+    viewportWidth.value = viewportRef.value.offsetWidth;
+  }
+
+  if (activeIndex.value > maxIndex.value) {
+    activeIndex.value = 0;
+  }
+};
+
+const jumpWithoutTransition = (index: number) => {
+  isTransitioning.value = false;
+  activeIndex.value = index;
+  nextTick(() => {
+    requestAnimationFrame(() => {
+      isTransitioning.value = true;
+    });
+  });
+};
+
 const next = () => {
-  activePage.value = (activePage.value + 1) % featuredCarouselPageCount;
+  if (maxIndex.value === 0) return;
+
+  if (activeIndex.value >= maxIndex.value) {
+    jumpWithoutTransition(0);
+    return;
+  }
+
+  activeIndex.value += 1;
 };
 
 const prev = () => {
-  activePage.value =
-    (activePage.value - 1 + featuredCarouselPageCount) % featuredCarouselPageCount;
+  if (maxIndex.value === 0) return;
+
+  if (activeIndex.value <= 0) {
+    jumpWithoutTransition(maxIndex.value);
+    return;
+  }
+
+  activeIndex.value -= 1;
 };
 
-const goTo = (page: number) => {
-  activePage.value = page;
-};
+onMounted(() => {
+  nextTick(updateLayout);
+  window.addEventListener('resize', updateLayout);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('resize', updateLayout);
+});
 </script>
 
 <template>
-  <section id="projects" class="py-20 px-4 sm:px-6 lg:px-8 bg-cream">
+  <section id="projects" class="py-20 px-4 sm:px-6 lg:px-8 bg-cream-dark/50">
     <div class="container mx-auto max-w-6xl">
       <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-12">
         <div>
@@ -51,63 +107,55 @@ const goTo = (page: number) => {
       </div>
 
       <div class="relative px-2 sm:px-6">
-        <Transition
-          mode="out-in"
-          enter-active-class="transition-all duration-300 ease-out"
-          enter-from-class="opacity-0 translate-x-6"
-          enter-to-class="opacity-100 translate-x-0"
-          leave-active-class="transition-all duration-200 ease-in"
-          leave-from-class="opacity-100 translate-x-0"
-          leave-to-class="opacity-0 -translate-x-6"
-        >
+        <div ref="viewportRef" class="overflow-hidden">
           <div
-            :key="activePage"
-            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"
+            class="flex gap-5"
+            :class="isTransitioning ? 'transition-transform duration-500 ease-out' : ''"
+            :style="{ transform: slideOffset ? `translateX(-${translateX}px)` : undefined }"
           >
-            <ProjectCard
-              v-for="project in visibleProjects"
+            <div
+              v-for="project in projects"
               :key="project.slug"
-              :slug="project.slug"
-              :title="project.title"
-              :description="project.description"
-              :image="project.image"
-              :repo-url="project.repoUrl"
-              :live-url="project.liveUrl"
-              :tags="project.tags"
-              :context="project.context"
-              :company="project.company"
-            />
+              class="flex-shrink-0"
+              :style="cardWidth ? { width: `${cardWidth}px` } : undefined"
+            >
+              <ProjectCard
+                :slug="project.slug"
+                :title="project.title"
+                :description="project.description"
+                :image="project.image"
+                :repo-url="project.repoUrl"
+                :live-url="project.liveUrl"
+                :tags="project.tags"
+                :context="project.context"
+                :company="project.company"
+              />
+            </div>
           </div>
-        </Transition>
+        </div>
 
         <button
           @click="prev"
           class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1 sm:-translate-x-1/2 z-20 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-cream text-navy shadow-card flex items-center justify-center hover:bg-cream-dark transition-colors border border-navy/10"
-          aria-label="Previous page"
+          aria-label="Previous project"
         >
           <ChevronLeft :size="20" />
         </button>
         <button
           @click="next"
           class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1 sm:translate-x-1/2 z-20 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-cream text-navy shadow-card flex items-center justify-center hover:bg-cream-dark transition-colors border border-navy/10"
-          aria-label="Next page"
+          aria-label="Next project"
         >
           <ChevronRight :size="20" />
         </button>
       </div>
 
-      <div class="flex items-center justify-center gap-2 mt-8">
-        <button
-          v-for="page in featuredCarouselPageCount"
-          :key="page"
-          @click="goTo(page - 1)"
-          :class="[
-            'h-2 rounded-full transition-all duration-300',
-            activePage === page - 1 ? 'w-8 bg-navy' : 'w-2 bg-navy/20 hover:bg-navy/40',
-          ]"
-          :aria-label="`Go to page ${page}`"
-        />
-      </div>
+      <p
+        v-if="maxIndex > 0"
+        class="text-center text-sm text-navy/40 mt-8"
+      >
+        {{ activeIndex + 1 }} / {{ maxIndex + 1 }}
+      </p>
     </div>
   </section>
 </template>
