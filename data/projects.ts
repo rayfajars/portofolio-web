@@ -17,216 +17,444 @@ export interface Project {
   results?: string[];
   year: number;
   context?:
-    | "Client Work"
     | "Company Project"
     | "Personal Project"
+    | "Freelance Project"
     | "Open Source";
+  company?: string;
 }
 
 export const projects: Project[] = [
+  // ─── Transtrack (2025–Present) ─────────────────────────────────────────────
   {
     id: 1,
-    slug: "ecommerce-platform",
-    title: "E-Commerce Platform",
+    slug: "transtrack-ui",
+    title: "Transtrack UI",
     description:
-      "A modern e-commerce solution built with Nuxt 3 and Stripe integration for seamless checkout experience.",
+      "Internal design system and component library with 48+ reusable components, Storybook docs, and a custom CLI — powering all Transtrack products.",
     fullDescription:
-      "A comprehensive e-commerce platform designed for small to medium-sized businesses. The platform features a modern, responsive interface built with Nuxt 3, providing excellent performance and SEO benefits. Integrated Stripe for secure payment processing, built a custom admin dashboard for inventory management, and implemented real-time order tracking.",
-    repoUrl: "https://github.com/yourusername/project1",
-    liveUrl: "https://project1.example.com",
-    tags: ["Nuxt 3", "TypeScript", "Stripe"],
+      "Transtrack UI is a comprehensive internal design system and component library built with Nuxt 3 and Tailwind CSS. It serves as the single source of truth for UI components across all Transtrack products, ensuring visual consistency and development efficiency. Includes 48+ reusable components, full Storybook documentation, and a custom CLI tool (npx transtrack-ui add) for streamlined component scaffolding across projects.",
+    tags: ["Nuxt 3", "Design System", "Storybook"],
     tech: [
       "Nuxt 3",
       "Vue 3",
       "TypeScript",
       "Tailwind CSS",
-      "Stripe API",
-      "Pinia",
-      "Nitro",
+      "Storybook",
+      "NPM",
+      "CLI",
     ],
-    role: "Lead Frontend Developer",
-    duration: "3 months",
+    role: "Frontend Developer",
+    duration: "2025 – Ongoing",
     challenge:
-      "Creating a seamless checkout experience while maintaining PCI compliance and integrating with multiple payment methods was the primary challenge. The client also required real-time inventory updates across multiple sales channels.",
+      "Maintaining consistent UI standards across multiple business domains and developer teams while keeping components flexible, well-documented, and easy to adopt.",
     solution:
-      "Implemented Stripe Elements for secure payment handling, used WebSockets for real-time inventory sync, and created a modular architecture that allowed easy integration with additional payment providers in the future.",
+      "Built a structured component library with Storybook as the documentation platform, published as an internal NPM package, and created a custom CLI (npx transtrack-ui add) to streamline integration.",
     results: [
-      "Achieved 99.9% uptime during first 6 months",
-      "Reduced checkout abandonment rate by 35%",
-      "Processing $50K+ in monthly transactions",
-      "Average page load time under 1.5 seconds",
+      "48+ reusable components published as an internal NPM package",
+      "Storybook established as the central documentation and playground",
+      "Custom CLI tool for rapid component scaffolding",
+      "Adopted across all Transtrack company products",
     ],
-    year: 2024,
+    year: 2025,
     context: "Company Project",
+    company: "Transtrack (PT Indo Trans Teknologi)",
   },
   {
     id: 2,
-    slug: "task-management-app",
-    title: "Task Management App",
+    slug: "transtrack-fleet-dashboard",
+    title: "Fleet & Driver Monitoring Dashboard",
     description:
-      "Minimalist task management application with drag-and-drop functionality and real-time collaboration.",
+      "Multi-tenant SPA for fleet management and driver safety monitoring with real-time map visualization, RBAC, and Keycloak SSO.",
     fullDescription:
-      "A collaborative task management application built for teams to organize their work efficiently. Features include real-time updates, drag-and-drop task organization, customizable boards, and team collaboration features. The app emphasizes simplicity and speed, with a clean interface that helps teams stay focused.",
-    repoUrl: "https://github.com/yourusername/project2",
-    liveUrl: "https://project2.example.com",
-    tags: ["Vue 3", "Firebase", "Tailwind"],
+      "A sophisticated multi-tenant SPA built with Nuxt 3 and TypeScript, serving multiple business domains from a unified codebase. Features subdomain-based routing with granular RBAC authorization, Keycloak SSO integration, and interactive operational dashboards using Leaflet.js and Chart.js. Also includes a rewritten driver safety monitoring platform with real-time anomaly detection API integration.",
+    tags: ["Nuxt 3", "Leaflet.js", "Multi-tenant"],
     tech: [
+      "Nuxt 3",
+      "TypeScript",
+      "Leaflet.js",
+      "Chart.js",
+      "Keycloak",
+      "Tailwind CSS",
+    ],
+    role: "Frontend Developer",
+    duration: "2025 – Ongoing",
+    challenge:
+      "Building a unified platform for multiple business domains with isolated data, granular permissions, and real-time map/data visualizations while preserving existing operational workflows.",
+    solution:
+      "Architected a multi-tenant modular SPA with subdomain-based routing, integrated Keycloak SSO for centralized authentication, and used Leaflet.js + Chart.js for rich operational dashboards.",
+    results: [
+      "Multi-tenant architecture serving multiple business domains",
+      "Granular RBAC with Keycloak SSO integration",
+      "Real-time fleet and monitoring visualization via Leaflet.js",
+      "Driver safety platform rewritten with improved data presentation reliability",
+    ],
+    year: 2025,
+    context: "Company Project",
+    company: "Transtrack (PT Indo Trans Teknologi)",
+  },
+
+  // ─── Jabar Digital Service (2022–2025) ────────────────────────────────────
+  {
+    id: 3,
+    slug: "sapawarga-admin",
+    title: "Sapawarga Admin v2",
+    description:
+      "Government administration platform for West Java, handling citizen complaints, RW management, push notifications, and CMS modules used by regional government (OPD).",
+    fullDescription:
+      "Sapawarga Admin is the backbone of West Java's digital government services, enabling regional government organizations (OPD) to manage citizen interactions. Contributed to the migration from a legacy system to Nuxt 3, improving maintainability and performance significantly. Built features including RW management, push notifications, ticketing systems, CMS modules, complaint management workflows, account verification, and user support features.",
+    tags: ["Nuxt 3", "Government", "Vue 3"],
+    tech: [
+      "Nuxt 3",
       "Vue 3",
       "TypeScript",
-      "Firebase Realtime Database",
-      "Firebase Auth",
       "Tailwind CSS",
-      "Vite",
+      "SonarQube",
+      "Unleash",
+      "Google Analytics",
     ],
-    role: "Full Stack Developer",
-    duration: "2 months",
+    role: "Junior Frontend Engineer",
+    duration: "2022 – 2025",
     challenge:
-      "Implementing real-time synchronization across multiple users without conflicts, while maintaining good performance even with large task lists. Drag-and-drop interactions needed to work smoothly across different devices.",
+      "Migrating a complex legacy government platform to a modern stack while preserving existing workflows and ensuring compliance with government data standards.",
     solution:
-      "Used Firebase Realtime Database with optimistic updates for instant feedback, implemented conflict resolution using timestamps, and leveraged Vue 3 Composition API for efficient reactivity. Used VueDraggable library optimized for touch devices.",
+      "Led the incremental Nuxt 3 migration by decoupling legacy systems, used Unleash for feature-flagged safe rollouts, and validated improvements with Lighthouse and SonarQube.",
     results: [
-      "Supports 50+ concurrent users per board",
-      "Real-time updates with <100ms latency",
-      "95% user satisfaction rating",
-      "Mobile usage accounts for 40% of traffic",
+      "Successful Nuxt 3 migration — improved performance and maintainability",
+      "Complaint management system adopted by regional government organizations",
+      "Feature flagging with Unleash for controlled, safe deployments",
     ],
+    year: 2024,
+    context: "Company Project",
+    company: "Jabar Digital Service",
+  },
+  {
+    id: 4,
+    slug: "sapawarga-admin-v1",
+    title: "Sapawarga Admin v1",
+    description:
+      "The original government administration platform for West Java (Sapawarga), built with the legacy stack — serving as the foundation before the Nuxt 3 migration.",
+    fullDescription:
+      "Sapawarga Admin v1 is the original internal administration platform built for Jabar Digital Service. The platform served regional government organizations (OPD) for managing citizen services, complaints, and administrative workflows. Developed and maintained features including RW management, push notification systems, ticketing modules, CMS content management, complaint handling, and user account management. This version served as the production baseline before the full Nuxt 3 rewrite in v2.",
+    tags: ["Vue 2", "Government", "Legacy"],
+    tech: ["Vue 2", "JavaScript", "Vuex", "Vuetify", "REST API"],
+    role: "Junior Frontend Engineer",
+    duration: "2022 – 2023",
+    challenge:
+      "Extending and maintaining a legacy Vue 2 codebase across multiple feature domains while ensuring system stability for live government operations.",
+    solution:
+      "Developed new features incrementally without breaking existing workflows, applied SonarQube for code quality, and used Lighthouse to identify performance improvement opportunities.",
+    results: [
+      "RW management, push notifications, ticketing, and CMS modules delivered",
+      "Complaint management features adopted by regional government organizations",
+      "User support workflows — account verification, password reset, complaint tracking",
+      "Stable platform maintained across multiple concurrent government feature teams",
+    ],
+    year: 2023,
+    context: "Company Project",
+    company: "Jabar Digital Service",
+  },
+  {
+    id: 5,
+    slug: "sapawarga-webview",
+    title: "Sapawarga Super App — Web View",
+    description:
+      "Web View pages embedded inside the Sapawarga mobile super app, delivering citizen-facing features like complaint tracking, account management, and service workflows.",
+    fullDescription:
+      "Sapawarga is a West Java government super app serving millions of citizens. As part of the Jabar Digital Service frontend team, contributed to the Web View layer — responsive web pages that are embedded directly inside the native mobile app shell. These Web Views power features such as complaint tracking, account verification, password reset, and other citizen-facing service workflows, ensuring a consistent experience between the web and mobile platforms.",
+    tags: ["Web View", "Super App", "Mobile-first"],
+    tech: ["Vue.js", "Nuxt.js", "TypeScript", "Tailwind CSS", "REST API"],
+    role: "Junior Frontend Engineer",
+    duration: "2022 – 2025",
+    challenge:
+      "Building responsive, lightweight web interfaces that must work seamlessly when rendered inside a native mobile app WebView across various Android and iOS devices and OS versions.",
+    solution:
+      "Designed mobile-first, touch-friendly interfaces with minimal dependencies, tested extensively across WebView environments, and collaborated closely with the mobile team to ensure smooth native-web integration.",
+    results: [
+      "Complaint tracking, account verification, and password reset served via WebView",
+      "Seamless citizen experience bridging web and native mobile surfaces",
+      "Consistently maintained across Sapawarga app updates",
+    ],
+    year: 2023,
+    context: "Company Project",
+    company: "Jabar Digital Service",
+  },
+  {
+    id: 6,
+    slug: "jabar-internal-tools",
+    title: "Jabar Digital Service — Internal Tools",
+    description:
+      "Internal developer productivity tools including a URL shortening service and a mock API tool to improve frontend-backend collaboration efficiency.",
+    fullDescription:
+      "Developed and maintained a suite of internal developer tools at Jabar Digital Service to improve the efficiency of the frontend-backend collaboration workflow. Tools included a URL shortening service for sharing internal links and environments, and a mock API tool that enabled frontend developers to continue development independently of backend readiness, reducing blocking dependencies and accelerating delivery cycles.",
+    tags: ["Internal Tools", "DX", "Productivity"],
+    tech: [
+      "Vue.js",
+      "Nuxt.js",
+      "TypeScript",
+      "Node.js",
+      "REST API",
+      "Tailwind CSS",
+    ],
+    role: "Junior Frontend Engineer",
+    duration: "2022 – 2025",
+    challenge:
+      "Frontend and backend teams were often blocked waiting on each other, and sharing environment URLs internally was cumbersome without a standardized internal tooling setup.",
+    solution:
+      "Built a lightweight URL shortener for internal use and a mock API tool that allowed frontend developers to define and consume stub API responses, enabling parallel development without backend dependencies.",
+    results: [
+      "Reduced frontend-backend development blockers with mock API tooling",
+      "Streamlined internal URL sharing with a dedicated shortener service",
+      "Improved team development velocity and collaboration efficiency",
+    ],
+    year: 2023,
+    context: "Company Project",
+    company: "Jabar Digital Service",
+  },
+  {
+    id: 7,
+    slug: "sidebar-jawa-barat",
+    title: "SIDEBAR — Electronic Document System",
+    description:
+      "West Java government electronic document system — built the Tindak Lanjut feature for replying to and forwarding official documents, and supported User Management for secure access control.",
+    fullDescription:
+      "SIDEBAR (Sistem Informasi Dokumen Elektronik Jawa Barat) is a government-grade electronic document management system for the West Java provincial government. Contributed to two key areas: (1) the Tindak Lanjut (Follow-up) feature, which streamlines the workflow for replying to and forwarding official electronic documents between government units — replacing previously paper-based processes; and (2) the User Management module, handling account modifications and role assignments to maintain secure and accurate access control across the system.",
+    tags: ["Vue 3", "Government", "Document Management"],
+    tech: ["Vue 3", "TypeScript", "REST API", "Tailwind CSS"],
+    role: "Junior Frontend Engineer",
+    duration: "2023",
+    challenge:
+      "Digitizing complex bureaucratic document workflows requiring strict approval chains, while also ensuring the user management system maintained accurate role assignments and access control for all government system users.",
+    solution:
+      "Built the Tindak Lanjut feature with structured form flows, document routing logic, and status tracking. Supported the User Management module with account modification and role assignment interfaces to uphold secure, accurate access across the system.",
+    results: [
+      "Streamlined official document reply and forwarding via the Tindak Lanjut feature",
+      "Replaced paper-based inter-department document processes with a tracked digital workflow",
+      "Supported User Management — account modifications and role assignments for secure access control",
+      "Improved collaboration efficiency across West Java government departments",
+    ],
+    year: 2023,
+    context: "Company Project",
+    company: "Jabar Digital Service",
+  },
+  {
+    id: 8,
+    slug: "labkes",
+    title: "Labkes — Medical Referral Portal",
+    description:
+      "Specialized portal for doctors to create medical referrals, issue prescriptions, and access patient histories integrated with Sapawarga.",
+    fullDescription:
+      "Labkes is a healthcare-integrated web portal developed for Jabar Digital Service, enabling licensed doctors to manage medical referrals, issue prescriptions, and access complete patient medical histories for citizens registered through the Sapawarga super-app. The platform prioritizes data accuracy and workflow efficiency for medical professionals.",
+    tags: ["Nuxt 3", "Healthcare", "Vue 3"],
+    tech: ["Nuxt 3", "Vue 3", "TypeScript", "REST API", "Tailwind CSS"],
+    role: "Junior Frontend Engineer",
+    duration: "2023 – 2024",
+    challenge:
+      "Integrating complex medical data flows while delivering a clean, error-proof interface for medical professionals handling sensitive patient information.",
+    solution:
+      "Designed a streamlined UI focused on clinical workflows, integrated with backend APIs for real-time patient data retrieval, and implemented robust form validation for prescriptions and referrals.",
+    results: [
+      "Streamlined medical referral and prescription workflow for doctors",
+      "Integrated with Sapawarga patient database for comprehensive histories",
+      "Improved doctor productivity with an intuitive, focused UI",
+    ],
+    year: 2023,
+    context: "Company Project",
+    company: "Jabar Digital Service",
+  },
+
+  // ─── PT Kreasi Rekayasa Indonesia (2019–2022) ──────────────────────────────
+  {
+    id: 9,
+    slug: "ez-track",
+    title: "EZ Track",
+    description:
+      "GPS-based vehicle monitoring system with real-time tracking and user management features for fleet operators.",
+    fullDescription:
+      "EZ Track is a GPS-based vehicle monitoring system developed and maintained at PT Kreasi Rekayasa Indonesia. The platform provides fleet operators with real-time vehicle location tracking, route history, and comprehensive user management features. Worked directly with clients to continuously improve and align features with operational requirements.",
+    tags: ["GPS Tracking", "Fleet", "Fullstack"],
+    tech: ["Vue.js", "JavaScript", "PHP", "CodeIgniter", "MySQL", "REST API"],
+    role: "Fullstack Engineer",
+    duration: "2019 – 2022",
+    challenge:
+      "Delivering reliable real-time GPS tracking with accurate map rendering and scalable user management for multiple fleet operators.",
+    solution:
+      "Integrated GPS data streams into an interactive map view, built a flexible user management module, and maintained close client communication to iterate on features based on real operational feedback.",
+    results: [
+      "Real-time GPS tracking for multiple vehicle fleets",
+      "User management supporting multiple operator accounts",
+      "Iteratively improved through direct client collaboration",
+    ],
+    year: 2021,
+    context: "Company Project",
+    company: "PT Kreasi Rekayasa Indonesia",
+  },
+  {
+    id: 10,
+    slug: "man-ic",
+    title: "Man-IC",
+    description:
+      "Content management platform for storing and organizing research papers, modules, learning materials, and articles.",
+    fullDescription:
+      "Man-IC is a knowledge management platform built for PT Kreasi Rekayasa Indonesia to facilitate organized content management. The platform enables teams to store, categorize, and retrieve research papers, training modules, learning materials, and articles in a structured way, improving knowledge sharing across the organization.",
+    tags: ["CMS", "Knowledge Management", "Fullstack"],
+    tech: ["Vue.js", "JavaScript", "PHP", "Laravel", "MySQL", "REST API"],
+    role: "Fullstack Engineer",
+    duration: "2019 – 2022",
+    challenge:
+      "Building a flexible content system that could handle varied document types and make them easily searchable and accessible to different user roles.",
+    solution:
+      "Designed a categorized content structure with role-based access control, search and filtering capabilities, and a clean authoring interface for content contributors.",
+    results: [
+      "Centralized repository for research papers, modules, and articles",
+      "Structured content categorization with search and filtering",
+      "Role-based access for contributors and readers",
+    ],
+    year: 2020,
+    context: "Company Project",
+    company: "PT Kreasi Rekayasa Indonesia",
+  },
+  {
+    id: 11,
+    slug: "ticketing-online",
+    title: "Ticketing Online System",
+    description:
+      "Online ticketing platform ensuring optimal system performance for event and service ticket management.",
+    fullDescription:
+      "A fullstack ticketing system developed and maintained at PT Kreasi Rekayasa Indonesia. The platform supports the full lifecycle of ticket management — from issuance and tracking to resolution. Maintained system stability and performance through ongoing development and client-driven feature updates.",
+    tags: ["Ticketing", "Fullstack", "PHP"],
+    tech: ["Vue.js", "JavaScript", "PHP", "CodeIgniter", "MySQL", "REST API"],
+    role: "Fullstack Engineer",
+    duration: "2019 – 2022",
+    challenge:
+      "Keeping the system stable and performant while continuously adding client-requested features without disrupting live operations.",
+    solution:
+      "Adopted an iterative development approach with client feedback loops, maintained backward compatibility for critical workflows, and monitored system performance proactively.",
+    results: [
+      "Stable ticketing system with continuous feature improvements",
+      "Optimal performance maintained through active monitoring",
+      "Feature updates aligned with client requirements",
+    ],
+    year: 2020,
+    context: "Company Project",
+    company: "PT Kreasi Rekayasa Indonesia",
+  },
+
+  // ─── Freelance Projects ────────────────────────────────────────────────────
+  {
+    id: 12,
+    slug: "bimasena-abadi-land",
+    title: "Bimasena Abadi Land",
+    description:
+      "Developed a CMS and client website for a housing vendor, enabling efficient property management and customer interaction.",
+    fullDescription:
+      "Developed a CMS and client website for a housing vendor, enabling efficient property management and customer interaction. The CMS lets administrators manage property listings and customer inquiries, while the public-facing website helps potential buyers explore available properties and interact with the company.",
+    tags: ["Laravel", "PHP", "CMS"],
+    tech: ["Laravel", "PHP", "MySQL", "REST API"],
+    role: "Freelance Fullstack Developer",
+    year: 2023,
+    context: "Freelance Project",
+  },
+  {
+    id: 13,
+    slug: "cv-ides",
+    title: "CV IDES",
+    description:
+      "Built a CMS and client website for an electrical engineering company to showcase its corporate portfolio and services.",
+    fullDescription:
+      "Built a CMS and client website for an electrical engineering company to showcase its corporate portfolio and services. The platform enables the company to present its projects and expertise professionally, while the CMS allows the team to keep content up to date without touching the codebase.",
+    tags: ["HTML", "jQuery", "CMS"],
+    tech: ["HTML", "CSS", "jQuery", "JavaScript", "REST API"],
+    role: "Freelance Frontend Developer",
+    year: 2022,
+    context: "Freelance Project",
+  },
+  {
+    id: 14,
+    slug: "e-assessment",
+    title: "E-Assessment",
+    description:
+      "Developed a student assessment system, allowing educators to evaluate student performance based on predefined indicators.",
+    fullDescription:
+      "Developed a student assessment system allowing educators to evaluate student performance based on predefined indicators. The platform streamlines the grading workflow and provides a structured way to record, track, and review student progress with configurable assessment criteria.",
+    tags: ["Laravel", "PHP", "Education"],
+    tech: ["Laravel", "PHP", "MySQL", "REST API"],
+    role: "Freelance Fullstack Developer",
+    year: 2022,
+    context: "Freelance Project",
+  },
+  {
+    id: 15,
+    slug: "bank-syariah-indonesia",
+    title: "Bank Syariah Indonesia (BSI)",
+    description:
+      "Developed CMS for administrators and a user-facing application for Bank Syariah Indonesia.",
+    fullDescription:
+      "Developed CMS for administrators and a user-facing application for Bank Syariah Indonesia. The CMS empowers administrators to manage content and data, while the user-facing application delivers banking-related information and services to end users.",
+    tags: ["Laravel", "PHP", "CMS"],
+    tech: ["Laravel", "PHP", "MySQL", "REST API"],
+    role: "Freelance Fullstack Developer",
+    year: 2023,
+    context: "Freelance Project",
+  },
+  {
+    id: 16,
+    slug: "ika-fk",
+    title: "IKA-FK",
+    description:
+      "Developed a digital documentation system for the alumni of the Faculty of Medicine, enabling structured data storage and easy access to alumni records.",
+    fullDescription:
+      "Developed a digital documentation system for the alumni of the Faculty of Medicine, enabling structured data storage and easy access to alumni records. The platform makes it simple to maintain and look up alumni information with organized categorization and search capabilities.",
+    tags: ["Laravel", "PHP", "Documentation"],
+    tech: ["Laravel", "PHP", "MySQL", "REST API"],
+    role: "Freelance Fullstack Developer",
+    year: 2022,
+    context: "Freelance Project",
+  },
+
+  // ─── Personal Projects ─────────────────────────────────────────────────────
+  {
+    id: 17,
+    slug: "shayna-admin",
+    title: "Shayna Admin",
+    description:
+      "Developed an admin dashboard for an e-commerce platform, enabling product management, order tracking, and transaction monitoring with an intuitive UI.",
+    fullDescription:
+      "Developed an admin dashboard for an e-commerce platform, enabling product management, order tracking, and transaction monitoring with an intuitive UI. The dashboard gives store owners a clear overview of their business operations and simplifies day-to-day management tasks.",
+    tags: ["Laravel", "Dashboard", "E-Commerce"],
+    tech: ["Laravel", "PHP", "MySQL", "Chart.js", "REST API"],
+    role: "Solo Developer",
     year: 2023,
     context: "Personal Project",
   },
   {
-    id: 3,
-    slug: "portfolio-generator",
-    title: "Portfolio Generator",
+    id: 18,
+    slug: "kulineran",
+    title: "Kulineran",
     description:
-      "Static site generator for developers to quickly create beautiful portfolio websites with markdown support.",
+      "Built a food ordering platform where users can browse menus, place orders, and manage transactions efficiently.",
     fullDescription:
-      "A tool that helps developers create stunning portfolio websites without writing code. Users can customize themes, add projects via markdown files, and deploy with one command. Built with Nuxt 3 content module for markdown processing and includes multiple pre-designed themes.",
-    repoUrl: "https://github.com/yourusername/project3",
-    tags: ["Nuxt 3", "Markdown", "SSG"],
-    tech: [
-      "Nuxt 3",
-      "Nuxt Content",
-      "TypeScript",
-      "Tailwind CSS",
-      "Markdown-it",
-      "Shiki",
-    ],
+      "Built a food ordering platform where users can browse menus, place orders, and manage transactions efficiently. The application focuses on a smooth, intuitive ordering flow and efficient transaction handling for a seamless dining experience.",
+    tags: ["Vue.js", "Nuxt.js", "Food"],
+    tech: ["Vue.js", "Nuxt.js", "Tailwind CSS", "REST API"],
     role: "Solo Developer",
-    duration: "6 weeks",
-    challenge:
-      "Creating a flexible theming system that allows users to customize their portfolio without touching code, while still generating fast, optimized static sites. Markdown parsing needed to support syntax highlighting and custom components.",
-    solution:
-      "Built a JSON-based configuration system for themes, integrated Nuxt Content for markdown processing with custom components, used Shiki for beautiful code syntax highlighting, and implemented automatic image optimization.",
-    results: [
-      "500+ portfolios generated in first month",
-      "Average Lighthouse score of 95+",
-      "Featured in Vue.js developers newsletter",
-      "200+ GitHub stars",
-    ],
-    year: 2023,
-    context: "Open Source",
-  },
-  {
-    id: 4,
-    slug: "weather-dashboard",
-    title: "Weather Dashboard",
-    description:
-      "Clean weather dashboard with location-based forecasts and interactive charts for data visualization.",
-    fullDescription:
-      "An elegant weather dashboard that provides detailed weather information with beautiful visualizations. Features include current conditions, 7-day forecasts, hourly breakdowns, and historical data comparison. Uses geolocation for automatic location detection and supports multiple saved locations.",
-    repoUrl: "https://github.com/yourusername/project4",
-    liveUrl: "https://project4.example.com",
-    tags: ["Vue 3", "Chart.js", "API"],
-    tech: [
-      "Vue 3",
-      "Chart.js",
-      "OpenWeather API",
-      "Composition API",
-      "Axios",
-      "Day.js",
-    ],
-    role: "Frontend Developer",
-    duration: "3 weeks",
-    challenge:
-      "Presenting complex weather data in an intuitive, visually appealing way while handling API rate limits and ensuring the app works offline for recently viewed locations.",
-    solution:
-      "Implemented smart caching with localStorage, used Chart.js for interactive visualizations, created custom weather icons, and implemented service workers for offline functionality.",
-    results: [
-      "Caches data for 12 hours to minimize API calls",
-      "Works offline for last 5 viewed locations",
-      "10K+ monthly active users",
-      "Average session duration of 3.5 minutes",
-    ],
     year: 2022,
     context: "Personal Project",
   },
   {
-    id: 5,
-    slug: "blogging-platform",
-    title: "Blogging Platform",
+    id: 19,
+    slug: "shayna-shop",
+    title: "Shayna Shop",
     description:
-      "Lightweight blogging platform with markdown editor, SEO optimization, and responsive design.",
+      "Developed a modern e-commerce website, featuring a product catalog, shopping cart, and secure checkout process to enhance the online shopping experience.",
     fullDescription:
-      "A fast, modern blogging platform built for writers who value simplicity and performance. Features a distraction-free markdown editor, automatic SEO optimization, image optimization, and RSS feed generation. Supports custom domains and includes built-in analytics.",
-    repoUrl: "https://github.com/yourusername/project5",
-    liveUrl: "https://project5.example.com",
-    tags: ["Nuxt 3", "Markdown", "SEO"],
-    tech: [
-      "Nuxt 3",
-      "Nuxt Content",
-      "TypeScript",
-      "Tailwind CSS",
-      "Sitemap",
-      "RSS",
-    ],
-    role: "Lead Developer",
-    duration: "2 months",
-    challenge:
-      "Creating a writing experience that rivals Medium while maintaining full control and ownership for users. SEO needed to be automatic and foolproof, without requiring technical knowledge.",
-    solution:
-      "Built a custom markdown editor with live preview, implemented automatic meta tag generation, created a plugin system for easy extensibility, and used Nuxt generate for optimal performance.",
-    results: [
-      "100+ active blogs hosted",
-      "Average Lighthouse SEO score of 98",
-      "Sub-1-second page loads",
-      "Featured in Indie Hackers showcase",
-    ],
+      "Developed a modern e-commerce website featuring a product catalog, shopping cart, and secure checkout process to enhance the online shopping experience. The site delivers a clean, responsive interface designed to convert visitors into buyers with a streamlined purchase flow.",
+    tags: ["Vue.js", "Nuxt.js", "E-Commerce"],
+    tech: ["Vue.js", "Nuxt.js", "TypeScript", "Tailwind CSS"],
+    role: "Solo Developer",
     year: 2023,
-    context: "Client Work",
-  },
-  {
-    id: 6,
-    slug: "component-library",
-    title: "Component Library",
-    description:
-      "Reusable component library built with Vue 3 composition API and comprehensive documentation.",
-    fullDescription:
-      "A production-ready component library designed for enterprise applications. Includes 50+ components, comprehensive documentation with Storybook, TypeScript support, and accessibility compliance. Components are fully customizable and follow WAI-ARIA guidelines.",
-    repoUrl: "https://github.com/yourusername/project6",
-    liveUrl: "https://project6.example.com",
-    tags: ["Vue 3", "Storybook", "TypeScript"],
-    tech: [
-      "Vue 3",
-      "TypeScript",
-      "Storybook",
-      "Vitest",
-      "Vite",
-      "Rollup",
-      "Tailwind CSS",
-    ],
-    role: "Component Architect",
-    duration: "4 months",
-    challenge:
-      "Building components that are flexible enough for various use cases while maintaining consistency and accessibility. Tree-shaking was crucial to keep bundle sizes small when users import only what they need.",
-    solution:
-      "Used Composition API for maximum flexibility, implemented thorough unit tests with Vitest, documented all components in Storybook with multiple variants, and optimized build process for tree-shaking.",
-    results: [
-      "50+ components with full TypeScript support",
-      "95% test coverage",
-      "Used in 10+ production applications",
-      "NPM package with 1K+ weekly downloads",
-    ],
-    year: 2024,
-    context: "Company Project",
+    context: "Personal Project",
   },
 ];
+
+export const CAROUSEL_CARDS_PER_PAGE = 4;
