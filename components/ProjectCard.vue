@@ -26,7 +26,7 @@ const badge = computed(() =>
 
 <template>
   <Card class="group hover:shadow-card transition-all duration-300 border-navy/10 overflow-hidden rounded-2xl bg-cream-light hover:-translate-y-1 h-full">
-    <NuxtLink :to="`/projects/${slug}`" class="block h-full">
+    <NuxtLink :to="`/projects/${slug}`" target="_blank" rel="noopener noreferrer" class="block h-full">
       <CardHeader class="p-0">
         <div class="aspect-[16/10] bg-navy/5 overflow-hidden relative">
           <NuxtImg

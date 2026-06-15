@@ -35,7 +35,15 @@ export const projects: Project[] = [
     fullDescription:
       "Transtrack UI is a comprehensive internal design system and component library built with Nuxt 3 and Tailwind CSS. It serves as the single source of truth for UI components across all Transtrack products, ensuring visual consistency and development efficiency. Includes 48+ reusable components, full Storybook documentation, and a custom CLI tool (npx transtrack-ui add) for streamlined component scaffolding across projects.",
     tags: ["Nuxt 3", "Design System", "Storybook"],
-    tech: ["Nuxt 3", "Vue 3", "TypeScript", "Tailwind CSS", "Storybook", "NPM", "CLI"],
+    tech: [
+      "Nuxt 3",
+      "Vue 3",
+      "TypeScript",
+      "Tailwind CSS",
+      "Storybook",
+      "NPM",
+      "CLI",
+    ],
     role: "Frontend Developer",
     duration: "2025 – Ongoing",
     challenge:
@@ -61,7 +69,14 @@ export const projects: Project[] = [
     fullDescription:
       "A sophisticated multi-tenant SPA built with Nuxt 3 and TypeScript, serving multiple business domains from a unified codebase. Features subdomain-based routing with granular RBAC authorization, Keycloak SSO integration, and interactive operational dashboards using Leaflet.js and Chart.js. Also includes a rewritten driver safety monitoring platform with real-time anomaly detection API integration.",
     tags: ["Nuxt 3", "Leaflet.js", "Multi-tenant"],
-    tech: ["Nuxt 3", "TypeScript", "Leaflet.js", "Chart.js", "Keycloak", "Tailwind CSS"],
+    tech: [
+      "Nuxt 3",
+      "TypeScript",
+      "Leaflet.js",
+      "Chart.js",
+      "Keycloak",
+      "Tailwind CSS",
+    ],
     role: "Frontend Developer",
     duration: "2025 – Ongoing",
     challenge:
@@ -89,7 +104,15 @@ export const projects: Project[] = [
     fullDescription:
       "Sapawarga Admin is the backbone of West Java's digital government services, enabling regional government organizations (OPD) to manage citizen interactions. Contributed to the migration from a legacy system to Nuxt 3, improving maintainability and performance significantly. Built features including RW management, push notifications, ticketing systems, CMS modules, complaint management workflows, account verification, and user support features.",
     tags: ["Nuxt 3", "Government", "Vue 3"],
-    tech: ["Nuxt 3", "Vue 3", "TypeScript", "Tailwind CSS", "SonarQube", "Unleash", "Google Analytics"],
+    tech: [
+      "Nuxt 3",
+      "Vue 3",
+      "TypeScript",
+      "Tailwind CSS",
+      "SonarQube",
+      "Unleash",
+      "Google Analytics",
+    ],
     role: "Junior Frontend Engineer",
     duration: "2022 – 2025",
     challenge:
@@ -100,7 +123,6 @@ export const projects: Project[] = [
       "Successful Nuxt 3 migration — improved performance and maintainability",
       "Complaint management system adopted by regional government organizations",
       "Feature flagging with Unleash for controlled, safe deployments",
-      "Mentored interns in building the Ticket Management System",
     ],
     year: 2024,
     context: "Company Project",
@@ -166,7 +188,14 @@ export const projects: Project[] = [
     fullDescription:
       "Developed and maintained a suite of internal developer tools at Jabar Digital Service to improve the efficiency of the frontend-backend collaboration workflow. Tools included a URL shortening service for sharing internal links and environments, and a mock API tool that enabled frontend developers to continue development independently of backend readiness, reducing blocking dependencies and accelerating delivery cycles.",
     tags: ["Internal Tools", "DX", "Productivity"],
-    tech: ["Vue.js", "Nuxt.js", "TypeScript", "Node.js", "REST API", "Tailwind CSS"],
+    tech: [
+      "Vue.js",
+      "Nuxt.js",
+      "TypeScript",
+      "Node.js",
+      "REST API",
+      "Tailwind CSS",
+    ],
     role: "Junior Frontend Engineer",
     duration: "2022 – 2025",
     challenge:
@@ -320,9 +349,9 @@ export const projects: Project[] = [
       "Developed a CMS and client website for a housing vendor, enabling efficient property management and customer interaction.",
     fullDescription:
       "Developed a CMS and client website for a housing vendor, enabling efficient property management and customer interaction. The CMS lets administrators manage property listings and customer inquiries, while the public-facing website helps potential buyers explore available properties and interact with the company.",
-    tags: ["Vue.js", "Nuxt.js", "CMS"],
-    tech: ["Vue.js", "Nuxt.js", "TypeScript", "Tailwind CSS", "REST API"],
-    role: "Freelance Frontend Developer",
+    tags: ["Laravel", "PHP", "CMS"],
+    tech: ["Laravel", "PHP", "MySQL", "REST API"],
+    role: "Freelance Fullstack Developer",
     year: 2023,
     context: "Freelance Project",
   },
@@ -334,8 +363,8 @@ export const projects: Project[] = [
       "Built a CMS and client website for an electrical engineering company to showcase its corporate portfolio and services.",
     fullDescription:
       "Built a CMS and client website for an electrical engineering company to showcase its corporate portfolio and services. The platform enables the company to present its projects and expertise professionally, while the CMS allows the team to keep content up to date without touching the codebase.",
-    tags: ["Vue.js", "Nuxt.js", "CMS"],
-    tech: ["Vue.js", "Nuxt.js", "Tailwind CSS", "REST API"],
+    tags: ["HTML", "jQuery", "CMS"],
+    tech: ["HTML", "CSS", "jQuery", "JavaScript", "REST API"],
     role: "Freelance Frontend Developer",
     year: 2022,
     context: "Freelance Project",
@@ -348,9 +377,9 @@ export const projects: Project[] = [
       "Developed a student assessment system, allowing educators to evaluate student performance based on predefined indicators.",
     fullDescription:
       "Developed a student assessment system allowing educators to evaluate student performance based on predefined indicators. The platform streamlines the grading workflow and provides a structured way to record, track, and review student progress with configurable assessment criteria.",
-    tags: ["Vue.js", "Nuxt.js", "Education"],
-    tech: ["Vue.js", "Nuxt.js", "Tailwind CSS", "REST API"],
-    role: "Freelance Frontend Developer",
+    tags: ["Laravel", "PHP", "Education"],
+    tech: ["Laravel", "PHP", "MySQL", "REST API"],
+    role: "Freelance Fullstack Developer",
     year: 2022,
     context: "Freelance Project",
   },
@@ -362,9 +391,9 @@ export const projects: Project[] = [
       "Developed CMS for administrators and a user-facing application for Bank Syariah Indonesia.",
     fullDescription:
       "Developed CMS for administrators and a user-facing application for Bank Syariah Indonesia. The CMS empowers administrators to manage content and data, while the user-facing application delivers banking-related information and services to end users.",
-    tags: ["Vue.js", "Nuxt.js", "CMS"],
-    tech: ["Vue.js", "Nuxt.js", "TypeScript", "Tailwind CSS", "REST API"],
-    role: "Freelance Frontend Developer",
+    tags: ["Laravel", "PHP", "CMS"],
+    tech: ["Laravel", "PHP", "MySQL", "REST API"],
+    role: "Freelance Fullstack Developer",
     year: 2023,
     context: "Freelance Project",
   },
@@ -376,9 +405,9 @@ export const projects: Project[] = [
       "Developed a digital documentation system for the alumni of the Faculty of Medicine, enabling structured data storage and easy access to alumni records.",
     fullDescription:
       "Developed a digital documentation system for the alumni of the Faculty of Medicine, enabling structured data storage and easy access to alumni records. The platform makes it simple to maintain and look up alumni information with organized categorization and search capabilities.",
-    tags: ["Vue.js", "Nuxt.js", "Documentation"],
-    tech: ["Vue.js", "Nuxt.js", "Tailwind CSS", "REST API"],
-    role: "Freelance Frontend Developer",
+    tags: ["Laravel", "PHP", "Documentation"],
+    tech: ["Laravel", "PHP", "MySQL", "REST API"],
+    role: "Freelance Fullstack Developer",
     year: 2022,
     context: "Freelance Project",
   },
@@ -392,8 +421,8 @@ export const projects: Project[] = [
       "Developed an admin dashboard for an e-commerce platform, enabling product management, order tracking, and transaction monitoring with an intuitive UI.",
     fullDescription:
       "Developed an admin dashboard for an e-commerce platform, enabling product management, order tracking, and transaction monitoring with an intuitive UI. The dashboard gives store owners a clear overview of their business operations and simplifies day-to-day management tasks.",
-    tags: ["Vue.js", "Dashboard", "E-Commerce"],
-    tech: ["Vue.js", "Nuxt.js", "TypeScript", "Tailwind CSS", "Chart.js"],
+    tags: ["Laravel", "Dashboard", "E-Commerce"],
+    tech: ["Laravel", "PHP", "MySQL", "Chart.js", "REST API"],
     role: "Solo Developer",
     year: 2023,
     context: "Personal Project",

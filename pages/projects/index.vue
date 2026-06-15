@@ -4,7 +4,7 @@ import { projects } from '~/data/projects';
 import { ArrowLeft } from 'lucide-vue-next';
 import { Button } from '~/components/ui/button';
 import { PROJECT_FILTERS, filterProjects, type ProjectFilter } from '~/utils/projects';
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 
 useHead({
   title: `Projects - ${profile.name}`,
@@ -13,10 +13,31 @@ useHead({
   ],
 });
 
-const activeFilter = ref<ProjectFilter>('all');
+const route = useRoute();
+const router = useRouter();
+
+// Initialize from query param, fallback to 'all'
+const activeFilter = ref<ProjectFilter>(
+  (route.query.filter as ProjectFilter) || 'all',
+);
 
 const filteredProjects = computed(() =>
   filterProjects(projects, activeFilter.value),
+);
+
+const setFilter = (filter: ProjectFilter) => {
+  activeFilter.value = filter;
+  router.replace({
+    query: { ...route.query, filter: filter === 'all' ? undefined : filter },
+  });
+};
+
+// Sync filter if user navigates back with browser back/forward
+watch(
+  () => route.query.filter,
+  (val) => {
+    activeFilter.value = (val as ProjectFilter) || 'all';
+  },
 );
 
 const filterButtonClass = (active: boolean) => [
@@ -50,7 +71,7 @@ const filterButtonClass = (active: boolean) => [
         <button
           v-for="filter in PROJECT_FILTERS"
           :key="filter.value"
-          @click="activeFilter = filter.value"
+          @click="setFilter(filter.value)"
           :class="filterButtonClass(activeFilter === filter.value)"
         >
           {{ filter.label }}
