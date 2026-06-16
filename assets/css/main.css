@@ -162,4 +162,72 @@
   .meta-val {
     @apply text-sm font-medium text-navy;
   }
+
+  /* Hero — committed indigo surface + signature entrance */
+  .hero-color-panel {
+    position: absolute;
+    inset-block: 0;
+    inset-inline-end: 0;
+    width: clamp(32%, 42vw, 46%);
+    background-color: #1b213b;
+    z-index: 0;
+  }
+
+  .hero-accent-block {
+    position: absolute;
+    z-index: 0;
+    width: clamp(10rem, 28vw, 18rem);
+    height: clamp(14rem, 40vh, 24rem);
+    top: 12%;
+    right: clamp(18%, 24vw, 28%);
+    background-color: rgba(245, 242, 233, 0.07);
+    border-radius: 0.5rem;
+  }
+
+  .hero-display {
+    @apply heading-serif text-navy leading-[1.02] text-balance;
+    font-size: clamp(3.25rem, 10vw, 6rem);
+    letter-spacing: -0.03em;
+  }
+
+  @keyframes hero-rise {
+    from {
+      opacity: 0;
+      transform: translateY(1.25rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes hero-photo-in {
+    from {
+      opacity: 0;
+      transform: translateY(1.5rem) scale(1.02);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  .hero-enter {
+    animation: hero-rise 680ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: calc(120ms + var(--hero-i, 0) * 85ms);
+  }
+
+  .hero-photo-enter {
+    animation: hero-photo-in 780ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: calc(280ms + var(--hero-i, 0) * 85ms);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-enter,
+    .hero-photo-enter {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+  }
 }
