@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ArrowLeft, ExternalLink, Github } from 'lucide-vue-next';
+import { ArrowLeft, ArrowRight, ExternalLink, Github } from 'lucide-vue-next';
 import { profile } from '~/data/profile';
 import { Button } from '~/components/ui/button';
 import { getProjectBadge } from '~/utils/projects';
@@ -36,7 +36,10 @@ useHead({
   <article class="bg-cream">
     <div class="page-padding pb-0">
       <div class="container mx-auto max-w-4xl">
-        <NuxtLink to="/projects" class="inline-flex items-center gap-2 text-sm font-medium text-navy/60 hover:text-navy transition-colors focus-ring rounded-sm mb-10">
+        <NuxtLink
+          to="/projects"
+          class="inline-flex items-center gap-2 text-sm font-medium text-navy/60 hover:text-navy transition-colors focus-ring rounded-sm mb-10"
+        >
           <ArrowLeft :size="16" aria-hidden="true" />
           Back to projects
         </NuxtLink>
@@ -70,17 +73,26 @@ useHead({
           </dl>
         </header>
 
-        <div class="flex flex-wrap gap-2 mb-8">
+        <div
+          class="flex flex-wrap gap-2 mb-8"
+          role="list"
+          aria-label="Technologies used"
+        >
           <span
             v-for="tech in project.tech"
             :key="tech"
-            class="px-3 py-1 text-sm rounded-full bg-navy/5 text-navy/70 font-medium"
+            role="listitem"
+            class="project-card-tag text-sm px-3 py-1"
           >
             {{ tech }}
           </span>
         </div>
 
-        <div v-if="project.liveUrl || project.repoUrl" class="flex flex-wrap gap-4 pb-12 sm:pb-16">
+        <div
+          v-if="project.liveUrl || project.repoUrl"
+          class="flex flex-wrap gap-4"
+          :class="project.challenge || project.solution || project.results?.length ? 'pb-12 sm:pb-16' : 'pb-10 sm:pb-12'"
+        >
           <Button
             v-if="project.liveUrl"
             as="a"
@@ -109,12 +121,10 @@ useHead({
       </div>
     </div>
 
-    <section class="section-padding section-navy">
+    <section class="section-padding section-navy" aria-labelledby="project-overview">
       <div class="container mx-auto max-w-4xl">
-        <div class="section-opener-light">
-          <span class="section-eyebrow-light">Overview</span>
-        </div>
-        <p class="font-serif text-2xl sm:text-3xl leading-snug text-cream max-w-prose text-pretty">
+        <h2 id="project-overview" class="sr-only">Overview</h2>
+        <p class="font-serif text-2xl sm:text-3xl leading-snug text-cream/95 max-w-prose text-pretty">
           {{ project.fullDescription }}
         </p>
       </div>
@@ -123,16 +133,17 @@ useHead({
     <section
       v-if="project.challenge && project.solution"
       class="section-padding section-cream"
+      aria-labelledby="project-challenge"
     >
       <div class="container mx-auto max-w-4xl grid md:grid-cols-2 gap-10 lg:gap-16">
         <div>
-          <h2 class="section-eyebrow mb-3">Challenge</h2>
+          <h2 id="project-challenge" class="case-study-heading">Challenge</h2>
           <p class="text-lg leading-relaxed text-navy/70 text-pretty">
             {{ project.challenge }}
           </p>
         </div>
         <div>
-          <h2 class="section-eyebrow mb-3">Solution</h2>
+          <h2 class="case-study-heading">Solution</h2>
           <p class="text-lg leading-relaxed text-navy/70 text-pretty">
             {{ project.solution }}
           </p>
@@ -143,18 +154,20 @@ useHead({
     <section
       v-if="project.results && project.results.length"
       class="section-padding section-muted"
+      aria-labelledby="project-impact"
     >
       <div class="container mx-auto max-w-4xl">
-        <div class="section-opener">
-          <span class="section-eyebrow">Impact</span>
-        </div>
+        <h2 id="project-impact" class="case-study-heading mb-6">Impact</h2>
         <ul class="divide-y divide-navy/10">
           <li
             v-for="(result, index) in project.results"
             :key="index"
             class="flex items-start gap-4 py-5 first:pt-0"
           >
-            <span class="mt-2.5 w-1.5 h-1.5 bg-navy rounded-full flex-shrink-0" aria-hidden="true" />
+            <span
+              class="mt-2.5 w-1.5 h-1.5 bg-navy rounded-full flex-shrink-0"
+              aria-hidden="true"
+            />
             <span class="text-lg leading-relaxed text-navy/80">{{ result }}</span>
           </li>
         </ul>
@@ -164,31 +177,42 @@ useHead({
     <section
       v-if="previousProject || nextProject"
       class="section-padding editorial-divide"
+      aria-label="Project navigation"
     >
       <div class="container mx-auto max-w-4xl">
-        <div class="grid sm:grid-cols-2 gap-4">
+        <div class="project-nav-grid">
           <NuxtLink
             v-if="previousProject"
             :to="`/projects/${previousProject.slug}`"
-            class="nav-card group"
+            class="project-nav-link group"
           >
-            <div class="meta-key mb-2">Previous</div>
-            <div class="font-serif text-xl text-navy motion-safe:group-hover:opacity-80">
+            <span class="meta-key mb-2 inline-flex items-center gap-1.5">
+              <ArrowLeft :size="14" aria-hidden="true" />
+              Previous
+            </span>
+            <span class="font-serif text-xl text-navy text-balance motion-safe:group-hover:opacity-80">
               {{ previousProject.title }}
-            </div>
+            </span>
           </NuxtLink>
 
-          <div v-else class="hidden sm:block" aria-hidden="true" />
+          <div
+            v-else
+            class="hidden sm:block bg-cream-light"
+            aria-hidden="true"
+          />
 
           <NuxtLink
             v-if="nextProject"
             :to="`/projects/${nextProject.slug}`"
-            class="nav-card group sm:text-right"
+            class="project-nav-link project-nav-link--next group"
           >
-            <div class="meta-key mb-2">Next</div>
-            <div class="font-serif text-xl text-navy motion-safe:group-hover:opacity-80">
+            <span class="meta-key mb-2 inline-flex items-center gap-1.5 sm:justify-end sm:w-full">
+              Next
+              <ArrowRight :size="14" aria-hidden="true" />
+            </span>
+            <span class="font-serif text-xl text-navy text-balance motion-safe:group-hover:opacity-80">
               {{ nextProject.title }}
-            </div>
+            </span>
           </NuxtLink>
         </div>
       </div>

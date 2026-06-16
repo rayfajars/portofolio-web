@@ -2,7 +2,12 @@
 import { profile } from '~/data/profile';
 import { projects } from '~/data/projects';
 import { ArrowLeft } from 'lucide-vue-next';
-import { PROJECT_FILTERS, filterProjects, type ProjectFilter } from '~/utils/projects';
+import {
+  PROJECT_FILTERS,
+  filterProjects,
+  getProjectBadge,
+  type ProjectFilter,
+} from '~/utils/projects';
 import { computed, ref, watch } from 'vue';
 
 useHead({
@@ -18,6 +23,8 @@ useHead({
 
 const route = useRoute();
 const router = useRouter();
+const listRef = ref<HTMLElement | null>(null);
+const { isInView } = useSectionReveal(listRef);
 
 const activeFilter = ref<ProjectFilter>(
   (route.query.filter as ProjectFilter) || 'all',
@@ -27,12 +34,28 @@ const filteredProjects = computed(() =>
   filterProjects(projects, activeFilter.value),
 );
 
+const showFeatured = computed(
+  () => activeFilter.value === 'all' && filteredProjects.value.length > 0,
+);
+
+const featuredProject = computed(() =>
+  showFeatured.value ? filteredProjects.value[0] : null,
+);
+
+const listProjects = computed(() =>
+  showFeatured.value ? filteredProjects.value.slice(1) : filteredProjects.value,
+);
+
 const setFilter = (filter: ProjectFilter) => {
   activeFilter.value = filter;
   router.replace({
     query: { ...route.query, filter: filter === 'all' ? undefined : filter },
   });
 };
+
+const clearFilter = () => setFilter('all');
+
+const cappedRevealIndex = (index: number) => Math.min(index, 10);
 
 watch(
   () => route.query.filter,
@@ -49,25 +72,26 @@ const filterButtonClass = (active: boolean) => [
 
 <template>
   <div class="page-padding bg-cream min-h-full">
-    <div class="container mx-auto max-w-6xl">
-      <header class="mb-10">
-        <NuxtLink to="/" class="inline-flex items-center gap-2 text-sm font-medium text-navy/60 hover:text-navy transition-colors focus-ring rounded-sm mb-10">
+    <div class="container mx-auto max-w-5xl">
+      <header class="mb-10 sm:mb-12">
+        <NuxtLink
+          to="/"
+          class="inline-flex items-center gap-2 text-sm font-medium text-navy/60 hover:text-navy transition-colors focus-ring rounded-sm mb-10"
+        >
           <ArrowLeft :size="16" aria-hidden="true" />
           Back to home
         </NuxtLink>
 
-        <div class="section-opener">
-          <span class="section-eyebrow">Index</span>
-        </div>
-
-        <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+        <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 sm:gap-6">
           <h1 class="heading-serif text-4xl sm:text-5xl md:text-6xl text-navy text-balance">
             All Projects
           </h1>
-          <p class="meta-val text-navy/55">{{ filteredProjects.length }} of {{ projects.length }}</p>
+          <p class="meta-val text-navy/60 shrink-0 tabular-nums">
+            {{ filteredProjects.length }} of {{ projects.length }}
+          </p>
         </div>
 
-        <p class="section-lead mt-4">
+        <p class="section-lead mt-4 sm:mt-5">
           Company, freelance, and personal work across dashboards, design
           systems, and multi-tenant platforms.
         </p>
@@ -76,7 +100,7 @@ const filterButtonClass = (active: boolean) => [
       <div
         role="group"
         aria-label="Filter projects"
-        class="flex flex-wrap gap-2 mb-10"
+        class="project-filter-bar mb-8 sm:mb-10"
       >
         <button
           v-for="filter in PROJECT_FILTERS"
@@ -90,30 +114,54 @@ const filterButtonClass = (active: boolean) => [
         </button>
       </div>
 
-      <p
+      <div
         v-if="filteredProjects.length === 0"
-        class="text-center py-16 meta-copy"
+        class="project-index-empty"
       >
-        No projects match this filter.
-      </p>
+        <p class="meta-copy">
+          No projects match this filter.
+        </p>
+        <button
+          v-if="activeFilter !== 'all'"
+          type="button"
+          class="filter-chip filter-chip-inactive mt-4"
+          @click="clearFilter"
+        >
+          Show all projects
+        </button>
+      </div>
 
       <div
         v-else
-        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        ref="listRef"
+        class="project-index-reveal section-reveal"
+        :class="{ 'is-inview': isInView }"
       >
-        <ProjectCard
-          v-for="project in filteredProjects"
-          :key="project.id"
-          :slug="project.slug"
-          :title="project.title"
-          :description="project.description"
-          :image="project.image"
-          :repo-url="project.repoUrl"
-          :live-url="project.liveUrl"
-          :tags="project.tags"
-          :context="project.context"
-          :company="project.company"
-        />
+        <ul class="project-index list-none p-0 m-0">
+          <ProjectIndexRow
+            v-if="featuredProject"
+            :slug="featuredProject.slug"
+            :title="featuredProject.title"
+            :description="featuredProject.description"
+            :year="featuredProject.year"
+            :badge="getProjectBadge(featuredProject)"
+            :tags="featuredProject.tags"
+            featured
+            :reveal-index="cappedRevealIndex(0)"
+          />
+
+          <ProjectIndexRow
+            v-for="(project, index) in listProjects"
+            :key="project.id"
+            :slug="project.slug"
+            :title="project.title"
+            :description="project.description"
+            :year="project.year"
+            :badge="getProjectBadge(project)"
+            :tags="project.tags"
+            :reveal-index="cappedRevealIndex(showFeatured ? index + 1 : index)"
+          />
+        </ul>
       </div>
     </div>
   </div>

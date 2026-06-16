@@ -468,6 +468,187 @@
     @apply text-sm font-medium text-navy;
   }
 
+  .case-study-heading {
+    @apply font-sans text-lg font-semibold text-navy mb-4;
+  }
+
+  /* Project index — editorial list browse */
+  .project-filter-bar {
+    @apply flex flex-wrap gap-2;
+  }
+
+  @media (max-width: 639px) {
+    .project-filter-bar {
+      @apply flex-nowrap overflow-x-auto pb-1;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      mask-image: linear-gradient(to right, black calc(100% - 1.5rem), transparent);
+    }
+
+    .project-filter-bar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .project-filter-bar .filter-chip {
+      @apply shrink-0;
+    }
+  }
+
+  .project-index-empty {
+    @apply border-t border-navy/10 py-16 text-center;
+  }
+
+  .project-index-reveal .reveal-shift {
+    --reveal-stagger: 55ms;
+  }
+
+  .project-index {
+    @apply border-t border-navy/10;
+  }
+
+  .project-index-row {
+    @apply relative grid min-h-[3.25rem] gap-x-3 gap-y-2 py-5 sm:flex sm:items-center sm:gap-6 sm:py-7;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "main arrow"
+      "meta meta";
+    transition:
+      color 280ms cubic-bezier(0.16, 1, 0.3, 1),
+      background-color 280ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .project-index-row-main {
+    grid-area: main;
+  }
+
+  .project-index-row-meta {
+    grid-area: meta;
+  }
+
+  .project-index-arrow {
+    grid-area: arrow;
+    @apply self-start text-navy/30 sm:ml-1 sm:self-center;
+    transition:
+      color 280ms cubic-bezier(0.16, 1, 0.3, 1),
+      transform 280ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @media (min-width: 640px) {
+    .project-index-row {
+      grid-template-areas: none;
+      grid-template-columns: none;
+    }
+
+    .project-index-row-main,
+    .project-index-row-meta,
+    .project-index-arrow {
+      grid-area: auto;
+    }
+  }
+
+  .project-index-row::before {
+    content: "";
+    @apply absolute inset-x-0 inset-y-1 -z-10 rounded-md opacity-0;
+    background-color: rgba(250, 248, 243, 0.85);
+    transition: opacity 280ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .project-index-row:hover::before,
+  .project-index-row:focus-visible::before {
+    @apply opacity-100;
+  }
+
+  .project-index-row:active::before {
+    background-color: rgba(235, 230, 217, 0.65);
+  }
+
+  .project-index-item {
+    @apply border-b border-navy/10;
+  }
+
+  .project-index-item--featured {
+    @apply border-b-0;
+  }
+
+  .project-index-item--featured .project-index-row {
+    @apply py-8 sm:py-10 border-b border-navy/15;
+  }
+
+  .project-index-row-main {
+    @apply flex-1 min-w-0;
+  }
+
+  .project-index-row-title {
+    @apply font-serif font-bold text-navy text-balance leading-snug;
+    font-size: clamp(1.25rem, 2.2vw, 1.625rem);
+    letter-spacing: -0.015em;
+  }
+
+  .project-index-row-title--featured {
+    font-size: clamp(1.75rem, 3.5vw, 2.375rem);
+    letter-spacing: -0.02em;
+  }
+
+  .project-index-row-desc {
+    @apply mt-1.5 text-sm leading-relaxed text-navy/70 text-pretty line-clamp-1;
+  }
+
+  .project-index-row-desc--featured {
+    @apply mt-2 text-base sm:text-lg line-clamp-2 max-w-2xl;
+  }
+
+  .project-index-row-meta {
+    @apply flex flex-wrap items-center gap-x-3 gap-y-1.5 sm:shrink-0 sm:flex-col sm:items-end sm:gap-2 sm:text-right lg:min-w-[9.5rem] xl:min-w-[11rem];
+  }
+
+  .project-index-badge {
+    @apply inline-block max-w-[16rem] truncate rounded-full bg-navy/5 px-2.5 py-0.5 text-[0.6875rem] font-semibold leading-tight text-navy/80;
+  }
+
+  .project-index-year {
+    @apply text-sm font-medium text-navy/60 tabular-nums;
+  }
+
+  .project-index-tags {
+    @apply flex flex-wrap gap-1.5 sm:justify-end;
+  }
+
+  .project-index-row:hover .project-index-arrow,
+  .project-index-row:focus-visible .project-index-arrow {
+    @apply text-navy;
+    transform: translate(2px, -2px);
+  }
+
+  .project-index-row:hover .project-index-row-title,
+  .project-index-row:focus-visible .project-index-row-title {
+    @apply text-navy;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .project-index-row,
+    .project-index-row::before,
+    .project-index-arrow {
+      transition: color 200ms ease, background-color 200ms ease, opacity 200ms ease;
+    }
+
+    .project-index-row:hover .project-index-arrow,
+    .project-index-row:focus-visible .project-index-arrow {
+      transform: none;
+    }
+  }
+
+  .project-nav-grid {
+    @apply grid gap-0 sm:grid-cols-2 sm:gap-px sm:overflow-hidden sm:rounded-lg sm:border sm:border-navy/10 sm:bg-navy/10;
+  }
+
+  .project-nav-link {
+    @apply block min-h-[4.75rem] bg-cream-light p-6 sm:min-h-0 sm:p-7 focus-ring motion-safe:transition-[background-color] motion-safe:duration-300 motion-reduce:transition-none motion-safe:hover:bg-cream motion-safe:active:bg-cream-dark/40;
+  }
+
+  .project-nav-link--next {
+    @apply border-t border-navy/10 sm:border-t-0 sm:text-right;
+  }
+
   /* Hero — committed indigo surface + signature entrance */
   .hero-color-panel {
     position: absolute;
