@@ -38,7 +38,6 @@ watch(
     <ExperienceSection />
     <ProjectsSection />
     <SkillsSection />
-    <EducationSection />
     <CTASection />
   </div>
 </template>

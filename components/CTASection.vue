@@ -13,12 +13,11 @@ import { profile, socialLinks } from '~/data/profile';
       <div class="grid lg:grid-cols-[1.3fr_1fr] gap-10 lg:gap-16 items-end">
         <div>
           <h2 class="heading-serif text-4xl sm:text-5xl md:text-6xl text-cream leading-[1.05] text-balance">
-            Let's build something
-            <span class="italic">solid.</span>
+            Reach out.
           </h2>
           <p class="mt-6 text-lg leading-relaxed text-cream/70 max-w-md">
             Open to frontend engineering roles and selective freelance work.
-            The fastest way to reach me is email.
+            Email me directly to get in touch.
           </p>
         </div>
 
