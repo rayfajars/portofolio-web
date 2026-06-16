@@ -106,12 +106,8 @@ export const projects: Project[] = [
     tags: ["Nuxt 3", "Government", "Vue 3"],
     tech: [
       "Nuxt 3",
-      "Vue 3",
       "TypeScript",
       "Tailwind CSS",
-      "SonarQube",
-      "Unleash",
-      "Google Analytics",
     ],
     role: "Junior Frontend Engineer",
     duration: "2022 – 2025",
@@ -136,8 +132,8 @@ export const projects: Project[] = [
       "The original government administration platform for West Java (Sapawarga), built with the legacy stack — serving as the foundation before the Nuxt 3 migration.",
     fullDescription:
       "Sapawarga Admin v1 is the original internal administration platform built for Jabar Digital Service. The platform served regional government organizations (OPD) for managing citizen services, complaints, and administrative workflows. Developed and maintained features including RW management, push notification systems, ticketing modules, CMS content management, complaint handling, and user account management. This version served as the production baseline before the full Nuxt 3 rewrite in v2.",
-    tags: ["Vue 2", "Government", "Legacy"],
-    tech: ["Vue 2", "JavaScript", "Vuex", "Vuetify", "REST API"],
+    tags: ["Nuxt 2", "Government", "Legacy"],
+    tech: ["Nuxt 2",  "Tailwind CSS" ,"SonarQube", "Unleash", "Google Analytics"],
     role: "Junior Frontend Engineer",
     duration: "2022 – 2023",
     challenge:
@@ -163,7 +159,7 @@ export const projects: Project[] = [
     fullDescription:
       "Sapawarga is a West Java government super app serving millions of citizens. As part of the Jabar Digital Service frontend team, contributed to the Web View layer — responsive web pages that are embedded directly inside the native mobile app shell. These Web Views power features such as complaint tracking, account verification, password reset, and other citizen-facing service workflows, ensuring a consistent experience between the web and mobile platforms.",
     tags: ["Web View", "Super App", "Mobile-first"],
-    tech: ["Vue.js", "Nuxt.js", "TypeScript", "Tailwind CSS", "REST API"],
+    tech: ["Nuxt 2", "TypeScript", "Tailwind CSS", "SonarQube", "Unleash", "Google Analytics", "Deeplink"],
     role: "Junior Frontend Engineer",
     duration: "2022 – 2025",
     challenge:
@@ -189,11 +185,9 @@ export const projects: Project[] = [
       "Developed and maintained a suite of internal developer tools at Jabar Digital Service to improve the efficiency of the frontend-backend collaboration workflow. Tools included a URL shortening service for sharing internal links and environments, and a mock API tool that enabled frontend developers to continue development independently of backend readiness, reducing blocking dependencies and accelerating delivery cycles.",
     tags: ["Internal Tools", "DX", "Productivity"],
     tech: [
-      "Vue.js",
-      "Nuxt.js",
+      "Nuxt 3",
       "TypeScript",
-      "Node.js",
-      "REST API",
+      "Shadcn UI",
       "Tailwind CSS",
     ],
     role: "Junior Frontend Engineer",
@@ -219,8 +213,8 @@ export const projects: Project[] = [
       "West Java government electronic document system — built the Tindak Lanjut feature for replying to and forwarding official documents, and supported User Management for secure access control.",
     fullDescription:
       "SIDEBAR (Sistem Informasi Dokumen Elektronik Jawa Barat) is a government-grade electronic document management system for the West Java provincial government. Contributed to two key areas: (1) the Tindak Lanjut (Follow-up) feature, which streamlines the workflow for replying to and forwarding official electronic documents between government units — replacing previously paper-based processes; and (2) the User Management module, handling account modifications and role assignments to maintain secure and accurate access control across the system.",
-    tags: ["Vue 3", "Government", "Document Management"],
-    tech: ["Vue 3", "TypeScript", "REST API", "Tailwind CSS"],
+    tags: ["Nuxt 2", "Government", "Document Management"],
+    tech: ["Nuxt 2", "TypeScript", "Tailwind CSS"],
     role: "Junior Frontend Engineer",
     duration: "2023",
     challenge:
@@ -245,8 +239,8 @@ export const projects: Project[] = [
       "Specialized portal for doctors to create medical referrals, issue prescriptions, and access patient histories integrated with Sapawarga.",
     fullDescription:
       "Labkes is a healthcare-integrated web portal developed for Jabar Digital Service, enabling licensed doctors to manage medical referrals, issue prescriptions, and access complete patient medical histories for citizens registered through the Sapawarga super-app. The platform prioritizes data accuracy and workflow efficiency for medical professionals.",
-    tags: ["Nuxt 3", "Healthcare", "Vue 3"],
-    tech: ["Nuxt 3", "Vue 3", "TypeScript", "REST API", "Tailwind CSS"],
+    tags: ["Next JS", "Healthcare", "Vue 3"],
+    tech: ["Next JS", "TypeScript", "Tailwind CSS", "Shadcn UI"],
     role: "Junior Frontend Engineer",
     duration: "2023 – 2024",
     challenge:
@@ -273,7 +267,7 @@ export const projects: Project[] = [
     fullDescription:
       "EZ Track is a GPS-based vehicle monitoring system developed and maintained at PT Kreasi Rekayasa Indonesia. The platform provides fleet operators with real-time vehicle location tracking, route history, and comprehensive user management features. Worked directly with clients to continuously improve and align features with operational requirements.",
     tags: ["GPS Tracking", "Fleet", "Fullstack"],
-    tech: ["Vue.js", "JavaScript", "PHP", "CodeIgniter", "MySQL", "REST API"],
+    tech: ["JavaScript", "PHP", "Laravel", "Leaflet.js", "Jquery"],
     role: "Fullstack Engineer",
     duration: "2019 – 2022",
     challenge:
@@ -298,7 +292,7 @@ export const projects: Project[] = [
     fullDescription:
       "Man-IC is a knowledge management platform built for PT Kreasi Rekayasa Indonesia to facilitate organized content management. The platform enables teams to store, categorize, and retrieve research papers, training modules, learning materials, and articles in a structured way, improving knowledge sharing across the organization.",
     tags: ["CMS", "Knowledge Management", "Fullstack"],
-    tech: ["Vue.js", "JavaScript", "PHP", "Laravel", "MySQL", "REST API"],
+    tech: ["JavaScript", "PHP", "Laravel", "MySQL", "Jquery", "CKEditor"],
     role: "Fullstack Engineer",
     duration: "2019 – 2022",
     challenge:
@@ -323,7 +317,7 @@ export const projects: Project[] = [
     fullDescription:
       "A fullstack ticketing system developed and maintained at PT Kreasi Rekayasa Indonesia. The platform supports the full lifecycle of ticket management — from issuance and tracking to resolution. Maintained system stability and performance through ongoing development and client-driven feature updates.",
     tags: ["Ticketing", "Fullstack", "PHP"],
-    tech: ["Vue.js", "JavaScript", "PHP", "CodeIgniter", "MySQL", "REST API"],
+    tech: ["Express JS", "JavaScript", "PHP", "CodeIgniter", "MySQL", "REST API"],
     role: "Fullstack Engineer",
     duration: "2019 – 2022",
     challenge:
@@ -364,7 +358,7 @@ export const projects: Project[] = [
     fullDescription:
       "Built a CMS and client website for an electrical engineering company to showcase its corporate portfolio and services. The platform enables the company to present its projects and expertise professionally, while the CMS allows the team to keep content up to date without touching the codebase.",
     tags: ["HTML", "jQuery", "CMS"],
-    tech: ["HTML", "CSS", "jQuery", "JavaScript", "REST API"],
+    tech: ["HTML", "CSS", "jQuery", "JavaScript"],
     role: "Freelance Frontend Developer",
     year: 2022,
     context: "Freelance Project",
@@ -378,7 +372,7 @@ export const projects: Project[] = [
     fullDescription:
       "Developed a student assessment system allowing educators to evaluate student performance based on predefined indicators. The platform streamlines the grading workflow and provides a structured way to record, track, and review student progress with configurable assessment criteria.",
     tags: ["Laravel", "PHP", "Education"],
-    tech: ["Laravel", "PHP", "MySQL", "REST API"],
+    tech: ["Laravel", "PHP", "Bootstrap"],
     role: "Freelance Fullstack Developer",
     year: 2022,
     context: "Freelance Project",
@@ -422,7 +416,7 @@ export const projects: Project[] = [
     fullDescription:
       "Developed an admin dashboard for an e-commerce platform, enabling product management, order tracking, and transaction monitoring with an intuitive UI. The dashboard gives store owners a clear overview of their business operations and simplifies day-to-day management tasks.",
     tags: ["Laravel", "Dashboard", "E-Commerce"],
-    tech: ["Laravel", "PHP", "MySQL", "Chart.js", "REST API"],
+    tech: ["Laravel", "PHP", "MySQL", "REST API"],
     role: "Solo Developer",
     year: 2023,
     context: "Personal Project",
