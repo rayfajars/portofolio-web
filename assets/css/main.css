@@ -473,7 +473,27 @@
   }
 
   .project-hero {
-    @apply page-padding pb-10 sm:pb-12 lg:pb-14 bg-cream;
+    @apply page-padding pb-6 sm:pb-8 lg:pb-10 bg-cream;
+  }
+
+  .project-hero--has-narrative {
+    @apply border-b border-navy/10;
+  }
+
+  .project-hero-topbar {
+    @apply flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-10;
+  }
+
+  .project-hero-backlink {
+    @apply inline-flex min-w-0 items-center gap-2 text-sm font-medium text-navy/60 hover:text-navy transition-colors focus-ring rounded-sm;
+  }
+
+  .project-hero-nav {
+    @apply flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:gap-4;
+  }
+
+  .project-hero-nav-label {
+    @apply min-w-0 max-w-[18ch] truncate sm:max-w-[22ch];
   }
 
   .project-hero-grid {
@@ -533,6 +553,56 @@
 
   .project-overview-body {
     @apply max-w-prose text-lg leading-relaxed text-cream text-pretty;
+  }
+
+  .project-detail-body {
+    @apply bg-cream pt-14 pb-12 sm:pt-16 sm:pb-16 lg:pt-20 lg:pb-20;
+  }
+
+  .project-detail-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.5rem;
+  }
+
+  @media (min-width: 1024px) {
+    .project-detail-grid {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      column-gap: 0;
+      row-gap: 0;
+    }
+
+    .project-detail-challenge {
+      @apply pr-10 xl:pr-14;
+    }
+  }
+
+  .project-detail-prose {
+    @apply text-base leading-relaxed text-navy/75 text-pretty sm:text-[1.0625rem];
+  }
+
+  .project-detail-impact {
+    @apply mt-0 pt-0;
+  }
+
+  .project-detail-impact--after-grid {
+    @apply mt-12 border-t border-navy/10 pt-12 sm:mt-14 sm:pt-14 lg:mt-16 lg:pt-16;
+  }
+
+  .project-detail-results {
+    @apply mt-4 divide-y divide-navy/10;
+  }
+
+  .project-detail-result {
+    @apply flex items-start gap-3 py-4 first:pt-0 last:pb-0;
+  }
+
+  .project-detail-result-marker {
+    @apply mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-navy;
+  }
+
+  .project-detail-result span:last-child {
+    @apply text-base leading-relaxed text-navy/80 sm:text-[1.0625rem];
   }
 
   /* Project index — editorial list browse */
@@ -701,7 +771,7 @@
   }
 
   .project-nav-bar {
-    @apply grid grid-cols-1 overflow-hidden rounded-lg border border-navy/10 sm:grid-cols-2;
+    @apply grid grid-cols-1 overflow-hidden sm:grid-cols-2;
     grid-template-columns: minmax(0, 1fr);
   }
 
@@ -716,7 +786,7 @@
   }
 
   .project-nav-item {
-    @apply flex min-w-0 flex-col gap-3 bg-cream-light p-6 focus-ring motion-safe:transition-colors motion-safe:duration-200 motion-reduce:transition-none motion-safe:hover:bg-cream sm:gap-3.5 sm:p-7;
+    @apply flex min-w-0 flex-col gap-2 bg-cream p-5 focus-ring motion-safe:transition-colors motion-safe:duration-200 motion-reduce:transition-none motion-safe:hover:bg-cream-dark/30 sm:gap-2.5 sm:py-6;
   }
 
   .project-nav-item--prev {
@@ -748,12 +818,12 @@
   }
 
   .project-nav-title {
-    @apply w-full min-w-0 font-serif text-lg leading-snug text-navy text-pretty line-clamp-2 sm:text-xl;
+    @apply w-full min-w-0 font-serif text-base leading-snug text-navy text-pretty line-clamp-2 sm:text-lg;
     letter-spacing: -0.01em;
   }
 
   .project-nav-spacer {
-    @apply min-h-full bg-cream-light sm:border-r sm:border-navy/10;
+    @apply min-h-full bg-cream sm:border-r sm:border-navy/10;
   }
 
   /* Hero — committed indigo surface + signature entrance */

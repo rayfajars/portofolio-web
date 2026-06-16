@@ -30,10 +30,14 @@ const metaLine = computed(() => {
   return parts.join(' · ');
 });
 
+const hasChallengeSolution = computed(
+  () => Boolean(project.challenge && project.solution),
+);
+
+const hasImpact = computed(() => Boolean(project.results?.length));
+
 const hasNarrativeBody = computed(
-  () =>
-    Boolean(project.challenge && project.solution)
-    || Boolean(project.results?.length),
+  () => hasChallengeSolution.value || hasImpact.value,
 );
 
 useHead({
@@ -48,15 +52,50 @@ useHead({
 
 <template>
   <article class="bg-cream">
-    <header class="project-hero">
+    <header
+      class="project-hero"
+      :class="{ 'project-hero--has-narrative': hasNarrativeBody }"
+    >
       <div class="container mx-auto max-w-6xl">
-        <NuxtLink
-          to="/projects"
-          class="inline-flex items-center gap-2 text-sm font-medium text-navy/60 hover:text-navy transition-colors focus-ring rounded-sm mb-10"
-        >
-          <ArrowLeft :size="16" aria-hidden="true" />
-          Back to projects
-        </NuxtLink>
+        <div class="project-hero-topbar">
+          <NuxtLink
+            to="/projects"
+            class="project-hero-backlink"
+          >
+            <ArrowLeft :size="16" aria-hidden="true" />
+            Back to projects
+          </NuxtLink>
+
+          <nav
+            v-if="previousProject || nextProject"
+            class="project-hero-nav"
+            aria-label="Project navigation"
+          >
+            <NuxtLink
+              v-if="previousProject"
+              :to="`/projects/${previousProject.slug}`"
+              class="project-hero-backlink group"
+            >
+              <span class="sr-only">Previous project:</span>
+              <ArrowLeft :size="16" aria-hidden="true" />
+              <span class="project-hero-nav-label motion-safe:group-hover:text-navy">
+                {{ previousProject.title }}
+              </span>
+            </NuxtLink>
+
+            <NuxtLink
+              v-if="nextProject"
+              :to="`/projects/${nextProject.slug}`"
+              class="project-hero-backlink group"
+            >
+              <span class="sr-only">Next project:</span>
+              <span class="project-hero-nav-label motion-safe:group-hover:text-navy">
+                {{ nextProject.title }}
+              </span>
+              <ArrowRight :size="16" aria-hidden="true" />
+            </NuxtLink>
+          </nav>
+        </div>
 
         <div class="project-hero-grid">
           <div class="project-hero-main">
@@ -144,102 +183,53 @@ useHead({
     </header>
 
     <div
-      v-if="hasNarrativeBody || previousProject || nextProject"
-      class="section-cream"
+      v-if="hasNarrativeBody"
+      class="project-detail-body"
     >
-      <section
-        v-if="project.challenge && project.solution"
-        class="section-padding !pb-0"
-        aria-labelledby="project-challenge"
-      >
-        <div class="container mx-auto max-w-4xl grid md:grid-cols-2 gap-10 lg:gap-16">
-          <div>
+      <div class="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div
+          v-if="hasChallengeSolution"
+          class="project-detail-grid"
+          aria-labelledby="project-challenge"
+        >
+          <div class="project-detail-challenge">
             <h2 id="project-challenge" class="case-study-heading">Challenge</h2>
-            <p class="text-lg leading-relaxed text-navy/70 text-pretty">
+            <p class="project-detail-prose">
               {{ project.challenge }}
             </p>
           </div>
-          <div>
+          <div class="project-detail-solution">
             <h2 class="case-study-heading">Solution</h2>
-            <p class="text-lg leading-relaxed text-navy/70 text-pretty">
+            <p class="project-detail-prose">
               {{ project.solution }}
             </p>
           </div>
         </div>
-      </section>
 
-      <section
-        v-if="project.results?.length"
-        class="section-padding"
-        :class="{ '!pt-12 sm:!pt-16': project.challenge && project.solution }"
-        aria-labelledby="project-impact"
-      >
-        <div class="container mx-auto max-w-4xl">
-          <h2 id="project-impact" class="case-study-heading mb-6">
+        <section
+          v-if="hasImpact"
+          class="project-detail-impact"
+          :class="{ 'project-detail-impact--after-grid': hasChallengeSolution }"
+          aria-labelledby="project-impact"
+        >
+          <h2 id="project-impact" class="case-study-heading">
             Impact
           </h2>
-          <ul class="divide-y divide-navy/10">
+          <ul class="project-detail-results">
             <li
               v-for="(result, index) in project.results"
               :key="index"
-              class="flex items-start gap-4 py-5 first:pt-0"
+              class="project-detail-result"
             >
               <span
-                class="mt-2.5 w-1.5 h-1.5 bg-navy rounded-full flex-shrink-0"
+                class="project-detail-result-marker"
                 aria-hidden="true"
               />
-              <span class="text-lg leading-relaxed text-navy/80">{{ result }}</span>
+              <span>{{ result }}</span>
             </li>
           </ul>
-        </div>
-      </section>
-
-      <section
-        v-if="previousProject || nextProject"
-        class="section-padding editorial-divide"
-        aria-label="Project navigation"
-      >
-        <div class="container mx-auto max-w-4xl">
-          <div
-            class="project-nav-bar"
-            :class="{ 'project-nav-bar--single': !previousProject || !nextProject }"
-          >
-            <NuxtLink
-              v-if="previousProject"
-              :to="`/projects/${previousProject.slug}`"
-              class="project-nav-item project-nav-item--prev group"
-            >
-              <span class="project-nav-label">
-                <ArrowLeft :size="14" aria-hidden="true" />
-                Previous
-              </span>
-              <span class="project-nav-title motion-safe:group-hover:opacity-80">
-                {{ previousProject.title }}
-              </span>
-            </NuxtLink>
-
-            <div
-              v-else
-              class="project-nav-spacer hidden sm:block"
-              aria-hidden="true"
-            />
-
-            <NuxtLink
-              v-if="nextProject"
-              :to="`/projects/${nextProject.slug}`"
-              class="project-nav-item project-nav-item--next group"
-            >
-              <span class="project-nav-label">
-                Next
-                <ArrowRight :size="14" aria-hidden="true" />
-              </span>
-              <span class="project-nav-title motion-safe:group-hover:opacity-80">
-                {{ nextProject.title }}
-              </span>
-            </NuxtLink>
-          </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </div>
   </article>
 </template>
