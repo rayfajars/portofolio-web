@@ -147,8 +147,45 @@
   }
 
   .lead-statement {
-    @apply font-serif text-2xl sm:text-3xl md:text-[2.5rem] md:leading-[1.15] leading-snug text-navy text-balance;
+    @apply font-serif text-navy text-balance;
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+  }
+
+  .section-rule {
+    @apply w-full h-px mb-8 sm:mb-10;
+    background-color: rgba(27, 33, 59, 0.12);
+  }
+
+  .section-headline-sm {
+    @apply heading-serif text-navy text-balance;
+    font-size: clamp(2rem, 4.5vw, 3.25rem);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+  }
+
+  .about-lead {
+    @apply font-serif font-normal text-navy text-pretty;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    line-height: 1.35;
     letter-spacing: -0.015em;
+  }
+
+  .about-heading {
+    @apply font-sans text-lg font-medium text-navy/75;
+  }
+
+  .about-body {
+    @apply font-sans text-base leading-relaxed text-navy/70 text-pretty;
+  }
+
+  .about-service-title {
+    @apply font-sans text-base font-semibold text-navy leading-snug;
+  }
+
+  .about-service-desc {
+    @apply font-sans text-base leading-relaxed text-navy/65 text-pretty;
   }
 
   .editorial-divide {
