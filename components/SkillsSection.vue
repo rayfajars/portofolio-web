@@ -2,6 +2,7 @@
 import type { Component } from 'vue';
 import {
   Code2,
+  Link2,
   Lock,
   Network,
   Puzzle,
@@ -24,6 +25,7 @@ const conceptIcons: Record<string, Component> = {
   'REST API Integration': Plug,
   'Feature Flagging': Flag,
   'Performance Optimization': Gauge,
+  'Deeplink': Link2,
 };
 
 const getConceptIcon = (skill: string) => conceptIcons[skill] ?? Code2;

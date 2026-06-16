@@ -108,6 +108,7 @@ export const projects: Project[] = [
       "Nuxt 3",
       "TypeScript",
       "Tailwind CSS",
+      "New Relic",
     ],
     role: "Junior Frontend Engineer",
     duration: "2022 – 2025",
@@ -159,7 +160,7 @@ export const projects: Project[] = [
     fullDescription:
       "Sapawarga is a West Java government super app serving millions of citizens. As part of the Jabar Digital Service frontend team, contributed to the Web View layer — responsive web pages that are embedded directly inside the native mobile app shell. These Web Views power features such as complaint tracking, account verification, password reset, and other citizen-facing service workflows, ensuring a consistent experience between the web and mobile platforms.",
     tags: ["Web View", "Super App", "Mobile-first"],
-    tech: ["Nuxt 2", "TypeScript", "Tailwind CSS", "SonarQube", "Unleash", "Google Analytics", "Deeplink"],
+    tech: ["Nuxt 2", "TypeScript", "Tailwind CSS", "SonarQube", "Unleash", "Google Analytics", "Deeplink", "New Relic"],
     role: "Junior Frontend Engineer",
     duration: "2022 – 2025",
     challenge:

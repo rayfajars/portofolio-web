@@ -21,14 +21,20 @@ export const skillBrandIcons: Record<string, SkillBrandIcon> = {
   'Storybook': { slug: 'storybook', color: 'FF4785' },
   'SonarQube': { slug: 'sonarqubeserver', color: '4E9BCD' },
   'Figma': { slug: 'figma', color: 'F24E1E' },
-  'ClickUp': { slug: 'clickup', color: '7B68EE' },
   'Keycloak': { slug: 'keycloak', color: '4D4D4D' },
+  'React.js': { slug: 'react', color: '61DAFB' },
+  'Next.js': { slug: 'nextdotjs', color: '000000' },
+  'Google Maps': { slug: 'googlemaps', color: '4285F4' },
+  'Google Analytics': { slug: 'googleanalytics', color: 'E37400' },
+  'Vitest': { slug: 'vitest', color: '6E9F18' },
+  'New Relic': { slug: 'newrelic', color: '1CE783' },
 };
 
 export const brandIconCategories = new Set([
   'Frontend',
   'Backend',
   'Tools & Platforms',
+  'Architecture & Concepts',
 ]);
 
 export function getSkillBrandIconUrl(skill: string): string | null {
