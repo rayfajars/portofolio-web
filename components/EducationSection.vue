@@ -1,31 +1,30 @@
 <script setup lang="ts">
-import { GraduationCap } from 'lucide-vue-next';
 import { education } from '~/data/profile';
 </script>
 
 <template>
-  <section id="education" class="py-20 px-4 sm:px-6 lg:px-8 bg-cream-dark/50">
-    <div class="container mx-auto max-w-4xl">
-      <h2 class="heading-serif text-4xl sm:text-5xl font-bold tracking-tight mb-8 text-navy">
-        Education
-      </h2>
+  <section id="education" class="section-padding section-muted">
+    <div class="container mx-auto max-w-6xl">
+      <div class="section-opener">
+        <span class="section-eyebrow">Education</span>
+      </div>
 
-      <div
-        v-for="(edu, index) in education"
-        :key="index"
-        class="flex items-start gap-4 p-6 border border-navy/10 bg-cream rounded-2xl"
-      >
-        <div class="w-12 h-12 flex items-center justify-center border border-navy/10 rounded-xl flex-shrink-0 bg-cream-light">
-          <GraduationCap :size="24" class="text-navy" />
-        </div>
-        <div>
-          <h3 class="text-lg font-bold text-navy">{{ edu.degree }}</h3>
-          <p class="text-base text-navy/60">{{ edu.field }}</p>
-          <p class="text-sm text-navy/50 mt-1">
-            {{ edu.institution }} · {{ edu.location }}
-          </p>
-          <p class="text-sm text-navy/50">{{ edu.duration }}</p>
-        </div>
+      <div class="divide-y divide-navy/10">
+        <article
+          v-for="(edu, index) in education"
+          :key="index"
+          class="grid sm:grid-cols-[200px_1fr] gap-x-8 gap-y-3 py-8 first:pt-0"
+        >
+          <div>
+            <p class="meta-val">{{ edu.duration }}</p>
+            <p class="meta-key mt-1">{{ edu.location }}</p>
+          </div>
+          <div>
+            <h3 class="font-serif text-2xl text-navy">{{ edu.degree }}</h3>
+            <p class="text-base text-navy/70 mt-1">{{ edu.field }}</p>
+            <p class="text-sm text-navy/60 mt-2">{{ edu.institution }}</p>
+          </div>
+        </article>
       </div>
     </div>
   </section>

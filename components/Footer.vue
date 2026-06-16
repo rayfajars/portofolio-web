@@ -11,7 +11,7 @@ const links = [
 </script>
 
 <template>
-  <footer id="contact" class="border-t border-navy/10 bg-cream">
+  <footer class="border-t border-navy/10 bg-cream">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
       <div class="py-8 flex flex-col md:flex-row items-center justify-between gap-4">
         <p class="text-sm text-navy/50">

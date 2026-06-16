@@ -25,29 +25,30 @@ const badge = computed(() =>
 </script>
 
 <template>
-  <Card class="group hover:shadow-card transition-all duration-300 border-navy/10 overflow-hidden rounded-2xl bg-cream-light hover:-translate-y-1 h-full">
-    <NuxtLink :to="`/projects/${slug}`" target="_blank" rel="noopener noreferrer" class="block h-full">
+  <Card class="group h-full overflow-hidden border-navy/10 bg-cream-light motion-safe:transition-[box-shadow,transform] motion-safe:duration-300 motion-reduce:transition-none motion-safe:hover:shadow-card motion-safe:hover:-translate-y-1">
+    <NuxtLink :to="`/projects/${slug}`" class="block h-full focus-ring rounded-lg">
       <CardHeader class="p-0">
         <div class="aspect-[16/10] bg-navy/5 overflow-hidden relative">
           <NuxtImg
             v-if="image"
             :src="image"
-            :alt="title"
-            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            :alt="`${title} preview`"
+            class="w-full h-full object-cover motion-safe:group-hover:scale-105 motion-safe:transition-transform motion-safe:duration-500 motion-reduce:transition-none"
+            loading="lazy"
           />
           <div
             v-else
-            class="w-full h-full flex items-center justify-center bg-gradient-to-br from-navy/5 to-navy/10"
+            class="w-full h-full flex items-center justify-center bg-navy/5"
           >
-            <span class="text-4xl font-bold text-navy/20">
+            <span class="text-4xl font-bold text-navy/20" aria-hidden="true">
               {{ title.charAt(0) }}
             </span>
           </div>
 
-          <div class="absolute inset-0 bg-navy/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+          <div class="absolute inset-0 bg-navy/70 opacity-0 motion-safe:group-hover:opacity-100 motion-safe:transition-opacity motion-safe:duration-300 motion-reduce:opacity-0 flex items-center justify-center">
             <span class="text-cream font-medium flex items-center gap-2 text-sm">
               View Details
-              <ArrowRight :size="16" />
+              <ArrowRight :size="16" aria-hidden="true" />
             </span>
           </div>
 
@@ -60,10 +61,10 @@ const badge = computed(() =>
       </CardHeader>
 
       <CardContent class="p-5">
-        <CardTitle class="text-lg mb-2 text-navy group-hover:opacity-80 transition-opacity">
+        <CardTitle class="text-lg mb-2 text-navy motion-safe:group-hover:opacity-80 motion-safe:transition-opacity">
           {{ title }}
         </CardTitle>
-        <CardDescription class="text-sm leading-relaxed text-navy/60 line-clamp-2">
+        <CardDescription class="text-sm leading-relaxed text-navy/70 line-clamp-2">
           {{ description }}
         </CardDescription>
 
@@ -71,7 +72,7 @@ const badge = computed(() =>
           <span
             v-for="tag in tags.slice(0, 3)"
             :key="tag"
-            class="text-[10px] px-2 py-0.5 rounded-full bg-navy/5 text-navy/60 font-medium"
+            class="text-[10px] px-2 py-0.5 rounded-full bg-navy/5 text-navy/70 font-medium"
           >
             {{ tag }}
           </span>
@@ -85,10 +86,10 @@ const badge = computed(() =>
         :href="repoUrl"
         target="_blank"
         rel="noopener noreferrer"
+        class="flex items-center gap-1.5 text-xs text-navy/70 hover:text-navy transition-colors focus-ring rounded-sm"
         @click.stop
-        class="flex items-center gap-1.5 text-xs text-navy/60 hover:text-navy transition-colors"
       >
-        <Github :size="14" />
+        <Github :size="14" aria-hidden="true" />
         <span>Code</span>
       </a>
 
@@ -97,10 +98,10 @@ const badge = computed(() =>
         :href="liveUrl"
         target="_blank"
         rel="noopener noreferrer"
+        class="flex items-center gap-1.5 text-xs text-navy/70 hover:text-navy transition-colors focus-ring rounded-sm"
         @click.stop
-        class="flex items-center gap-1.5 text-xs text-navy/60 hover:text-navy transition-colors"
       >
-        <ExternalLink :size="14" />
+        <ExternalLink :size="14" aria-hidden="true" />
         <span>Live Demo</span>
       </a>
     </CardFooter>

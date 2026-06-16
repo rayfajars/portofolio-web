@@ -2,21 +2,23 @@
 import { profile } from '~/data/profile';
 import { projects } from '~/data/projects';
 import { ArrowLeft } from 'lucide-vue-next';
-import { Button } from '~/components/ui/button';
 import { PROJECT_FILTERS, filterProjects, type ProjectFilter } from '~/utils/projects';
 import { computed, ref, watch } from 'vue';
 
 useHead({
   title: `Projects - ${profile.name}`,
   meta: [
-    { name: 'description', content: 'Selected projects and client work by ' + profile.name },
+    {
+      name: 'description',
+      content: `Selected company, freelance, and personal projects by ${profile.name}.`,
+    },
+    { property: 'og:title', content: `Projects - ${profile.name}` },
   ],
 });
 
 const route = useRoute();
 const router = useRouter();
 
-// Initialize from query param, fallback to 'all'
 const activeFilter = ref<ProjectFilter>(
   (route.query.filter as ProjectFilter) || 'all',
 );
@@ -32,7 +34,6 @@ const setFilter = (filter: ProjectFilter) => {
   });
 };
 
-// Sync filter if user navigates back with browser back/forward
 watch(
   () => route.query.filter,
   (val) => {
@@ -41,51 +42,65 @@ watch(
 );
 
 const filterButtonClass = (active: boolean) => [
-  'px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 border whitespace-nowrap',
-  active
-    ? 'bg-navy text-cream border-navy shadow-soft'
-    : 'bg-cream text-navy/70 border-navy/15 hover:border-navy/30 hover:text-navy',
+  'filter-chip',
+  active ? 'filter-chip-active' : 'filter-chip-inactive',
 ];
 </script>
 
 <template>
-  <div class="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-cream min-h-screen">
+  <div class="page-padding bg-cream min-h-full">
     <div class="container mx-auto max-w-6xl">
-      <div class="mb-10">
-        <NuxtLink to="/">
-          <Button variant="ghost" class="gap-2 mb-8 -ml-2">
-            <ArrowLeft :size="18" />
-            Back to Home
-          </Button>
+      <header class="mb-10">
+        <NuxtLink to="/" class="inline-flex items-center gap-2 text-sm font-medium text-navy/60 hover:text-navy transition-colors focus-ring rounded-sm mb-10">
+          <ArrowLeft :size="16" aria-hidden="true" />
+          Back to home
         </NuxtLink>
 
-        <h1 class="heading-serif text-4xl sm:text-5xl font-bold tracking-tight mb-4 text-navy">
-          All Projects
-        </h1>
-        <p class="text-lg text-navy/60 max-w-2xl">
-          A complete collection of company, freelance, and personal projects.
-        </p>
-      </div>
+        <div class="section-opener">
+          <span class="section-eyebrow">Index</span>
+        </div>
 
-      <div class="flex flex-wrap gap-2 mb-10">
+        <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+          <h1 class="heading-serif text-4xl sm:text-5xl md:text-6xl text-navy text-balance">
+            All Projects
+          </h1>
+          <p class="meta-val text-navy/55">{{ filteredProjects.length }} of {{ projects.length }}</p>
+        </div>
+
+        <p class="section-lead mt-4">
+          Company, freelance, and personal work across dashboards, design
+          systems, and multi-tenant platforms.
+        </p>
+      </header>
+
+      <div
+        role="group"
+        aria-label="Filter projects"
+        class="flex flex-wrap gap-2 mb-10"
+      >
         <button
           v-for="filter in PROJECT_FILTERS"
           :key="filter.value"
-          @click="setFilter(filter.value)"
+          type="button"
+          :aria-pressed="activeFilter === filter.value"
           :class="filterButtonClass(activeFilter === filter.value)"
+          @click="setFilter(filter.value)"
         >
           {{ filter.label }}
         </button>
       </div>
 
-      <div
+      <p
         v-if="filteredProjects.length === 0"
-        class="text-center py-16 text-navy/50"
+        class="text-center py-16 meta-copy"
       >
-        No projects found for this filter.
-      </div>
+        No projects match this filter.
+      </p>
 
-      <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div
+        v-else
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+      >
         <ProjectCard
           v-for="project in filteredProjects"
           :key="project.id"

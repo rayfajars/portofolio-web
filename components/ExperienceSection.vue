@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { experiences } from '~/data/experience';
-import { Briefcase } from 'lucide-vue-next';
 import { ref, computed } from 'vue';
 
 type ExperienceType = 'fulltime' | 'freelance';
@@ -24,97 +23,102 @@ const displayedExperiences = computed(() =>
 const setActiveTab = (tab: ExperienceType) => {
   activeTab.value = tab;
 };
+
+const tabButtonClass = (tab: ExperienceType) => [
+  'pb-3 px-1 text-lg font-medium transition-colors duration-300 motion-reduce:transition-none focus-ring rounded-sm border-b-2',
+  activeTab.value === tab
+    ? 'text-navy border-navy'
+    : 'text-navy/60 hover:text-navy border-transparent',
+];
 </script>
 
 <template>
-  <section id="experience" class="py-20 px-4 sm:px-6 lg:px-8 bg-cream">
-    <div class="container mx-auto max-w-4xl">
-      <h2 class="heading-serif text-4xl sm:text-5xl font-bold tracking-tight mb-8 text-navy">
-        Work Experience
+  <section id="experience" class="section-padding section-cream">
+    <div class="container mx-auto max-w-6xl">
+      <div class="section-opener">
+        <span class="section-eyebrow">Experience</span>
+      </div>
+
+      <h2 class="heading-serif text-4xl sm:text-5xl text-navy mb-10 text-balance">
+        Where I've shipped
       </h2>
 
-      <div class="flex gap-8 mb-12 border-b border-navy/10">
+      <div
+        role="tablist"
+        aria-label="Experience type"
+        class="flex gap-8 mb-12 border-b border-navy/10"
+      >
         <button
+          id="tab-fulltime"
+          role="tab"
+          type="button"
+          :aria-selected="activeTab === 'fulltime'"
+          aria-controls="experience-panel"
+          :class="tabButtonClass('fulltime')"
           @click="setActiveTab('fulltime')"
-          :class="[
-            'pb-3 px-1 text-lg font-medium transition-all',
-            activeTab === 'fulltime'
-              ? 'text-navy border-b-2 border-navy'
-              : 'text-navy/50 hover:text-navy',
-          ]"
         >
-          Fulltime
-          <span class="ml-2 text-sm">({{ fulltimeExperiences.length }})</span>
+          Full-time
+          <span class="ml-2 text-sm text-navy/55">({{ fulltimeExperiences.length }})</span>
         </button>
 
         <button
+          id="tab-freelance"
+          role="tab"
+          type="button"
+          :aria-selected="activeTab === 'freelance'"
+          aria-controls="experience-panel"
+          :class="tabButtonClass('freelance')"
           @click="setActiveTab('freelance')"
-          :class="[
-            'pb-3 px-1 text-lg font-medium transition-all',
-            activeTab === 'freelance'
-              ? 'text-navy border-b-2 border-navy'
-              : 'text-navy/50 hover:text-navy',
-          ]"
         >
           Freelance
-          <span class="ml-2 text-sm">({{ freelanceExperiences.length }})</span>
+          <span class="ml-2 text-sm text-navy/55">({{ freelanceExperiences.length }})</span>
         </button>
       </div>
 
       <Transition
         mode="out-in"
-        enter-active-class="transition-all duration-200 ease-out"
-        enter-from-class="opacity-0 translate-y-4"
+        enter-active-class="motion-safe:transition-all motion-safe:duration-200 motion-safe:ease-out"
+        enter-from-class="motion-safe:opacity-0 motion-safe:translate-y-4"
         enter-to-class="opacity-100 translate-y-0"
-        leave-active-class="transition-all duration-150 ease-in"
+        leave-active-class="motion-safe:transition-all motion-safe:duration-150 motion-safe:ease-in"
         leave-from-class="opacity-100 translate-y-0"
-        leave-to-class="opacity-0 -translate-y-4"
+        leave-to-class="motion-safe:opacity-0 motion-safe:-translate-y-4"
       >
-        <div :key="activeTab" class="space-y-8">
-          <div
+        <div
+          id="experience-panel"
+          role="tabpanel"
+          :aria-labelledby="activeTab === 'fulltime' ? 'tab-fulltime' : 'tab-freelance'"
+          :key="activeTab"
+          class="divide-y divide-navy/10"
+        >
+          <article
             v-for="exp in displayedExperiences"
             :key="exp.id"
-            class="relative pl-8 pb-8 border-l-2 border-navy/15 last:pb-0"
+            class="grid sm:grid-cols-[200px_1fr] gap-x-8 gap-y-3 py-10 first:pt-0"
           >
-            <div class="absolute -left-[9px] top-0 w-4 h-4 bg-navy border-2 border-cream rounded-full" />
+            <div>
+              <p class="meta-val">{{ exp.duration }}</p>
+              <p class="meta-key mt-1">{{ exp.company }}</p>
+            </div>
 
-            <div class="space-y-3">
-              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-                <h3 class="text-xl font-bold text-navy">{{ exp.position }}</h3>
-                <span class="text-sm text-navy/50">{{ exp.duration }}</span>
-              </div>
-
-              <div class="flex items-center gap-3 text-navy/60">
-                <div
-                  v-if="exp.logo"
-                  class="w-8 h-8 rounded-lg overflow-hidden border border-navy/10 bg-cream flex-shrink-0"
-                >
-                  <NuxtImg
-                    :src="exp.logo"
-                    :alt="exp.company"
-                    class="w-full h-full object-contain"
-                  />
-                </div>
-                <Briefcase v-else :size="16" />
-                <span class="font-medium">{{ exp.company }}</span>
-              </div>
-
-              <p class="text-base leading-relaxed text-navy/70">
+            <div>
+              <h3 class="font-serif text-2xl text-navy mb-3">{{ exp.position }}</h3>
+              <p class="text-base leading-relaxed text-navy/70 max-w-prose">
                 {{ exp.description }}
               </p>
 
-              <ul v-if="exp.highlights?.length" class="space-y-2 mt-4">
+              <ul v-if="exp.highlights?.length" class="mt-5 space-y-2.5">
                 <li
                   v-for="(highlight, hIndex) in exp.highlights"
                   :key="hIndex"
-                  class="flex items-start gap-2 text-sm text-navy/60"
+                  class="flex items-start gap-3 text-sm leading-relaxed text-navy/70"
                 >
-                  <span class="mt-1.5 w-1.5 h-1.5 bg-navy rounded-full flex-shrink-0" />
+                  <span class="mt-2 w-1.5 h-1.5 bg-navy/70 rounded-full flex-shrink-0" aria-hidden="true" />
                   <span>{{ highlight }}</span>
                 </li>
               </ul>
             </div>
-          </div>
+          </article>
         </div>
       </Transition>
     </div>

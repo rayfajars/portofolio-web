@@ -17,9 +17,9 @@ type NavItem =
   | { label: string; type: 'link'; to: string };
 
 const navItems: NavItem[] = [
-  { label: 'Home', type: 'scroll', target: 'hero' },
   { label: 'About', type: 'scroll', target: 'about' },
   { label: 'Experience', type: 'scroll', target: 'experience' },
+  { label: 'Work', type: 'scroll', target: 'projects' },
   { label: 'Projects', type: 'link', to: '/projects' },
 ];
 

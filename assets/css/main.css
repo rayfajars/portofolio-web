@@ -11,6 +11,12 @@
     scroll-behavior: smooth;
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
   body {
     @apply bg-cream text-navy font-sans antialiased;
   }
@@ -21,16 +27,51 @@
     @apply bg-cream text-navy;
   }
 
+  .section-muted {
+    @apply bg-cream-dark/50 text-navy;
+  }
+
   .section-navy {
     @apply bg-navy text-cream;
   }
 
+  .section-padding {
+    @apply py-20 px-4 sm:px-6 lg:px-8;
+  }
+
   .heading-serif {
-    @apply font-serif font-bold tracking-tight;
+    @apply font-serif font-bold;
+    letter-spacing: -0.02em;
+  }
+
+  .heading-display {
+    @apply heading-serif text-navy leading-[1.05] text-balance;
+    font-size: clamp(3rem, 8vw, 6rem);
+    letter-spacing: -0.03em;
+  }
+
+  .section-headline {
+    @apply heading-serif text-4xl sm:text-5xl text-navy mb-8 text-balance;
+  }
+
+  .section-lead {
+    @apply text-lg text-navy/70 max-w-2xl leading-relaxed;
+  }
+
+  .body-copy {
+    @apply text-lg leading-relaxed text-navy/70 max-w-prose;
+  }
+
+  .meta-copy {
+    @apply text-sm text-navy/60;
+  }
+
+  .focus-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy/30 focus-visible:ring-offset-2 focus-visible:ring-offset-cream;
   }
 
   .pill-btn {
-    @apply inline-flex items-center justify-center rounded-full font-medium transition-all duration-300;
+    @apply inline-flex items-center justify-center rounded-full font-medium transition-colors duration-300 motion-reduce:transition-none;
   }
 
   .pill-btn-dark {
@@ -42,10 +83,83 @@
   }
 
   .skill-card {
-    @apply flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-cream-light shadow-soft text-sm font-bold text-navy transition-transform duration-300 hover:-translate-y-1;
+    @apply flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 rounded-xl bg-cream-light border border-navy/10 text-sm font-bold text-navy transition-[border-color,transform] duration-300 motion-reduce:transition-none hover:border-navy/20 motion-safe:hover:-translate-y-0.5;
   }
 
   .social-pill {
-    @apply inline-flex items-center gap-2 px-4 py-2 rounded-full bg-navy text-cream text-sm font-medium hover:bg-navy-light transition-colors duration-300;
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-full bg-navy text-cream text-sm font-medium hover:bg-navy-light transition-colors duration-300 motion-reduce:transition-none;
+  }
+
+  .carousel-control {
+    @apply flex items-center justify-center w-11 h-11 rounded-full bg-cream text-navy border border-navy/10 transition-[background-color,box-shadow,transform] duration-300 motion-reduce:transition-none focus-ring hover:bg-cream-dark motion-safe:hover:shadow-card motion-safe:hover:-translate-y-0.5;
+  }
+
+  .page-padding {
+    @apply py-12 sm:py-16 px-4 sm:px-6 lg:px-8;
+  }
+
+  .filter-chip {
+    @apply px-4 py-2 rounded-full text-sm font-medium border whitespace-nowrap transition-colors duration-300 motion-reduce:transition-none focus-ring;
+  }
+
+  .filter-chip-active {
+    @apply bg-navy text-cream border-navy;
+  }
+
+  .filter-chip-inactive {
+    @apply bg-cream text-navy/70 border-navy/15 hover:border-navy/30 hover:text-navy;
+  }
+
+  .content-card {
+    @apply p-6 rounded-lg bg-cream-light border border-navy/10;
+  }
+
+  .nav-card {
+    @apply block p-6 rounded-lg border border-navy/10 bg-cream-light motion-safe:transition-[border-color,transform] motion-safe:duration-300 motion-reduce:transition-none focus-ring motion-safe:hover:border-navy/25 motion-safe:hover:-translate-y-0.5;
+  }
+
+  /* Editorial section system — a deliberate, consistent masthead device:
+     a hairline rule with a small label, paired with a serif headline. */
+  .section-opener {
+    @apply flex items-center gap-4 mb-6;
+  }
+
+  .section-opener::after {
+    content: "";
+    @apply flex-1 h-px bg-navy/15;
+  }
+
+  .section-opener-light {
+    @apply flex items-center gap-4 mb-6;
+  }
+
+  .section-opener-light::after {
+    content: "";
+    @apply flex-1 h-px bg-cream/20;
+  }
+
+  .section-eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.18em] text-navy/55 whitespace-nowrap;
+  }
+
+  .section-eyebrow-light {
+    @apply text-xs font-semibold uppercase tracking-[0.18em] text-cream/55 whitespace-nowrap;
+  }
+
+  .lead-statement {
+    @apply font-serif text-2xl sm:text-3xl md:text-[2.5rem] md:leading-[1.15] leading-snug text-navy text-balance;
+    letter-spacing: -0.015em;
+  }
+
+  .editorial-divide {
+    @apply border-t border-navy/10;
+  }
+
+  .meta-key {
+    @apply text-xs font-semibold uppercase tracking-[0.14em] text-navy/45 mb-1;
+  }
+
+  .meta-val {
+    @apply text-sm font-medium text-navy;
   }
 }
