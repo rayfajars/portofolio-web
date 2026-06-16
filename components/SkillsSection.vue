@@ -45,7 +45,7 @@ const getFallbackIcon = (category: string, skill: string) => {
       </div>
 
       <h2 class="heading-serif text-4xl sm:text-5xl text-navy mb-10 text-balance">
-        Tools of the trade
+        What I build with
       </h2>
 
       <div class="divide-y divide-navy/10">
@@ -58,13 +58,14 @@ const getFallbackIcon = (category: string, skill: string) => {
             {{ group.category }}
           </h3>
 
-          <ul class="flex flex-wrap gap-2.5">
+          <ul class="flex flex-wrap gap-2">
             <li
-              v-for="skill in group.items"
+              v-for="(skill, index) in group.items"
               :key="skill"
-              class="inline-flex items-center gap-2 pl-2 pr-3.5 py-1.5 rounded-full border border-navy/15 bg-cream-light text-sm font-medium text-navy"
+              class="skill-chip"
+              :style="{ '--chip-i': index }"
             >
-              <span class="w-6 h-6 rounded-md bg-white flex items-center justify-center flex-shrink-0 border border-navy/5">
+              <span class="skill-chip-icon">
                 <img
                   v-if="usesBrandIcon(group.category, skill)"
                   :src="getSkillBrandIconUrl(skill)!"
@@ -82,7 +83,7 @@ const getFallbackIcon = (category: string, skill: string) => {
                   aria-hidden="true"
                 />
               </span>
-              {{ skill }}
+              <span class="skill-chip-label">{{ skill }}</span>
             </li>
           </ul>
         </div>
