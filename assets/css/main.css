@@ -7,8 +7,18 @@
     @apply border-border;
   }
 
+  :root {
+    --site-header-height: 5rem;
+    --scroll-section-gutter: 4.5rem;
+  }
+
   html {
     scroll-behavior: smooth;
+  }
+
+  /* Navbar / hash scroll: clear sticky header + breathing room before section content */
+  section[id]:not(#hero) {
+    scroll-margin-top: calc(var(--site-header-height) + var(--scroll-section-gutter));
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -36,7 +46,7 @@
   }
 
   .section-padding {
-    @apply py-20 px-4 sm:px-6 lg:px-8;
+    @apply pt-28 pb-20 px-4 sm:px-6 lg:px-8 sm:pt-36;
   }
 
   .heading-serif {
@@ -188,7 +198,7 @@
   /* Editorial section system — a deliberate, consistent masthead device:
      a hairline rule with a small label, paired with a serif headline. */
   .section-opener {
-    @apply flex items-center gap-4 mb-6;
+    @apply flex items-center gap-4 mb-10 pt-2;
   }
 
   .section-opener::after {
@@ -197,7 +207,7 @@
   }
 
   .section-opener-light {
-    @apply flex items-center gap-4 mb-6;
+    @apply flex items-center gap-4 mb-10 pt-2;
   }
 
   .section-opener-light::after {

@@ -1,6 +1,13 @@
 <script setup lang="ts">
-import { ArrowUpRight } from 'lucide-vue-next';
+import { ArrowUpRight, Github, Linkedin, BookOpen } from 'lucide-vue-next';
+import type { Component } from 'vue';
 import { profile, socialLinks } from '~/data/profile';
+
+const socialIcons: Record<string, Component> = {
+  GitHub: Github,
+  LinkedIn: Linkedin,
+  Medium: BookOpen,
+};
 </script>
 
 <template>
@@ -40,8 +47,9 @@ import { profile, socialLinks } from '~/data/profile';
                 :href="link.href"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="text-sm font-medium text-cream/70 hover:text-cream transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cream/40 focus-visible:ring-offset-2 focus-visible:ring-offset-navy rounded-sm"
+                class="inline-flex items-center gap-2 text-sm font-medium text-cream/70 hover:text-cream transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cream/40 focus-visible:ring-offset-2 focus-visible:ring-offset-navy rounded-sm"
               >
+                <component :is="socialIcons[link.label]" :size="16" aria-hidden="true" />
                 {{ link.label }}
               </a>
             </li>
