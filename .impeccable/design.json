@@ -1,0 +1,273 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-06-16T00:00:00.000Z",
+  "title": "Design System: Ray Fajar Salinggih Portfolio",
+  "extensions": {
+    "colorMeta": {
+      "indigo-deep": {
+        "role": "primary",
+        "displayName": "Deep Indigo",
+        "canonical": "oklch(22% 0.04 264)",
+        "tonalRamp": [
+          "oklch(12% 0.03 264)",
+          "oklch(17% 0.03 264)",
+          "oklch(22% 0.04 264)",
+          "oklch(26% 0.04 264)",
+          "oklch(32% 0.04 264)",
+          "oklch(42% 0.03 264)",
+          "oklch(58% 0.02 264)",
+          "oklch(78% 0.01 264)"
+        ]
+      },
+      "indigo-mid": {
+        "role": "primary",
+        "displayName": "Indigo Mid",
+        "canonical": "oklch(26% 0.04 264)",
+        "tonalRamp": [
+          "oklch(12% 0.03 264)",
+          "oklch(17% 0.03 264)",
+          "oklch(22% 0.04 264)",
+          "oklch(26% 0.04 264)",
+          "oklch(32% 0.04 264)",
+          "oklch(42% 0.03 264)",
+          "oklch(58% 0.02 264)",
+          "oklch(78% 0.01 264)"
+        ]
+      },
+      "indigo-ink": {
+        "role": "primary",
+        "displayName": "Indigo Ink",
+        "canonical": "oklch(17% 0.03 264)",
+        "tonalRamp": [
+          "oklch(10% 0.02 264)",
+          "oklch(14% 0.03 264)",
+          "oklch(17% 0.03 264)",
+          "oklch(22% 0.04 264)",
+          "oklch(28% 0.04 264)",
+          "oklch(38% 0.03 264)",
+          "oklch(55% 0.02 264)",
+          "oklch(75% 0.01 264)"
+        ]
+      },
+      "bone-base": {
+        "role": "neutral",
+        "displayName": "Warm Bone",
+        "canonical": "oklch(96% 0.012 95)",
+        "tonalRamp": [
+          "oklch(82% 0.018 95)",
+          "oklch(86% 0.016 95)",
+          "oklch(90% 0.014 95)",
+          "oklch(92% 0.015 95)",
+          "oklch(94% 0.013 95)",
+          "oklch(96% 0.012 95)",
+          "oklch(98% 0.008 95)",
+          "oklch(99% 0.005 95)"
+        ]
+      },
+      "bone-light": {
+        "role": "neutral",
+        "displayName": "Bone Light",
+        "canonical": "oklch(98% 0.008 95)",
+        "tonalRamp": [
+          "oklch(82% 0.018 95)",
+          "oklch(86% 0.016 95)",
+          "oklch(90% 0.014 95)",
+          "oklch(92% 0.015 95)",
+          "oklch(94% 0.013 95)",
+          "oklch(96% 0.012 95)",
+          "oklch(98% 0.008 95)",
+          "oklch(99% 0.005 95)"
+        ]
+      },
+      "bone-muted": {
+        "role": "neutral",
+        "displayName": "Bone Muted",
+        "canonical": "oklch(92% 0.015 95)",
+        "tonalRamp": [
+          "oklch(82% 0.018 95)",
+          "oklch(86% 0.016 95)",
+          "oklch(90% 0.014 95)",
+          "oklch(92% 0.015 95)",
+          "oklch(94% 0.013 95)",
+          "oklch(96% 0.012 95)",
+          "oklch(98% 0.008 95)",
+          "oklch(99% 0.005 95)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Hero name only. Playfair Display at clamp(3rem, 8vw, 6rem)."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section titles — About, Projects, Experience, Skills, Education."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Card titles, job positions, degree names."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Paragraphs and descriptions. Inter at 1.125rem, max 65–75ch."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Skill category headers. Uppercase, tracked. One per section max."
+      }
+    },
+    "shadows": [
+      {
+        "name": "soft",
+        "value": "0 4px 24px rgba(27, 33, 59, 0.08)",
+        "purpose": "Ambient shadow on primary buttons at rest."
+      },
+      {
+        "name": "card",
+        "value": "0 8px 32px rgba(27, 33, 59, 0.12)",
+        "purpose": "Structural hover elevation on cards, carousel controls, button hover."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-standard",
+        "value": "cubic-bezier(0.4, 0, 0.2, 1)",
+        "purpose": "Default transition for color and opacity changes (300ms)."
+      },
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+        "purpose": "Enter transitions for mobile nav and tab content (200ms)."
+      },
+      {
+        "name": "lift-hover",
+        "value": "transform: translateY(-4px)",
+        "purpose": "Project card and skill tile hover lift."
+      }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Main CTA — See My Work, Get in Touch.",
+      "html": "<button class=\"ds-btn-primary\">See My Work<svg class=\"ds-btn-icon\" xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 48px; padding: 0 32px; background: #1B213B; color: #F5F2E9; font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-size: 1rem; font-weight: 500; border: none; border-radius: 9999px; cursor: pointer; box-shadow: 0 4px 24px rgba(27, 33, 59, 0.08); transition: background 300ms, box-shadow 300ms, transform 300ms; } .ds-btn-primary:hover { background: #252D4A; box-shadow: 0 8px 32px rgba(27, 33, 59, 0.12); } .ds-btn-primary:focus-visible { outline: none; box-shadow: 0 0 0 2px rgba(27, 33, 59, 0.3); } .ds-btn-icon { flex-shrink: 0; transition: transform 300ms; } .ds-btn-primary:hover .ds-btn-icon { transform: translateX(4px); }"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Secondary action — Download CV, See All projects.",
+      "html": "<button class=\"ds-btn-outline\"><svg class=\"ds-btn-icon\" xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\"/><polyline points=\"7 10 12 15 17 10\"/><line x1=\"12\" x2=\"12\" y1=\"15\" y2=\"3\"/></svg>Download My CV</button>",
+      "css": ".ds-btn-outline { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 48px; padding: 0 32px; background: transparent; color: #1B213B; font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-size: 1rem; font-weight: 500; border: 2px solid rgba(27, 33, 59, 0.2); border-radius: 9999px; cursor: pointer; transition: background 300ms; } .ds-btn-outline:hover { background: rgba(27, 33, 59, 0.05); } .ds-btn-outline:focus-visible { outline: none; box-shadow: 0 0 0 2px rgba(27, 33, 59, 0.3); }"
+    },
+    {
+      "name": "Project Card",
+      "kind": "card",
+      "refersTo": "card-default",
+      "description": "Featured work card with image, title, tags, and hover overlay.",
+      "html": "<article class=\"ds-project-card\"><div class=\"ds-project-card-image\"><span class=\"ds-project-card-badge\">Enterprise</span></div><div class=\"ds-project-card-body\"><h3 class=\"ds-project-card-title\">Fleet Monitoring Dashboard</h3><p class=\"ds-project-card-desc\">Real-time operational dashboard for government fleet tracking.</p><div class=\"ds-project-card-tags\"><span class=\"ds-tag\">Vue.js</span><span class=\"ds-tag\">Nuxt.js</span></div></div></article>",
+      "css": ".ds-project-card { background: #FAF8F3; border: 1px solid rgba(27, 33, 59, 0.1); border-radius: 16px; overflow: hidden; transition: box-shadow 300ms, transform 300ms; } .ds-project-card:hover { box-shadow: 0 8px 32px rgba(27, 33, 59, 0.12); transform: translateY(-4px); } .ds-project-card-image { aspect-ratio: 16/10; background: rgba(27, 33, 59, 0.05); position: relative; } .ds-project-card-badge { position: absolute; top: 12px; right: 12px; padding: 4px 10px; background: #1B213B; color: #F5F2E9; font-family: Inter, sans-serif; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; border-radius: 9999px; } .ds-project-card-body { padding: 20px; } .ds-project-card-title { font-family: Inter, sans-serif; font-size: 1.125rem; font-weight: 700; color: #1B213B; margin: 0 0 8px; } .ds-project-card-desc { font-family: Inter, sans-serif; font-size: 0.875rem; line-height: 1.5; color: rgba(27, 33, 59, 0.6); margin: 0; } .ds-project-card-tags { display: flex; gap: 6px; margin-top: 12px; } .ds-tag { font-size: 10px; padding: 2px 8px; border-radius: 9999px; background: rgba(27, 33, 59, 0.05); color: rgba(27, 33, 59, 0.6); font-weight: 500; }"
+    },
+    {
+      "name": "Skill Tile",
+      "kind": "chip",
+      "refersTo": "card-default",
+      "description": "Skill grid item with icon well and label.",
+      "html": "<div class=\"ds-skill-tile\"><div class=\"ds-skill-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#1B213B\" stroke-width=\"2\"><polyline points=\"16 18 22 12 16 6\"/><polyline points=\"8 6 2 12 8 18\"/></svg></div><span class=\"ds-skill-label\">Vue.js</span></div>",
+      "css": ".ds-skill-tile { display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: #FAF8F3; border: 1px solid rgba(27, 33, 59, 0.1); border-radius: 12px; transition: border-color 300ms, box-shadow 300ms; } .ds-skill-tile:hover { border-color: rgba(27, 33, 59, 0.2); box-shadow: 0 4px 24px rgba(27, 33, 59, 0.08); } .ds-skill-icon { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; background: #fff; border: 1px solid rgba(27, 33, 59, 0.05); border-radius: 8px; flex-shrink: 0; } .ds-skill-label { font-family: Inter, sans-serif; font-size: 0.875rem; font-weight: 500; color: #1B213B; }"
+    },
+    {
+      "name": "Navigation Header",
+      "kind": "nav",
+      "refersTo": "button-primary",
+      "description": "Sticky header with serif logo, nav links, and CTA.",
+      "html": "<header class=\"ds-nav\"><span class=\"ds-nav-logo\">RFS.</span><nav class=\"ds-nav-links\"><a href=\"#about\" class=\"ds-nav-link\">About</a><a href=\"#experience\" class=\"ds-nav-link\">Experience</a><a href=\"/projects\" class=\"ds-nav-link\">Projects</a></nav><button class=\"ds-nav-cta\">Get in Touch</button></header>",
+      "css": ".ds-nav { display: flex; align-items: center; justify-content: space-between; height: 80px; padding: 0 32px; background: rgba(245, 242, 233, 0.9); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(27, 33, 59, 0.05); } .ds-nav-logo { font-family: 'Playfair Display', Georgia, serif; font-size: 1.5rem; font-weight: 700; color: #1B213B; } .ds-nav-links { display: flex; gap: 32px; } .ds-nav-link { font-family: Inter, sans-serif; font-size: 0.875rem; font-weight: 500; color: rgba(27, 33, 59, 0.7); text-decoration: none; transition: color 300ms; } .ds-nav-link:hover { color: #1B213B; } .ds-nav-cta { height: 48px; padding: 0 32px; background: #1B213B; color: #F5F2E9; font-family: Inter, sans-serif; font-size: 1rem; font-weight: 500; border: none; border-radius: 9999px; cursor: pointer; box-shadow: 0 4px 24px rgba(27, 33, 59, 0.08); transition: background 300ms; } .ds-nav-cta:hover { background: #252D4A; }"
+    },
+    {
+      "name": "Section Headline",
+      "kind": "custom",
+      "refersTo": "headline",
+      "description": "Playfair Display section title pattern.",
+      "html": "<h2 class=\"ds-headline\">Featured Work</h2>",
+      "css": ".ds-headline { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(2.25rem, 5vw, 3rem); font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; color: #1B213B; margin: 0; }"
+    },
+    {
+      "name": "Experience Tab",
+      "kind": "custom",
+      "refersTo": "button-outline",
+      "description": "Tab control for Fulltime / Freelance experience toggle.",
+      "html": "<div class=\"ds-tabs\"><button class=\"ds-tab ds-tab-active\">Fulltime <span class=\"ds-tab-count\">(3)</span></button><button class=\"ds-tab\">Freelance <span class=\"ds-tab-count\">(2)</span></button></div>",
+      "css": ".ds-tabs { display: flex; gap: 32px; border-bottom: 1px solid rgba(27, 33, 59, 0.1); } .ds-tab { padding: 0 4px 12px; background: none; border: none; font-family: Inter, sans-serif; font-size: 1.125rem; font-weight: 500; color: rgba(27, 33, 59, 0.5); cursor: pointer; border-bottom: 2px solid transparent; transition: color 300ms, border-color 300ms; } .ds-tab:hover { color: #1B213B; } .ds-tab-active { color: #1B213B; border-bottom-color: #1B213B; } .ds-tab-count { font-size: 0.875rem; margin-left: 8px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Midnight Draft",
+    "overview": "This system treats the portfolio as a working draft under desk lamp light: deep indigo ink on warm bone paper, serif headlines with technical precision underneath. Boldness comes from contrast and structure — not spectacle. The site reads like an editorial developer portfolio where every spacing decision and transition proves frontend craft.\n\nThe palette rejects warm-neutral AI defaults in naming and intent: bone surfaces carry a cool indigo tint, not generic cream. Motion and hover lift do the work that decorative effects would otherwise attempt. PRODUCT.md's anti-reference holds: no glassmorphism, gradient text, or gratuitous animation.",
+    "keyCharacteristics": [
+      "Deep indigo + warm bone — ink-on-paper authority with cool undertone",
+      "Playfair Display display / Inter body — editorial headline, technical body",
+      "Structural elevation — flat surfaces at rest; shadow-card on interactive hover",
+      "Pill CTAs, 12–16px container corners — technical-precise, not over-rounded",
+      "Section rhythm via tonal shifts instead of nested cards"
+    ],
+    "rules": [
+      {
+        "name": "The Two-Ink Rule",
+        "body": "Only indigo and bone (plus opacity steps) appear on any screen. Skill brand colors stay inside icon tiles only — never as UI chrome.",
+        "section": "colors"
+      },
+      {
+        "name": "The Contrast Rule",
+        "body": "Body text on bone must hit WCAG 2.1 AAA (7:1). Muted copy at navy/70% is the floor for paragraph text; navy/50% is metadata only.",
+        "section": "colors"
+      },
+      {
+        "name": "The Display Floor Rule",
+        "body": "Display letter-spacing never goes below -0.04em. Tighter tracking makes serif letters touch and reads cramped, not designed.",
+        "section": "typography"
+      },
+      {
+        "name": "The One Kicker Rule",
+        "body": "At most one uppercase tracked label per page section. Repeated eyebrow kickers on every section is AI grammar — avoid.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat-By-Default Rule",
+        "body": "No element ships with both a 1px border and a wide soft shadow. Pick one depth signal: border tint OR shadow, never both as decoration.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Motion-Over-Shadow Rule",
+        "body": "Prefer translateY(-4px) and opacity transitions for feedback. Shadows confirm elevation; motion carries the interaction.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do use deep indigo on warm bone for all primary UI — the two-ink system is the brand.",
+      "Do lead with Playfair Display at display scale for hero and section headlines; Inter for everything else.",
+      "Do keep surfaces flat at rest and apply shadow-card only on hover/focus for interactive elements.",
+      "Do use motion (translateY, opacity, 300ms ease-out) as the primary interaction feedback.",
+      "Do maintain WCAG 2.1 AAA contrast — bump muted text toward ink when in doubt.",
+      "Do alternate section backgrounds with tonal shifts for rhythm without nested cards."
+    ],
+    "donts": [
+      "Don't ship over-designed, flashy portfolios: heavy gratuitous animation, glassmorphism, gradient text, or decorative effects that obscure the work.",
+      "Don't pair border: 1px solid with wide soft shadows on the same element — the ghost-card pattern is prohibited.",
+      "Don't use background-clip: text gradient text for emphasis. Solid indigo, weight, or size only.",
+      "Don't put uppercase tracked eyebrow labels above every section — one kicker per page maximum.",
+      "Don't exceed 16px border-radius on cards and containers. Full pill is for buttons and tags only.",
+      "Don't use side-stripe borders (border-left > 1px colored accent) on cards or list items.",
+      "Don't gate content visibility on animation — all content must be visible by default for reduced-motion and SSR."
+    ]
+  }
+}

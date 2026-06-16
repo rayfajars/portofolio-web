@@ -11,13 +11,7 @@ useHead({
 });
 
 const route = useRoute();
-
-const scrollToSection = (id: string) => {
-  const element = document.getElementById(id);
-  if (element) {
-    element.scrollIntoView({ behavior: 'smooth' });
-  }
-};
+const { scrollToSection } = useScrollToSection();
 
 onMounted(() => {
   const hash = route.hash?.replace('#', '');
@@ -44,6 +38,6 @@ watch(
     <ExperienceSection />
     <ProjectsSection />
     <SkillsSection />
-    <EducationSection />
+    <CTASection />
   </div>
 </template>

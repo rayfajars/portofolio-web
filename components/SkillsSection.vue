@@ -2,6 +2,7 @@
 import type { Component } from 'vue';
 import {
   Code2,
+  Link2,
   Lock,
   Network,
   Puzzle,
@@ -9,10 +10,12 @@ import {
   Plug,
   Gauge,
   Flag,
-  Shield,
 } from 'lucide-vue-next';
 import { skillGroups } from '~/data/profile';
 import { getSkillBrandIconUrl, usesBrandIcon } from '~/utils/skillBrands';
+
+const sectionRef = ref<HTMLElement | null>(null);
+const { isInView } = useSectionReveal(sectionRef);
 
 const conceptIcons: Record<string, Component> = {
   'RBAC': Lock,
@@ -22,13 +25,13 @@ const conceptIcons: Record<string, Component> = {
   'REST API Integration': Plug,
   'Feature Flagging': Flag,
   'Performance Optimization': Gauge,
+  'Deeplink': Link2,
 };
 
 const getConceptIcon = (skill: string) => conceptIcons[skill] ?? Code2;
 
 const toolFallbackIcons: Record<string, Component> = {
   Unleash: Flag,
-  // Keycloak: Shield,
 };
 
 const getFallbackIcon = (category: string, skill: string) => {
@@ -40,42 +43,63 @@ const getFallbackIcon = (category: string, skill: string) => {
 </script>
 
 <template>
-  <section id="skills" class="py-20 px-4 sm:px-6 lg:px-8 bg-cream">
-    <div class="container mx-auto max-w-4xl">
-      <h2 class="heading-serif text-4xl sm:text-5xl font-bold tracking-tight mb-10 text-navy">
-        Skills & Technologies
+  <section
+    id="skills"
+    ref="sectionRef"
+    class="section-padding section-cream section-reveal"
+    :class="{ 'is-inview': isInView }"
+  >
+    <div class="container mx-auto max-w-6xl">
+      <div class="section-opener">
+        <span class="section-eyebrow reveal-fade" style="--reveal-i: 0">Stack</span>
+      </div>
+
+      <h2
+        class="heading-serif text-4xl sm:text-5xl text-navy mb-10 text-balance reveal-shift-lg"
+        style="--reveal-i: 1"
+      >
+        What I build with
       </h2>
 
-      <div class="space-y-10">
-        <div v-for="group in skillGroups" :key="group.category">
-          <h3 class="text-sm font-semibold uppercase tracking-wide text-navy/40 mb-4">
+      <div class="divide-y divide-navy/10">
+        <div
+          v-for="(group, groupIndex) in skillGroups"
+          :key="group.category"
+          class="grid sm:grid-cols-[200px_1fr] gap-x-8 gap-y-4 py-8 first:pt-0 reveal-shift"
+          :style="{ '--reveal-i': groupIndex + 2 }"
+        >
+          <h3 class="text-sm font-semibold uppercase tracking-[0.14em] text-navy/45">
             {{ group.category }}
           </h3>
 
-          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-            <div
-              v-for="skill in group.items"
+          <ul class="flex flex-wrap gap-2">
+            <li
+              v-for="(skill, index) in group.items"
               :key="skill"
-              class="flex items-center gap-3 px-4 py-3 rounded-xl border border-navy/10 bg-cream-light hover:border-navy/20 hover:shadow-soft transition-all duration-300"
+              class="skill-chip"
+              :style="{ '--chip-i': index }"
             >
-              <div class="w-9 h-9 rounded-lg bg-white flex items-center justify-center flex-shrink-0 border border-navy/5">
+              <span class="skill-chip-icon">
                 <img
                   v-if="usesBrandIcon(group.category, skill)"
                   :src="getSkillBrandIconUrl(skill)!"
                   :alt="`${skill} icon`"
-                  class="w-5 h-5 object-contain"
+                  class="w-3.5 h-3.5 object-contain"
                   loading="lazy"
+                  width="14"
+                  height="14"
                 >
                 <component
                   v-else
                   :is="getFallbackIcon(group.category, skill)"
-                  :size="18"
+                  :size="14"
                   class="text-navy"
+                  aria-hidden="true"
                 />
-              </div>
-              <span class="text-sm font-medium text-navy leading-tight">{{ skill }}</span>
-            </div>
-          </div>
+              </span>
+              <span class="skill-chip-label">{{ skill }}</span>
+            </li>
+          </ul>
         </div>
       </div>
     </div>

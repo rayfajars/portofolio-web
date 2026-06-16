@@ -1,10 +1,5 @@
 <script setup lang="ts">
-const scrollToSection = (id: string) => {
-  const element = document.getElementById(id);
-  if (element) {
-    element.scrollIntoView({ behavior: 'smooth' });
-  }
-};
+const { scrollToSection } = useScrollToSection();
 </script>
 
 <template>

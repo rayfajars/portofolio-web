@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '~/components/ui/card';
-import { ExternalLink, Github, ArrowRight } from 'lucide-vue-next';
+import { ExternalLink, Github, ArrowUpRight } from 'lucide-vue-next';
 import { getProjectBadge } from '~/utils/projects';
 import type { Project } from '~/data/projects';
 import { computed } from 'vue';
@@ -15,63 +15,85 @@ interface Props {
   tags?: string[];
   context?: Project['context'];
   company?: string;
+  compact?: boolean;
 }
 
-const props = defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), {
+  compact: false,
+});
 
 const badge = computed(() =>
   getProjectBadge({ context: props.context, company: props.company } as Project),
 );
+
+const tagLimit = computed(() => (props.compact ? 2 : 3));
 </script>
 
 <template>
-  <Card class="group hover:shadow-card transition-all duration-300 border-navy/10 overflow-hidden rounded-2xl bg-cream-light hover:-translate-y-1 h-full">
-    <NuxtLink :to="`/projects/${slug}`" target="_blank" rel="noopener noreferrer" class="block h-full">
+  <Card
+    class="project-card group h-full overflow-hidden motion-safe:transition-[border-color,background-color] motion-safe:duration-200 motion-reduce:transition-none"
+    :class="compact ? 'project-card--compact' : 'project-card--default'"
+  >
+    <NuxtLink :to="`/projects/${slug}`" class="block h-full focus-ring rounded-lg">
       <CardHeader class="p-0">
-        <div class="aspect-[16/10] bg-navy/5 overflow-hidden relative">
+        <div
+          class="project-card-image"
+          :class="compact ? 'aspect-[5/3]' : 'aspect-[16/10]'"
+        >
           <NuxtImg
             v-if="image"
             :src="image"
-            :alt="title"
-            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            :alt="`${title} preview`"
+            class="w-full h-full object-cover"
+            loading="lazy"
           />
           <div
             v-else
-            class="w-full h-full flex items-center justify-center bg-gradient-to-br from-navy/5 to-navy/10"
+            class="w-full h-full flex items-center justify-center project-card-image-fallback"
           >
-            <span class="text-4xl font-bold text-navy/20">
+            <span
+              class="font-serif text-navy/25"
+              :class="compact ? 'text-2xl' : 'text-4xl'"
+              aria-hidden="true"
+            >
               {{ title.charAt(0) }}
             </span>
           </div>
 
-          <div class="absolute inset-0 bg-navy/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-            <span class="text-cream font-medium flex items-center gap-2 text-sm">
-              View Details
-              <ArrowRight :size="16" />
-            </span>
-          </div>
-
-          <div v-if="badge" class="absolute top-3 right-3 max-w-[70%]">
-            <span class="block px-2.5 py-1 text-[10px] font-semibold bg-navy text-cream rounded-full uppercase tracking-wide truncate">
+          <div v-if="badge" class="absolute top-2 left-2 max-w-[80%]">
+            <span class="project-card-badge" :class="{ 'project-card-badge--compact': compact }">
               {{ badge }}
             </span>
           </div>
         </div>
       </CardHeader>
 
-      <CardContent class="p-5">
-        <CardTitle class="text-lg mb-2 text-navy group-hover:opacity-80 transition-opacity">
-          {{ title }}
-        </CardTitle>
-        <CardDescription class="text-sm leading-relaxed text-navy/60 line-clamp-2">
+      <CardContent
+        class="project-card-body"
+        :class="compact ? 'p-3.5' : 'p-5'"
+      >
+        <div class="project-card-heading">
+          <CardTitle :class="compact ? 'project-card-title-sm' : 'project-card-title'">
+            {{ title }}
+          </CardTitle>
+          <ArrowUpRight
+            :size="compact ? 15 : 17"
+            class="project-card-arrow shrink-0"
+            aria-hidden="true"
+          />
+        </div>
+        <CardDescription
+          class="project-card-desc"
+          :class="compact ? 'line-clamp-2 text-sm' : 'line-clamp-3'"
+        >
           {{ description }}
         </CardDescription>
 
-        <div v-if="tags && tags.length" class="flex flex-wrap gap-1.5 mt-3">
+        <div v-if="tags && tags.length" class="flex flex-wrap gap-1 mt-2.5">
           <span
-            v-for="tag in tags.slice(0, 3)"
+            v-for="tag in tags.slice(0, tagLimit)"
             :key="tag"
-            class="text-[10px] px-2 py-0.5 rounded-full bg-navy/5 text-navy/60 font-medium"
+            class="project-card-tag"
           >
             {{ tag }}
           </span>
@@ -79,16 +101,21 @@ const badge = computed(() =>
       </CardContent>
     </NuxtLink>
 
-    <CardFooter v-if="repoUrl || liveUrl" class="p-5 pt-0 flex gap-4">
+    <CardFooter
+      v-if="repoUrl || liveUrl"
+      class="flex gap-3 border-t border-navy/10 mt-auto"
+      :class="compact ? 'px-3.5 py-2.5' : 'px-5 py-4'"
+    >
       <a
         v-if="repoUrl"
         :href="repoUrl"
         target="_blank"
         rel="noopener noreferrer"
+        class="project-card-link"
+        :class="{ 'text-xs gap-1': compact }"
         @click.stop
-        class="flex items-center gap-1.5 text-xs text-navy/60 hover:text-navy transition-colors"
       >
-        <Github :size="14" />
+        <Github :size="compact ? 12 : 14" aria-hidden="true" />
         <span>Code</span>
       </a>
 
@@ -97,11 +124,12 @@ const badge = computed(() =>
         :href="liveUrl"
         target="_blank"
         rel="noopener noreferrer"
+        class="project-card-link"
+        :class="{ 'text-xs gap-1': compact }"
         @click.stop
-        class="flex items-center gap-1.5 text-xs text-navy/60 hover:text-navy transition-colors"
       >
-        <ExternalLink :size="14" />
-        <span>Live Demo</span>
+        <ExternalLink :size="compact ? 12 : 14" aria-hidden="true" />
+        <span>Live</span>
       </a>
     </CardFooter>
   </Card>

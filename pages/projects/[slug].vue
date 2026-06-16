@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { ArrowLeft, ExternalLink, Github } from 'lucide-vue-next';
+import { ArrowLeft, ArrowRight, ExternalLink, Github } from 'lucide-vue-next';
+import { profile } from '~/data/profile';
 import { Button } from '~/components/ui/button';
 import { getProjectBadge } from '~/utils/projects';
+import { computed } from 'vue';
 
 const route = useRoute();
-const router = useRouter();
 const { getProjectBySlug, getNextProject, getPreviousProject } = useProjectNavigation();
 
 const slug = route.params.slug as string;
@@ -22,8 +23,25 @@ const previousProject = getPreviousProject(slug);
 
 const projectBadge = getProjectBadge(project);
 
+const metaLine = computed(() => {
+  const parts = [String(project.year)];
+  if (project.role) parts.push(project.role);
+  if (project.duration) parts.push(project.duration);
+  return parts.join(' · ');
+});
+
+const hasChallengeSolution = computed(
+  () => Boolean(project.challenge && project.solution),
+);
+
+const hasImpact = computed(() => Boolean(project.results?.length));
+
+const hasNarrativeBody = computed(
+  () => hasChallengeSolution.value || hasImpact.value,
+);
+
 useHead({
-  title: `${project.title} - Portfolio`,
+  title: `${project.title} - ${profile.name}`,
   meta: [
     { name: 'description', content: project.description },
     { property: 'og:title', content: project.title },
@@ -33,164 +51,185 @@ useHead({
 </script>
 
 <template>
-  <div class="min-h-screen bg-cream">
-    <div class="border-b border-navy/10 bg-cream/90 backdrop-blur-md sticky top-0 z-40">
-      <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl py-4">
-        <Button
-          variant="ghost"
-          @click="router.push('/#projects')"
-          class="gap-2"
-        >
-          <ArrowLeft :size="18" />
-          <span>Back to Projects</span>
-        </Button>
-      </div>
-    </div>
-
-    <section class="py-12 sm:py-16 px-4 sm:px-6 lg:px-8">
-      <div class="container mx-auto max-w-4xl">
-        <div class="space-y-5 mb-10">
-          <div v-if="projectBadge">
-            <span class="px-3 py-1.5 text-xs font-semibold bg-navy text-cream rounded-full uppercase tracking-wide">
-              {{ projectBadge }}
-            </span>
-          </div>
-
-          <div class="flex flex-wrap items-center gap-3 text-sm text-navy/50">
-            <span>{{ project.year }}</span>
-            <span v-if="project.duration">· {{ project.duration }}</span>
-            <span v-if="project.role">· {{ project.role }}</span>
-          </div>
-
-          <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-navy">
-            {{ project.title }}
-          </h1>
-
-          <p class="text-lg sm:text-xl text-navy/60 leading-relaxed">
-            {{ project.description }}
-          </p>
-        </div>
-
-        <div class="flex flex-wrap gap-2 mb-10">
-          <span
-            v-for="tech in project.tech"
-            :key="tech"
-            class="px-3 py-1 text-sm rounded-full bg-navy/5 text-navy/70 font-medium"
-          >
-            {{ tech }}
-          </span>
-        </div>
-
-        <div class="flex flex-wrap gap-4">
-          <Button
-            v-if="project.liveUrl"
-            as="a"
-            :href="project.liveUrl"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="gap-2"
-          >
-            <ExternalLink :size="18" />
-            Live Demo
-          </Button>
-
-          <Button
-            v-if="project.repoUrl"
-            as="a"
-            :href="project.repoUrl"
-            target="_blank"
-            rel="noopener noreferrer"
-            variant="outline"
-            class="gap-2"
-          >
-            <Github :size="18" />
-            View Code
-          </Button>
-        </div>
-      </div>
-    </section>
-
-    <section class="py-12 px-4 sm:px-6 lg:px-8 bg-navy">
-      <div class="container mx-auto max-w-4xl">
-        <h2 class="heading-serif text-2xl sm:text-3xl mb-6 text-cream">
-          About This Project
-        </h2>
-        <p class="text-lg leading-relaxed text-cream/70">
-          {{ project.fullDescription }}
-        </p>
-      </div>
-    </section>
-
-    <section
-      v-if="project.challenge && project.solution"
-      class="py-12 px-4 sm:px-6 lg:px-8"
+  <article class="bg-cream">
+    <header
+      class="project-hero"
+      :class="{ 'project-hero--has-narrative': hasNarrativeBody }"
     >
-      <div class="container mx-auto max-w-4xl">
-        <div class="grid md:grid-cols-2 gap-8">
-          <div class="p-6 rounded-2xl bg-cream-light border border-navy/10">
-            <h2 class="heading-serif text-xl mb-4 text-navy">Challenge</h2>
-            <p class="text-base leading-relaxed text-navy/60">
-              {{ project.challenge }}
+      <div class="container mx-auto max-w-6xl">
+        <div class="project-hero-topbar">
+          <NuxtLink
+            to="/projects"
+            class="project-hero-backlink"
+          >
+            <ArrowLeft :size="16" aria-hidden="true" />
+            Back to projects
+          </NuxtLink>
+
+          <nav
+            v-if="previousProject || nextProject"
+            class="project-hero-nav"
+            aria-label="Project navigation"
+          >
+            <NuxtLink
+              v-if="previousProject"
+              :to="`/projects/${previousProject.slug}`"
+              class="project-hero-backlink group"
+            >
+              <span class="sr-only">Previous project:</span>
+              <ArrowLeft :size="16" aria-hidden="true" />
+              <span class="project-hero-nav-label motion-safe:group-hover:text-navy">
+                {{ previousProject.title }}
+              </span>
+            </NuxtLink>
+
+            <NuxtLink
+              v-if="nextProject"
+              :to="`/projects/${nextProject.slug}`"
+              class="project-hero-backlink group"
+            >
+              <span class="sr-only">Next project:</span>
+              <span class="project-hero-nav-label motion-safe:group-hover:text-navy">
+                {{ nextProject.title }}
+              </span>
+              <ArrowRight :size="16" aria-hidden="true" />
+            </NuxtLink>
+          </nav>
+        </div>
+
+        <div class="project-hero-grid">
+          <div class="project-hero-main">
+            <div class="section-opener">
+              <span class="section-eyebrow">{{ projectBadge }}</span>
+            </div>
+
+            <h1 class="heading-serif text-4xl sm:text-5xl lg:text-[3.25rem] xl:text-6xl text-navy text-balance">
+              {{ project.title }}
+            </h1>
+
+            <p class="section-lead mt-5 text-pretty">
+              {{ project.description }}
+            </p>
+
+            <p class="project-hero-meta mt-4">
+              {{ metaLine }}
             </p>
           </div>
 
-          <div class="p-6 rounded-2xl bg-cream-light border border-navy/10">
-            <h2 class="heading-serif text-xl mb-4 text-navy">Solution</h2>
-            <p class="text-base leading-relaxed text-navy/60">
+          <aside
+            class="project-hero-overview"
+            aria-labelledby="project-overview"
+          >
+            <h2 id="project-overview" class="sr-only">Overview</h2>
+            <p class="project-overview-body">
+              {{ project.fullDescription }}
+            </p>
+          </aside>
+
+          <div
+            v-if="project.tech.length || project.liveUrl || project.repoUrl"
+            class="project-hero-tools"
+          >
+            <div
+              v-if="project.tech.length"
+              role="list"
+              aria-label="Technology stack"
+            >
+              <div class="flex flex-wrap gap-1.5">
+                <span
+                  v-for="tech in project.tech"
+                  :key="tech"
+                  role="listitem"
+                  class="project-card-tag"
+                >
+                  {{ tech }}
+                </span>
+              </div>
+            </div>
+
+            <div
+              v-if="project.liveUrl || project.repoUrl"
+              class="project-hero-actions"
+              :class="{ 'mt-6': project.tech.length }"
+            >
+              <Button
+                v-if="project.liveUrl"
+                as="a"
+                :href="project.liveUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="gap-2"
+              >
+                <ExternalLink :size="18" aria-hidden="true" />
+                Live Demo
+              </Button>
+
+              <Button
+                v-if="project.repoUrl"
+                as="a"
+                :href="project.repoUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+                variant="outline"
+                class="gap-2"
+              >
+                <Github :size="18" aria-hidden="true" />
+                View Code
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div
+      v-if="hasNarrativeBody"
+      class="project-detail-body"
+    >
+      <div class="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div
+          v-if="hasChallengeSolution"
+          class="project-detail-grid"
+          aria-labelledby="project-challenge"
+        >
+          <div class="project-detail-challenge">
+            <h2 id="project-challenge" class="case-study-heading">Challenge</h2>
+            <p class="project-detail-prose">
+              {{ project.challenge }}
+            </p>
+          </div>
+          <div class="project-detail-solution">
+            <h2 class="case-study-heading">Solution</h2>
+            <p class="project-detail-prose">
               {{ project.solution }}
             </p>
           </div>
         </div>
-      </div>
-    </section>
 
-    <section
-      v-if="project.results && project.results.length"
-      class="py-12 px-4 sm:px-6 lg:px-8 bg-cream-light"
-    >
-      <div class="container mx-auto max-w-4xl">
-        <h2 class="heading-serif text-2xl sm:text-3xl mb-6 text-navy">
-          Results & Impact
-        </h2>
-        <ul class="grid sm:grid-cols-2 gap-4">
-          <li
-            v-for="(result, index) in project.results"
-            :key="index"
-            class="flex items-start gap-3 p-5 rounded-2xl border border-navy/10 bg-cream"
-          >
-            <span class="mt-2 w-1.5 h-1.5 bg-navy rounded-full flex-shrink-0" />
-            <span class="text-base text-navy/70">{{ result }}</span>
-          </li>
-        </ul>
+        <section
+          v-if="hasImpact"
+          class="project-detail-impact"
+          :class="{ 'project-detail-impact--after-grid': hasChallengeSolution }"
+          aria-labelledby="project-impact"
+        >
+          <h2 id="project-impact" class="case-study-heading">
+            Impact
+          </h2>
+          <ul class="project-detail-results">
+            <li
+              v-for="(result, index) in project.results"
+              :key="index"
+              class="project-detail-result"
+            >
+              <span
+                class="project-detail-result-marker"
+                aria-hidden="true"
+              />
+              <span>{{ result }}</span>
+            </li>
+          </ul>
+        </section>
       </div>
-    </section>
-
-    <section class="py-12 px-4 sm:px-6 lg:px-8 border-t border-navy/10">
-      <div class="container mx-auto max-w-4xl">
-        <div class="flex flex-col sm:flex-row justify-between gap-4">
-          <NuxtLink
-            v-if="previousProject"
-            :to="`/projects/${previousProject.slug}`"
-            class="group flex-1 p-6 rounded-2xl border border-navy/10 hover:border-navy/25 hover:shadow-soft transition-all bg-cream-light"
-          >
-            <div class="text-sm text-navy/40 mb-2">← Previous Project</div>
-            <div class="text-lg font-semibold group-hover:opacity-80 transition-opacity text-navy">
-              {{ previousProject.title }}
-            </div>
-          </NuxtLink>
-
-          <NuxtLink
-            v-if="nextProject"
-            :to="`/projects/${nextProject.slug}`"
-            class="group flex-1 p-6 rounded-2xl border border-navy/10 hover:border-navy/25 hover:shadow-soft transition-all bg-cream-light text-right"
-          >
-            <div class="text-sm text-navy/40 mb-2">Next Project →</div>
-            <div class="text-lg font-semibold group-hover:opacity-80 transition-opacity text-navy">
-              {{ nextProject.title }}
-            </div>
-          </NuxtLink>
-        </div>
-      </div>
-    </section>
-  </div>
+    </div>
+  </article>
 </template>

@@ -12,40 +12,43 @@ const lastName = profile.name.split(' ').slice(1).join(' ');
 </script>
 
 <template>
-  <section id="hero" class="relative min-h-[85vh] flex items-center px-4 sm:px-6 lg:px-8 pt-8 pb-20 bg-cream overflow-hidden">
-    <div
-      class="absolute inset-0 opacity-40 pointer-events-none"
-      style="background-image: radial-gradient(circle, rgba(27,33,59,0.06) 1px, transparent 1px); background-size: 24px 24px;"
-    />
+  <section
+    id="hero"
+    class="relative min-h-[100svh] flex items-start section-padding pt-24 sm:pt-28 lg:pt-32 pb-16 lg:pb-20 overflow-hidden"
+  >
+    <div class="hero-color-panel hidden lg:block" aria-hidden="true" />
+    <div class="hero-accent-block hidden lg:block" aria-hidden="true" />
 
-    <div class="container mx-auto max-w-6xl relative z-10">
-      <div class="grid lg:grid-cols-[1fr_auto] gap-12 lg:gap-20 items-center">
-        <div class="space-y-6">
-          <p class="text-sm font-medium uppercase tracking-[0.2em] text-navy/50">
-            Hello, I'm
-          </p>
-
-          <h1 class="heading-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[1.05] text-navy">
-            <span class="italic">{{ firstName }}</span>
+    <div class="container relative z-10 mx-auto max-w-7xl w-full">
+      <div class="grid lg:grid-cols-[1.12fr_0.88fr] gap-10 lg:gap-8 xl:gap-12 items-start lg:items-center">
+        <div>
+          <h1 class="hero-display hero-enter" style="--hero-i: 0">
+            <span class="italic font-normal">{{ firstName }}</span>
             <br>
             <span>{{ lastName }}</span>
           </h1>
 
-          <p class="text-lg sm:text-xl text-navy/70 max-w-lg leading-relaxed">
-            {{ profile.title }} crafting scalable web applications with
-            <span class="font-semibold text-navy">Vue.js</span>,
-            <span class="font-semibold text-navy">Nuxt.js</span>, and
-            <span class="font-semibold text-navy">TypeScript</span>.
+          <p
+            class="hero-enter mt-6 sm:mt-7 max-w-xl text-xl sm:text-2xl leading-relaxed text-navy/75 text-pretty"
+            style="--hero-i: 1"
+          >
+            <span class="font-bold text-navy">{{ profile.title }}</span>
+            building scalable web applications in
+            <span class="text-navy font-semibold">Vue.js</span>,
+            <span class="text-navy font-semibold">Nuxt.js</span>, and
+            <span class="text-navy font-semibold">TypeScript</span>.
           </p>
 
-          <div class="flex flex-wrap gap-4 pt-2">
-            <Button
-              @click="emit('scrollTo', 'projects')"
-              size="lg"
-              class="group"
-            >
+          <div
+            class="hero-enter mt-8 sm:mt-10 flex flex-wrap gap-4"
+            style="--hero-i: 2"
+          >
+            <Button @click="emit('scrollTo', 'projects')" size="lg" class="group text-base">
               See My Work
-              <ArrowRight :size="18" class="group-hover:translate-x-1 transition-transform" />
+              <ArrowRight
+                :size="18"
+                class="motion-safe:group-hover:translate-x-1 motion-safe:transition-transform duration-300 motion-reduce:transition-none"
+              />
             </Button>
 
             <Button
@@ -54,21 +57,31 @@ const lastName = profile.name.split(' ').slice(1).join(' ');
               :download="profile.resumeDownloadName"
               size="lg"
               variant="outline"
-              class="gap-2"
+              class="gap-2 text-base border-navy/25 hover:bg-navy/8"
             >
               <Download :size="18" />
-              Download My CV
+              Download CV
             </Button>
           </div>
         </div>
 
-        <div class="flex justify-center lg:justify-end">
-          <div class="w-44 h-44 sm:w-52 sm:h-52 lg:w-60 lg:h-60 rounded-full overflow-hidden  shadow-card bg-cream-light">
-            <NuxtImg
-              src="/photo.png"
-              :alt="profile.name"
-              class="w-full h-full object-cover"
-            />
+        <div
+          class="hero-photo-enter order-first lg:order-last lg:-mr-6 xl:-mr-12 lg:mt-4"
+          style="--hero-i: 3"
+        >
+          <div class="relative mx-auto w-64 sm:w-80 lg:w-full lg:max-w-md xl:max-w-lg">
+            <div
+              class="aspect-[4/5] overflow-hidden rounded-lg border-2 border-cream bg-cream-light motion-safe:lg:transition-transform motion-safe:lg:duration-500 motion-safe:lg:ease-out motion-reduce:transition-none motion-safe:hover:lg:-translate-y-1"
+            >
+              <NuxtImg
+                src="/photo.png"
+                :alt="`Portrait of ${profile.name}`"
+                class="w-full h-full object-cover"
+                width="480"
+                height="600"
+                loading="eager"
+              />
+            </div>
           </div>
         </div>
       </div>

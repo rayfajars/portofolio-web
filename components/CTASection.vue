@@ -1,43 +1,79 @@
 <script setup lang="ts">
-import { Button } from '~/components/ui/button';
-import { profile } from '~/data/profile';
+import { ArrowUpRight, Github, Linkedin, BookOpen } from 'lucide-vue-next';
+import type { Component } from 'vue';
+import { profile, socialLinks } from '~/data/profile';
+
+const sectionRef = ref<HTMLElement | null>(null);
+const { isInView } = useSectionReveal(sectionRef);
+
+const socialIcons: Record<string, Component> = {
+  GitHub: Github,
+  LinkedIn: Linkedin,
+  Medium: BookOpen,
+};
 </script>
 
 <template>
-  <section id="contact" class="section-cream py-24 px-4 sm:px-6 lg:px-8">
-    <div class="container mx-auto max-w-4xl">
-      <div class="bg-navy rounded-3xl p-10 sm:p-16 text-center shadow-card">
-        <h2 class="heading-serif text-3xl sm:text-4xl md:text-5xl text-cream mb-4 leading-tight">
-          Got an Idea?
-          <br>
-          <span class="italic">Let's Bring It To Life!</span>
-        </h2>
+  <section
+    id="contact"
+    ref="sectionRef"
+    class="section-padding section-navy section-reveal"
+    :class="{ 'is-inview': isInView }"
+  >
+    <div class="container mx-auto max-w-6xl">
+      <div class="section-opener-light">
+        <span class="section-eyebrow-light reveal-fade" style="--reveal-i: 0">Contact</span>
+      </div>
 
-        <p class="text-cream/60 mb-8 max-w-md mx-auto text-sm sm:text-base">
-          I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
-        </p>
+      <div class="grid lg:grid-cols-[1.3fr_1fr] gap-10 lg:gap-16 items-end">
+        <div>
+          <h2
+            class="heading-serif text-4xl sm:text-5xl md:text-6xl text-cream leading-[1.05] text-balance reveal-shift-lg"
+            style="--reveal-i: 1"
+          >
+            Reach out.
+          </h2>
+          <p
+            class="mt-6 text-lg leading-relaxed text-cream/70 max-w-md reveal-shift"
+            style="--reveal-i: 2"
+          >
+            Open to frontend engineering roles and selective freelance work.
+            Email me directly to get in touch.
+          </p>
+        </div>
 
-        <div class="flex flex-wrap items-center justify-center gap-4">
-          <Button
-            as="a"
+        <div class="lg:pb-2 reveal-shift" style="--reveal-i: 3">
+          <a
             :href="`mailto:${profile.email}`"
-            variant="light"
-            size="lg"
+            class="cta-email-link group font-serif text-2xl sm:text-3xl text-cream pb-1 hover:text-cream transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cream/40 focus-visible:ring-offset-4 focus-visible:ring-offset-navy rounded-sm"
+            style="--reveal-i: 4"
           >
-            Get in Touch
-          </Button>
+            {{ profile.email }}
+            <ArrowUpRight
+              :size="24"
+              class="motion-safe:group-hover:translate-x-0.5 motion-safe:group-hover:-translate-y-0.5 motion-safe:transition-transform"
+              aria-hidden="true"
+            />
+          </a>
 
-          <Button
-            as="a"
-            :href="profile.social.linkedin"
-            target="_blank"
-            rel="noopener noreferrer"
-            variant="outline"
-            size="lg"
-            class="border-cream/30 text-cream hover:bg-cream/10 hover:text-cream"
-          >
-            Connect on LinkedIn
-          </Button>
+          <ul class="mt-8 flex flex-wrap gap-x-6 gap-y-2">
+            <li
+              v-for="(link, index) in socialLinks"
+              :key="link.label"
+              class="reveal-fade"
+              :style="{ '--reveal-i': index + 5 }"
+            >
+              <a
+                :href="link.href"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-2 text-sm font-medium text-cream/70 hover:text-cream transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cream/40 focus-visible:ring-offset-2 focus-visible:ring-offset-navy rounded-sm"
+              >
+                <component :is="socialIcons[link.label]" :size="16" aria-hidden="true" />
+                {{ link.label }}
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
     </div>

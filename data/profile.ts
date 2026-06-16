@@ -109,11 +109,14 @@ export const skillGroups: SkillGroup[] = [
     items: [
       "Vue.js",
       "Nuxt.js",
+      "React.js",
+      "Next.js",
       "TypeScript",
       "JavaScript",
       "Tailwind CSS",
       "Chart.js",
       "Leaflet.js",
+      "Google Maps",
     ],
   },
   {
@@ -125,11 +128,14 @@ export const skillGroups: SkillGroup[] = [
     items: [
       "Git",
       "Storybook",
+      "Vitest",
       "SonarQube",
+      "New Relic",
       "Unleash",
       "Figma",
       "ClickUp",
       "Keycloak",
+      "Google Analytics",
     ],
   },
   {
@@ -142,6 +148,7 @@ export const skillGroups: SkillGroup[] = [
       "REST API Integration",
       "Feature Flagging",
       "Performance Optimization",
+      "Deeplink",
     ],
   },
 ];
