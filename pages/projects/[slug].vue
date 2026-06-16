@@ -3,6 +3,7 @@ import { ArrowLeft, ArrowRight, ExternalLink, Github } from 'lucide-vue-next';
 import { profile } from '~/data/profile';
 import { Button } from '~/components/ui/button';
 import { getProjectBadge } from '~/utils/projects';
+import { computed } from 'vue';
 
 const route = useRoute();
 const { getProjectBySlug, getNextProject, getPreviousProject } = useProjectNavigation();
@@ -22,6 +23,19 @@ const previousProject = getPreviousProject(slug);
 
 const projectBadge = getProjectBadge(project);
 
+const metaLine = computed(() => {
+  const parts = [String(project.year)];
+  if (project.role) parts.push(project.role);
+  if (project.duration) parts.push(project.duration);
+  return parts.join(' · ');
+});
+
+const hasNarrativeBody = computed(
+  () =>
+    Boolean(project.challenge && project.solution)
+    || Boolean(project.results?.length),
+);
+
 useHead({
   title: `${project.title} - ${profile.name}`,
   meta: [
@@ -34,8 +48,8 @@ useHead({
 
 <template>
   <article class="bg-cream">
-    <div class="page-padding pb-0">
-      <div class="container mx-auto max-w-4xl">
+    <header class="project-hero">
+      <div class="container mx-auto max-w-6xl">
         <NuxtLink
           to="/projects"
           class="inline-flex items-center gap-2 text-sm font-medium text-navy/60 hover:text-navy transition-colors focus-ring rounded-sm mb-10"
@@ -44,178 +58,188 @@ useHead({
           Back to projects
         </NuxtLink>
 
-        <header class="mb-10">
-          <div class="section-opener">
-            <span class="section-eyebrow">{{ projectBadge }}</span>
+        <div class="project-hero-grid">
+          <div class="project-hero-main">
+            <div class="section-opener">
+              <span class="section-eyebrow">{{ projectBadge }}</span>
+            </div>
+
+            <h1 class="heading-serif text-4xl sm:text-5xl lg:text-[3.25rem] xl:text-6xl text-navy text-balance">
+              {{ project.title }}
+            </h1>
+
+            <p class="section-lead mt-5 text-pretty">
+              {{ project.description }}
+            </p>
+
+            <p class="project-hero-meta mt-4">
+              {{ metaLine }}
+            </p>
           </div>
 
-          <h1 class="heading-serif text-4xl sm:text-5xl md:text-6xl text-navy text-balance">
-            {{ project.title }}
-          </h1>
-
-          <p class="section-lead mt-5 text-pretty">
-            {{ project.description }}
-          </p>
-
-          <dl class="mt-8 grid grid-cols-2 sm:grid-cols-3 gap-6 editorial-divide pt-6">
-            <div>
-              <dt class="meta-key">Year</dt>
-              <dd class="meta-val">{{ project.year }}</dd>
-            </div>
-            <div v-if="project.duration">
-              <dt class="meta-key">Timeline</dt>
-              <dd class="meta-val">{{ project.duration }}</dd>
-            </div>
-            <div v-if="project.role">
-              <dt class="meta-key">Role</dt>
-              <dd class="meta-val">{{ project.role }}</dd>
-            </div>
-          </dl>
-        </header>
-
-        <div
-          class="flex flex-wrap gap-2 mb-8"
-          role="list"
-          aria-label="Technologies used"
-        >
-          <span
-            v-for="tech in project.tech"
-            :key="tech"
-            role="listitem"
-            class="project-card-tag text-sm px-3 py-1"
+          <aside
+            class="project-hero-overview"
+            aria-labelledby="project-overview"
           >
-            {{ tech }}
-          </span>
-        </div>
-
-        <div
-          v-if="project.liveUrl || project.repoUrl"
-          class="flex flex-wrap gap-4"
-          :class="project.challenge || project.solution || project.results?.length ? 'pb-12 sm:pb-16' : 'pb-10 sm:pb-12'"
-        >
-          <Button
-            v-if="project.liveUrl"
-            as="a"
-            :href="project.liveUrl"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="gap-2"
-          >
-            <ExternalLink :size="18" aria-hidden="true" />
-            Live Demo
-          </Button>
-
-          <Button
-            v-if="project.repoUrl"
-            as="a"
-            :href="project.repoUrl"
-            target="_blank"
-            rel="noopener noreferrer"
-            variant="outline"
-            class="gap-2"
-          >
-            <Github :size="18" aria-hidden="true" />
-            View Code
-          </Button>
-        </div>
-      </div>
-    </div>
-
-    <section class="section-padding section-navy" aria-labelledby="project-overview">
-      <div class="container mx-auto max-w-4xl">
-        <h2 id="project-overview" class="sr-only">Overview</h2>
-        <p class="font-serif text-2xl sm:text-3xl leading-snug text-cream/95 max-w-prose text-pretty">
-          {{ project.fullDescription }}
-        </p>
-      </div>
-    </section>
-
-    <section
-      v-if="project.challenge && project.solution"
-      class="section-padding section-cream"
-      aria-labelledby="project-challenge"
-    >
-      <div class="container mx-auto max-w-4xl grid md:grid-cols-2 gap-10 lg:gap-16">
-        <div>
-          <h2 id="project-challenge" class="case-study-heading">Challenge</h2>
-          <p class="text-lg leading-relaxed text-navy/70 text-pretty">
-            {{ project.challenge }}
-          </p>
-        </div>
-        <div>
-          <h2 class="case-study-heading">Solution</h2>
-          <p class="text-lg leading-relaxed text-navy/70 text-pretty">
-            {{ project.solution }}
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <section
-      v-if="project.results && project.results.length"
-      class="section-padding section-muted"
-      aria-labelledby="project-impact"
-    >
-      <div class="container mx-auto max-w-4xl">
-        <h2 id="project-impact" class="case-study-heading mb-6">Impact</h2>
-        <ul class="divide-y divide-navy/10">
-          <li
-            v-for="(result, index) in project.results"
-            :key="index"
-            class="flex items-start gap-4 py-5 first:pt-0"
-          >
-            <span
-              class="mt-2.5 w-1.5 h-1.5 bg-navy rounded-full flex-shrink-0"
-              aria-hidden="true"
-            />
-            <span class="text-lg leading-relaxed text-navy/80">{{ result }}</span>
-          </li>
-        </ul>
-      </div>
-    </section>
-
-    <section
-      v-if="previousProject || nextProject"
-      class="section-padding editorial-divide"
-      aria-label="Project navigation"
-    >
-      <div class="container mx-auto max-w-4xl">
-        <div class="project-nav-grid">
-          <NuxtLink
-            v-if="previousProject"
-            :to="`/projects/${previousProject.slug}`"
-            class="project-nav-link group"
-          >
-            <span class="meta-key mb-2 inline-flex items-center gap-1.5">
-              <ArrowLeft :size="14" aria-hidden="true" />
-              Previous
-            </span>
-            <span class="font-serif text-xl text-navy text-balance motion-safe:group-hover:opacity-80">
-              {{ previousProject.title }}
-            </span>
-          </NuxtLink>
+            <h2 id="project-overview" class="sr-only">Overview</h2>
+            <p class="project-overview-body">
+              {{ project.fullDescription }}
+            </p>
+          </aside>
 
           <div
-            v-else
-            class="hidden sm:block bg-cream-light"
-            aria-hidden="true"
-          />
-
-          <NuxtLink
-            v-if="nextProject"
-            :to="`/projects/${nextProject.slug}`"
-            class="project-nav-link project-nav-link--next group"
+            v-if="project.tech.length || project.liveUrl || project.repoUrl"
+            class="project-hero-tools"
           >
-            <span class="meta-key mb-2 inline-flex items-center gap-1.5 sm:justify-end sm:w-full">
-              Next
-              <ArrowRight :size="14" aria-hidden="true" />
-            </span>
-            <span class="font-serif text-xl text-navy text-balance motion-safe:group-hover:opacity-80">
-              {{ nextProject.title }}
-            </span>
-          </NuxtLink>
+            <div
+              v-if="project.tech.length"
+              role="list"
+              aria-label="Technology stack"
+            >
+              <div class="flex flex-wrap gap-1.5">
+                <span
+                  v-for="tech in project.tech"
+                  :key="tech"
+                  role="listitem"
+                  class="project-card-tag"
+                >
+                  {{ tech }}
+                </span>
+              </div>
+            </div>
+
+            <div
+              v-if="project.liveUrl || project.repoUrl"
+              class="project-hero-actions"
+              :class="{ 'mt-6': project.tech.length }"
+            >
+              <Button
+                v-if="project.liveUrl"
+                as="a"
+                :href="project.liveUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="gap-2"
+              >
+                <ExternalLink :size="18" aria-hidden="true" />
+                Live Demo
+              </Button>
+
+              <Button
+                v-if="project.repoUrl"
+                as="a"
+                :href="project.repoUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+                variant="outline"
+                class="gap-2"
+              >
+                <Github :size="18" aria-hidden="true" />
+                View Code
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
-    </section>
+    </header>
+
+    <div
+      v-if="hasNarrativeBody || previousProject || nextProject"
+      class="section-cream"
+    >
+      <section
+        v-if="project.challenge && project.solution"
+        class="section-padding !pb-0"
+        aria-labelledby="project-challenge"
+      >
+        <div class="container mx-auto max-w-4xl grid md:grid-cols-2 gap-10 lg:gap-16">
+          <div>
+            <h2 id="project-challenge" class="case-study-heading">Challenge</h2>
+            <p class="text-lg leading-relaxed text-navy/70 text-pretty">
+              {{ project.challenge }}
+            </p>
+          </div>
+          <div>
+            <h2 class="case-study-heading">Solution</h2>
+            <p class="text-lg leading-relaxed text-navy/70 text-pretty">
+              {{ project.solution }}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section
+        v-if="project.results?.length"
+        class="section-padding"
+        :class="{ '!pt-12 sm:!pt-16': project.challenge && project.solution }"
+        aria-labelledby="project-impact"
+      >
+        <div class="container mx-auto max-w-4xl">
+          <h2 id="project-impact" class="case-study-heading mb-6">
+            Impact
+          </h2>
+          <ul class="divide-y divide-navy/10">
+            <li
+              v-for="(result, index) in project.results"
+              :key="index"
+              class="flex items-start gap-4 py-5 first:pt-0"
+            >
+              <span
+                class="mt-2.5 w-1.5 h-1.5 bg-navy rounded-full flex-shrink-0"
+                aria-hidden="true"
+              />
+              <span class="text-lg leading-relaxed text-navy/80">{{ result }}</span>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section
+        v-if="previousProject || nextProject"
+        class="section-padding editorial-divide"
+        aria-label="Project navigation"
+      >
+        <div class="container mx-auto max-w-4xl">
+          <div
+            class="project-nav-bar"
+            :class="{ 'project-nav-bar--single': !previousProject || !nextProject }"
+          >
+            <NuxtLink
+              v-if="previousProject"
+              :to="`/projects/${previousProject.slug}`"
+              class="project-nav-item project-nav-item--prev group"
+            >
+              <span class="project-nav-label">
+                <ArrowLeft :size="14" aria-hidden="true" />
+                Previous
+              </span>
+              <span class="project-nav-title motion-safe:group-hover:opacity-80">
+                {{ previousProject.title }}
+              </span>
+            </NuxtLink>
+
+            <div
+              v-else
+              class="project-nav-spacer hidden sm:block"
+              aria-hidden="true"
+            />
+
+            <NuxtLink
+              v-if="nextProject"
+              :to="`/projects/${nextProject.slug}`"
+              class="project-nav-item project-nav-item--next group"
+            >
+              <span class="project-nav-label">
+                Next
+                <ArrowRight :size="14" aria-hidden="true" />
+              </span>
+              <span class="project-nav-title motion-safe:group-hover:opacity-80">
+                {{ nextProject.title }}
+              </span>
+            </NuxtLink>
+          </div>
+        </div>
+      </section>
+    </div>
   </article>
 </template>

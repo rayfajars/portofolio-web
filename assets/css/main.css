@@ -472,6 +472,69 @@
     @apply font-sans text-lg font-semibold text-navy mb-4;
   }
 
+  .project-hero {
+    @apply page-padding pb-10 sm:pb-12 lg:pb-14 bg-cream;
+  }
+
+  .project-hero-grid {
+    display: grid;
+    grid-template-areas:
+      "main"
+      "overview"
+      "tools";
+    gap: 0;
+  }
+
+  .project-hero-main {
+    grid-area: main;
+    @apply min-w-0 pb-8;
+  }
+
+  .project-hero-overview {
+    grid-area: overview;
+    @apply bg-navy text-cream -mx-4 px-4 py-8 sm:-mx-6 sm:px-6 sm:py-10;
+  }
+
+  .project-hero-tools {
+    grid-area: tools;
+    @apply min-w-0 pt-2;
+  }
+
+  @media (min-width: 1024px) {
+    .project-hero-grid {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      grid-template-rows: auto 1fr;
+      grid-template-areas:
+        "main overview"
+        "tools overview";
+      column-gap: 0;
+    }
+
+    .project-hero-main {
+      @apply pr-10 xl:pr-14 pb-6;
+    }
+
+    .project-hero-overview {
+      @apply mx-0 rounded-lg px-10 py-12 xl:px-12 self-stretch;
+    }
+
+    .project-hero-tools {
+      @apply pr-10 xl:pr-14 pt-0 self-start;
+    }
+  }
+
+  .project-hero-meta {
+    @apply text-sm font-medium text-navy/70 tabular-nums;
+  }
+
+  .project-hero-actions {
+    @apply flex flex-wrap gap-3;
+  }
+
+  .project-overview-body {
+    @apply max-w-prose text-lg leading-relaxed text-cream text-pretty;
+  }
+
   /* Project index — editorial list browse */
   .project-filter-bar {
     @apply flex flex-wrap gap-2;
@@ -637,16 +700,60 @@
     }
   }
 
-  .project-nav-grid {
-    @apply grid gap-0 sm:grid-cols-2 sm:gap-px sm:overflow-hidden sm:rounded-lg sm:border sm:border-navy/10 sm:bg-navy/10;
+  .project-nav-bar {
+    @apply grid grid-cols-1 overflow-hidden rounded-lg border border-navy/10 sm:grid-cols-2;
+    grid-template-columns: minmax(0, 1fr);
   }
 
-  .project-nav-link {
-    @apply block min-h-[4.75rem] bg-cream-light p-6 sm:min-h-0 sm:p-7 focus-ring motion-safe:transition-[background-color] motion-safe:duration-300 motion-reduce:transition-none motion-safe:hover:bg-cream motion-safe:active:bg-cream-dark/40;
+  @media (min-width: 640px) {
+    .project-nav-bar {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
   }
 
-  .project-nav-link--next {
-    @apply border-t border-navy/10 sm:border-t-0 sm:text-right;
+  .project-nav-bar--single {
+    @apply sm:grid-cols-1;
+  }
+
+  .project-nav-item {
+    @apply flex min-w-0 flex-col gap-3 bg-cream-light p-6 focus-ring motion-safe:transition-colors motion-safe:duration-200 motion-reduce:transition-none motion-safe:hover:bg-cream sm:gap-3.5 sm:p-7;
+  }
+
+  .project-nav-item--prev {
+    @apply border-b border-navy/10 sm:border-b-0 sm:border-r;
+  }
+
+  .project-nav-item--next {
+    @apply items-end text-right;
+  }
+
+  .project-nav-bar--single .project-nav-item--next {
+    @apply items-start border-0 text-left;
+  }
+
+  .project-nav-bar--single .project-nav-item--prev {
+    @apply border-0;
+  }
+
+  .project-nav-label {
+    @apply meta-key inline-flex items-center gap-1.5 m-0;
+  }
+
+  .project-nav-item--next .project-nav-label {
+    @apply justify-end;
+  }
+
+  .project-nav-bar--single .project-nav-item--next .project-nav-label {
+    @apply justify-start;
+  }
+
+  .project-nav-title {
+    @apply w-full min-w-0 font-serif text-lg leading-snug text-navy text-pretty line-clamp-2 sm:text-xl;
+    letter-spacing: -0.01em;
+  }
+
+  .project-nav-spacer {
+    @apply min-h-full bg-cream-light sm:border-r sm:border-navy/10;
   }
 
   /* Hero — committed indigo surface + signature entrance */
