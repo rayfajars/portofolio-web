@@ -1,4 +1,4 @@
-const SCROLL_GUTTER_REM = 4.5;
+import { getSectionScrollOffset } from '~/utils/sectionScrollOffset';
 
 function prefersReducedMotion() {
   return typeof window !== 'undefined'
@@ -6,17 +6,7 @@ function prefersReducedMotion() {
 }
 
 function getScrollOffset() {
-  if (typeof window === 'undefined') return 0;
-
-  const rootStyles = getComputedStyle(document.documentElement);
-  const headerHeight = parseFloat(rootStyles.getPropertyValue('--site-header-height')) || 5;
-  const gutter = parseFloat(rootStyles.getPropertyValue('--scroll-section-gutter')) || SCROLL_GUTTER_REM;
-  const rootFontSize = parseFloat(rootStyles.fontSize) || 16;
-
-  const headerEl = document.querySelector('header');
-  const measuredHeader = headerEl?.getBoundingClientRect().height ?? headerHeight * rootFontSize;
-
-  return measuredHeader + gutter * rootFontSize;
+  return getSectionScrollOffset();
 }
 
 export function useScrollToSection() {
@@ -34,7 +24,8 @@ export function useScrollToSection() {
     const element = document.getElementById(id);
     if (!element) return;
 
-    const top = element.getBoundingClientRect().top + window.scrollY - getScrollOffset();
+    const target = element.querySelector(':scope > .container') ?? element;
+    const top = target.getBoundingClientRect().top + window.scrollY - getScrollOffset();
 
     window.scrollTo({
       top: Math.max(0, top),

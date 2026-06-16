@@ -104,8 +104,6 @@
       border-color 180ms cubic-bezier(0.16, 1, 0.3, 1),
       background-color 180ms cubic-bezier(0.16, 1, 0.3, 1),
       transform 180ms cubic-bezier(0.16, 1, 0.3, 1);
-    animation: skill-chip-in 380ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    animation-delay: calc(var(--chip-i, 0) * 40ms);
   }
 
   @keyframes skill-chip-in {
@@ -535,6 +533,184 @@
       animation: none;
       opacity: 1;
       transform: none;
+    }
+  }
+
+  /* Section scroll reveals — timing matched to hero-rise / hero-photo-in */
+  .section-reveal,
+  .footer-reveal {
+    --reveal-ease: cubic-bezier(0.16, 1, 0.3, 1);
+    --reveal-duration: 680ms;
+    --reveal-duration-lg: 780ms;
+    --reveal-stagger: 110ms;
+    --reveal-delay: 220ms;
+  }
+
+  .reveal-shift,
+  .reveal-slide-in,
+  .reveal-fade {
+    opacity: 1;
+    transition:
+      transform var(--reveal-duration) var(--reveal-ease),
+      opacity calc(var(--reveal-duration) * 0.85) var(--reveal-ease);
+    transition-delay: calc(var(--reveal-delay) + var(--reveal-i, 0) * var(--reveal-stagger));
+  }
+
+  .reveal-shift-lg,
+  .reveal-scale-in {
+    opacity: 1;
+    transition:
+      transform var(--reveal-duration-lg) var(--reveal-ease),
+      opacity calc(var(--reveal-duration-lg) * 0.85) var(--reveal-ease);
+    transition-delay: calc(var(--reveal-delay) + var(--reveal-i, 0) * var(--reveal-stagger));
+  }
+
+  .reveal-shift {
+    transform: translateY(0.5rem);
+  }
+
+  .reveal-shift-lg {
+    transform: translateY(0.75rem);
+  }
+
+  .reveal-slide-in {
+    transform: translateX(-1.25rem);
+  }
+
+  .reveal-scale-in {
+    transform: scale(0.975) translateY(0.375rem);
+  }
+
+  .reveal-fade {
+    opacity: 0.72;
+    transform: none;
+  }
+
+  .section-reveal.is-inview .reveal-shift,
+  .section-reveal.is-inview .reveal-shift-lg,
+  .section-reveal.is-inview .reveal-slide-in,
+  .section-reveal.is-inview .reveal-scale-in {
+    transform: none;
+  }
+
+  .section-reveal.is-inview .reveal-fade {
+    opacity: 1;
+  }
+
+  .section-reveal .section-opener::after,
+  .section-reveal .section-opener-light::after {
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--reveal-duration) var(--reveal-ease);
+    transition-delay: var(--reveal-delay);
+  }
+
+  .section-reveal.is-inview .section-opener::after,
+  .section-reveal.is-inview .section-opener-light::after {
+    transform: scaleX(1);
+  }
+
+  .section-reveal .skill-chip {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .section-reveal.is-inview .skill-chip {
+    animation: skill-chip-in var(--reveal-duration) var(--reveal-ease) forwards;
+    animation-delay: calc(var(--reveal-delay) + var(--chip-i, 0) * var(--reveal-stagger) + var(--reveal-i, 0) * var(--reveal-stagger));
+  }
+
+  .cta-email-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .cta-email-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background-color: rgba(245, 242, 233, 0.3);
+    transform: scaleX(1);
+    transform-origin: left;
+    transition: transform var(--reveal-duration) var(--reveal-ease), background-color 280ms ease;
+    transition-delay: calc(var(--reveal-delay) + var(--reveal-i, 0) * var(--reveal-stagger));
+  }
+
+  .section-reveal.is-inview .cta-email-link::after {
+    transform: scaleX(1);
+    background-color: rgba(245, 242, 233, 0.55);
+  }
+
+  .section-reveal:not(.is-inview) .cta-email-link::after {
+    transform: scaleX(0.35);
+  }
+
+  .cta-email-link:hover::after,
+  .cta-email-link:focus-visible::after {
+    background-color: rgba(245, 242, 233, 1);
+  }
+
+  .footer-reveal .footer-rule {
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--reveal-duration-lg) var(--reveal-ease);
+    transition-delay: var(--reveal-delay);
+  }
+
+  .footer-reveal.is-inview .footer-rule {
+    transform: scaleX(1);
+  }
+
+  .footer-reveal .reveal-fade {
+    opacity: 0.72;
+    transition: opacity calc(var(--reveal-duration) * 0.85) var(--reveal-ease);
+    transition-delay: calc(var(--reveal-delay) + var(--reveal-i, 0) * var(--reveal-stagger));
+  }
+
+  .footer-reveal.is-inview .reveal-fade {
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal-shift,
+    .reveal-shift-lg,
+    .reveal-slide-in,
+    .reveal-scale-in,
+    .reveal-fade {
+      transform: none;
+      opacity: 1;
+      transition: none;
+    }
+
+    .section-reveal .section-opener::after,
+    .section-reveal .section-opener-light::after,
+    .footer-reveal .footer-rule {
+      transform: none;
+      transition: none;
+    }
+
+    .footer-reveal .reveal-fade {
+      opacity: 1;
+      transition: none;
+    }
+
+    .section-reveal .skill-chip,
+    .section-reveal.is-inview .skill-chip {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+
+    .section-reveal:not(.is-inview) .cta-email-link::after,
+    .section-reveal.is-inview .cta-email-link::after {
+      transform: none;
+      transition: background-color 200ms ease;
     }
   }
 }

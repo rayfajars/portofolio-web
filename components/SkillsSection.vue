@@ -13,6 +13,9 @@ import {
 import { skillGroups } from '~/data/profile';
 import { getSkillBrandIconUrl, usesBrandIcon } from '~/utils/skillBrands';
 
+const sectionRef = ref<HTMLElement | null>(null);
+const { isInView } = useSectionReveal(sectionRef);
+
 const conceptIcons: Record<string, Component> = {
   'RBAC': Lock,
   'Multi-tenant Architecture': Network,
@@ -38,21 +41,30 @@ const getFallbackIcon = (category: string, skill: string) => {
 </script>
 
 <template>
-  <section id="skills" class="section-padding section-cream">
+  <section
+    id="skills"
+    ref="sectionRef"
+    class="section-padding section-cream section-reveal"
+    :class="{ 'is-inview': isInView }"
+  >
     <div class="container mx-auto max-w-6xl">
       <div class="section-opener">
-        <span class="section-eyebrow">Stack</span>
+        <span class="section-eyebrow reveal-fade" style="--reveal-i: 0">Stack</span>
       </div>
 
-      <h2 class="heading-serif text-4xl sm:text-5xl text-navy mb-10 text-balance">
+      <h2
+        class="heading-serif text-4xl sm:text-5xl text-navy mb-10 text-balance reveal-shift-lg"
+        style="--reveal-i: 1"
+      >
         What I build with
       </h2>
 
       <div class="divide-y divide-navy/10">
         <div
-          v-for="group in skillGroups"
+          v-for="(group, groupIndex) in skillGroups"
           :key="group.category"
-          class="grid sm:grid-cols-[200px_1fr] gap-x-8 gap-y-4 py-8 first:pt-0"
+          class="grid sm:grid-cols-[200px_1fr] gap-x-8 gap-y-4 py-8 first:pt-0 reveal-shift"
+          :style="{ '--reveal-i': groupIndex + 2 }"
         >
           <h3 class="text-sm font-semibold uppercase tracking-[0.14em] text-navy/45">
             {{ group.category }}

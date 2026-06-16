@@ -4,6 +4,9 @@ import { ref, computed } from 'vue';
 
 type ExperienceType = 'fulltime' | 'freelance';
 
+const sectionRef = ref<HTMLElement | null>(null);
+const { isInView } = useSectionReveal(sectionRef);
+
 const activeTab = ref<ExperienceType>('fulltime');
 
 const fulltimeExperiences = computed(() =>
@@ -33,20 +36,29 @@ const tabButtonClass = (tab: ExperienceType) => [
 </script>
 
 <template>
-  <section id="experience" class="section-padding section-cream">
+  <section
+    id="experience"
+    ref="sectionRef"
+    class="section-padding section-cream section-reveal"
+    :class="{ 'is-inview': isInView }"
+  >
     <div class="container mx-auto max-w-6xl">
       <div class="section-opener">
-        <span class="section-eyebrow">Experience</span>
+        <span class="section-eyebrow reveal-fade" style="--reveal-i: 0">Experience</span>
       </div>
 
-      <h2 class="heading-serif text-4xl sm:text-5xl text-navy mb-10 text-balance">
+      <h2
+        class="heading-serif text-4xl sm:text-5xl text-navy mb-10 text-balance reveal-shift-lg"
+        style="--reveal-i: 1"
+      >
         Where I've shipped
       </h2>
 
       <div
         role="tablist"
         aria-label="Experience type"
-        class="flex gap-8 mb-12 border-b border-navy/10"
+        class="flex gap-8 mb-12 border-b border-navy/10 reveal-shift"
+        style="--reveal-i: 2"
       >
         <button
           id="tab-fulltime"
@@ -92,9 +104,10 @@ const tabButtonClass = (tab: ExperienceType) => [
           class="divide-y divide-navy/10"
         >
           <article
-            v-for="exp in displayedExperiences"
+            v-for="(exp, index) in displayedExperiences"
             :key="exp.id"
-            class="grid sm:grid-cols-[200px_1fr] gap-x-8 gap-y-3 py-10 first:pt-0"
+            class="grid sm:grid-cols-[200px_1fr] gap-x-8 gap-y-3 py-10 first:pt-0 reveal-shift"
+            :style="{ '--reveal-i': index + 3 }"
           >
             <div>
               <p class="meta-val">{{ exp.duration }}</p>
