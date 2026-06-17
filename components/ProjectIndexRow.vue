@@ -5,7 +5,6 @@ interface Props {
   slug: string;
   title: string;
   description: string;
-  year: number;
   badge?: string;
   tags?: string[];
   featured?: boolean;
@@ -46,7 +45,6 @@ withDefaults(defineProps<Props>(), {
 
       <div class="project-index-row-meta">
         <span v-if="badge" class="project-index-badge">{{ badge }}</span>
-        <span class="project-index-year tabular-nums">{{ year }}</span>
         <div v-if="tags && tags.length" class="project-index-tags">
           <span
             v-for="tag in tags.slice(0, 2)"

@@ -143,7 +143,6 @@ const filterButtonClass = (active: boolean) => [
             :slug="featuredProject.slug"
             :title="featuredProject.title"
             :description="featuredProject.description"
-            :year="featuredProject.year"
             :badge="getProjectBadge(featuredProject)"
             :tags="featuredProject.tags"
             featured
@@ -156,7 +155,6 @@ const filterButtonClass = (active: boolean) => [
             :slug="project.slug"
             :title="project.title"
             :description="project.description"
-            :year="project.year"
             :badge="getProjectBadge(project)"
             :tags="project.tags"
             :reveal-index="cappedRevealIndex(showFeatured ? index + 1 : index)"

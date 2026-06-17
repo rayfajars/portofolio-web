@@ -110,8 +110,7 @@ const tabButtonClass = (tab: ExperienceType) => [
             :style="{ '--reveal-i': index + 3 }"
           >
             <div>
-              <p class="meta-val">{{ exp.duration }}</p>
-              <p class="meta-key mt-1">{{ exp.company }}</p>
+              <p class="meta-key">{{ exp.company }}</p>
             </div>
 
             <div>

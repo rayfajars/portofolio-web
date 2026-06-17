@@ -24,7 +24,7 @@ const previousProject = getPreviousProject(slug);
 const projectBadge = getProjectBadge(project);
 
 const metaLine = computed(() => {
-  const parts = [String(project.year)];
+  const parts: string[] = [];
   if (project.role) parts.push(project.role);
   if (project.duration) parts.push(project.duration);
   return parts.join(' · ');
