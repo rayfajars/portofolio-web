@@ -52,7 +52,7 @@ const tagLimit = computed(() => (props.compact ? 2 : 3));
             class="w-full h-full flex items-center justify-center project-card-image-fallback"
           >
             <span
-              class="font-serif text-navy/25"
+              class="font-sans text-navy/25"
               :class="compact ? 'text-2xl' : 'text-4xl'"
               aria-hidden="true"
             >

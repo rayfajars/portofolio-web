@@ -45,7 +45,7 @@ const socialIcons: Record<string, Component> = {
         <div class="lg:pb-2 reveal-shift" style="--reveal-i: 3">
           <a
             :href="`mailto:${profile.email}`"
-            class="cta-email-link group font-serif text-2xl sm:text-3xl text-cream pb-1 hover:text-cream transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cream/40 focus-visible:ring-offset-4 focus-visible:ring-offset-navy rounded-sm"
+            class="cta-email-link group font-sans text-2xl sm:text-3xl text-cream pb-1 hover:text-cream transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cream/40 focus-visible:ring-offset-4 focus-visible:ring-offset-navy rounded-sm"
             style="--reveal-i: 4"
           >
             {{ profile.email }}

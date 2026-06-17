@@ -50,7 +50,7 @@
   }
 
   .heading-serif {
-    @apply font-serif font-bold;
+    @apply font-sans font-bold;
     letter-spacing: -0.02em;
   }
 
@@ -222,7 +222,7 @@
   }
 
   .lead-statement {
-    @apply font-serif text-navy text-balance;
+    @apply font-sans text-navy text-balance;
     font-size: clamp(2rem, 5vw, 3.25rem);
     line-height: 1.12;
     letter-spacing: -0.02em;
@@ -241,7 +241,7 @@
   }
 
   .about-lead {
-    @apply font-serif font-normal text-navy text-pretty;
+    @apply font-sans font-normal text-navy text-pretty;
     font-size: clamp(1.5rem, 3vw, 2rem);
     line-height: 1.35;
     letter-spacing: -0.015em;
@@ -396,12 +396,12 @@
   }
 
   .project-card-title {
-    @apply font-serif text-lg text-navy leading-snug text-balance min-w-0;
+    @apply font-sans text-lg text-navy leading-snug text-balance min-w-0;
     letter-spacing: -0.01em;
   }
 
   .project-card-title-sm {
-    @apply font-serif text-base text-navy leading-snug text-balance min-w-0;
+    @apply font-sans text-base text-navy leading-snug text-balance min-w-0;
     letter-spacing: -0.01em;
   }
 
@@ -441,7 +441,7 @@
   }
 
   .project-lead-title {
-    @apply font-serif text-xl sm:text-2xl text-navy leading-snug text-balance;
+    @apply font-sans text-xl sm:text-2xl text-navy leading-snug text-balance;
   }
 
   .project-list-title {
@@ -712,7 +712,7 @@
   }
 
   .project-index-row-title {
-    @apply font-serif font-bold text-navy text-balance leading-snug;
+    @apply font-sans font-bold text-navy text-balance leading-snug;
     font-size: clamp(1.25rem, 2.2vw, 1.625rem);
     letter-spacing: -0.015em;
   }
@@ -818,7 +818,7 @@
   }
 
   .project-nav-title {
-    @apply w-full min-w-0 font-serif text-base leading-snug text-navy text-pretty line-clamp-2 sm:text-lg;
+    @apply w-full min-w-0 font-sans text-base leading-snug text-navy text-pretty line-clamp-2 sm:text-lg;
     letter-spacing: -0.01em;
   }
 

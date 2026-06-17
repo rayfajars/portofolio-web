@@ -115,7 +115,7 @@ const tabButtonClass = (tab: ExperienceType) => [
             </div>
 
             <div>
-              <h3 class="font-serif text-2xl text-navy mb-3">{{ exp.position }}</h3>
+              <h3 class="font-sans text-2xl text-navy mb-3">{{ exp.position }}</h3>
               <p class="text-base leading-relaxed text-navy/70 max-w-prose">
                 {{ exp.description }}
               </p>

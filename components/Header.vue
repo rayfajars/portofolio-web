@@ -61,7 +61,7 @@ const goHome = () => {
       <div class="flex h-20 items-center justify-between">
         <button
           @click="goHome"
-          class="font-serif text-2xl font-bold text-navy hover:opacity-70 transition-opacity"
+          class="font-sans text-2xl font-bold text-navy hover:opacity-70 transition-opacity"
         >
           {{ initials }}.
         </button>
